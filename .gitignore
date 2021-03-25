@@ -105,3 +105,4 @@ dist
 .DS_Store
 11_SocialMediaApp_UserStories.pdf
 package-lock.json
+server/config/default.json
