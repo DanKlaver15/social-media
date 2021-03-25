@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { replySchema } = require("./Reply");
 
 const postSchema = new mongoose.Schema({
   content: { type: String, minlength: 1 },
