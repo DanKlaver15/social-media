@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { requestSchema } = require("./request");
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, minlength: 3, trim: true },
@@ -13,7 +14,7 @@ const userSchema = new mongoose.Schema({
   avatar: { type: String },
   bgImage: { type: String },
   bio: { type: String, minlength: 5, trim: true },
-  friends: [mongoose.Types.ObjectId],
+  friends: [requestSchema],
   theme: { type: String, default: "light" },
   online: { type: Boolean, default: false },
 });
