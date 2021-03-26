@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { loginUserRequest } from "../User/thunks";
 
-function LoginForm({ authorize, loginRequest }) {
+function LoginForm({ loginRequest }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
