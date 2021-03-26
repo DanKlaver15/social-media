@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { loginUserRequest } from "../User/thunks";
 
-function LoginForm({ authorize }) {
+function LoginForm({ authorize, loginRequest }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,13 +22,9 @@ function LoginForm({ authorize }) {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form
-            onSubmit={() => {
-              // TODO: Go to server.
-              const user = {
-                email,
-                password,
-              };
-              authorize(user);
+            onSubmit={(e) => {
+              e.preventDefault();
+              loginRequest({ email, password });
             }}
             className="space-y-6"
             method="POST"
@@ -88,4 +86,8 @@ function LoginForm({ authorize }) {
   );
 }
 
-export default LoginForm;
+const mapDispatchToProps = (dispatch) => ({
+  loginRequest: (user) => dispatch(loginUserRequest(user)),
+});
+
+export default connect(null, mapDispatchToProps)(LoginForm);
