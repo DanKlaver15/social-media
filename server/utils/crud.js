@@ -1,4 +1,5 @@
 const query = require("./query");
+
 const getOne = (model) => async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -13,6 +14,7 @@ const getOne = (model) => async (req, res, next) => {
     return next(err);
   }
 };
+
 const getAll = (model) => async (req, res, next) => {
   try {
     const result = await query.getAll(model);
@@ -21,6 +23,7 @@ const getAll = (model) => async (req, res, next) => {
     return next(err);
   }
 };
+
 const createOne = (model) => async (req, res, next) => {
   try {
     const result = await query.createOne(model, req.body);
@@ -29,6 +32,7 @@ const createOne = (model) => async (req, res, next) => {
     return next(err);
   }
 };
+
 const updateOne = (model) => async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -42,6 +46,7 @@ const updateOne = (model) => async (req, res, next) => {
     return next(err);
   }
 };
+
 const removeOne = (model) => async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -55,6 +60,7 @@ const removeOne = (model) => async (req, res, next) => {
     return next(err);
   }
 };
+
 module.exports = (model) => ({
   removeOne: removeOne(model),
   updateOne: updateOne(model),

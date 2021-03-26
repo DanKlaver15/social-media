@@ -4,6 +4,7 @@ const Joi = require("joi");
 const userController = require("../controllers/userController");
 
 router.route("/").get(userController.getAll).post(userController.createOne);
+router.route("/auth").post(userController.login);
 router
   .route("/:id")
   .get(userController.getOne)
