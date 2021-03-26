@@ -6,7 +6,7 @@ import {
   DELETE_USER,
 } from "./actions";
 
-export const authUser = (state = false, action) => {
+export const isAuthorized = (state = false, action) => {
   const { type } = action;
 
   switch (type) {
