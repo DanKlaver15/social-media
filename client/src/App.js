@@ -10,18 +10,22 @@ function App({ isAuthorized, authorizeUser, authorizedUser }) {
   const [user, saveUser] = useAuth("zestyauth");
 
   useEffect(() => {
-    if (!isAuthorized && user) {
+    if (!authorizedUser && user) {
       authorizeUser(user._id, user.token);
     }
 
-    if (isAuthorized) {
+    if (authorizedUser && user) {
       saveUser(authorizedUser);
     }
-  }, [user, isAuthorized, saveUser, authorizedUser, authorizeUser]);
+  }, [user, saveUser, authorizedUser, authorizeUser]);
 
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
-      {isAuthorized ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      {authorizedUser ? (
+        <AuthenticatedApp logout={() => saveUser(null)} />
+      ) : (
+        <UnauthenticatedApp />
+      )}
     </React.Suspense>
   );
 }

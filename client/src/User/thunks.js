@@ -48,8 +48,9 @@ export const authorizeUserRequest = (userId, token) => async (
     if (status === 201) {
       dispatch(authUserInSuccess({ _id: userId, token }));
       dispatch(updateUser({ _id: userId, token }));
+    } else {
+      dispatch(authUserInFailure());
     }
-    dispatch(authUserInFailure());
   } catch (err) {
     dispatch(authUserInFailure());
     console.error(err);

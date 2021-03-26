@@ -8,18 +8,18 @@ import {
   REMOVE_LOGIN_ERROR,
 } from "./actions";
 
-export const isAuthorized = (state = false, action) => {
+export const authorizing = (state = false, action) => {
   const { type } = action;
 
   switch (type) {
     case AUTH_USER_IN_PROGRESS: {
-      return false;
+      return true;
     }
     case AUTH_USER_IN_FAILURE: {
       return false;
     }
     case AUTH_USER_IN_SUCCESS: {
-      return true;
+      return false;
     }
     default:
       return state;
@@ -41,7 +41,7 @@ export const loginError = (state = "", action) => {
   }
 };
 
-export const user = (state = {}, action) => {
+export const user = (state = null, action) => {
   const { type, payload } = action;
 
   switch (type) {
