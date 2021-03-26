@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { requestSchema } = require("./request");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -31,11 +32,28 @@ const userSchema = new mongoose.Schema({
   registered: { type: Date, default: Date.now },
 });
 
+userSchema.pre("save", async function preSave(next) {
+  const user = this;
+  if (!user.isModified("password")) return next();
+
+  try {
+    const hash = await bcrypt.hash(user.password, 12);
+    user.password = hash;
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+});
+
 userSchema.methods.generateAuthToken = function () {
   return jwt.sign(
     { _id: this._id, email: this.email },
     config.get("authsecret")
   );
+};
+
+userSchema.methods.checkPassword = async function checkPassword(candidate) {
+  return bcrypt.compare(candidate, this.password);
 };
 
 const User = mongoose.model("User", userSchema);
