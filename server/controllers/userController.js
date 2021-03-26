@@ -13,12 +13,15 @@ const login = async (req, res) => {
     if (!user)
       return res.status(401).send({ message: "Invalid email or password" });
 
-    // TODO: Add check password.
+    const match = await user.checkPassword(req.body.password);
+
+    if (!match)
+      return res.status(401).send({ message: "Invalid email or password" });
 
     const token = user.generateAuthToken();
+
     return res.status(201).send({ token });
   } catch (err) {
-    console.error(err);
     res.status(500).send({ message: err });
   }
 };
