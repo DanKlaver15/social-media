@@ -4,6 +4,8 @@ import {
   AUTH_USER_IN_SUCCESS,
   UPDATE_USER,
   DELETE_USER,
+  ADD_LOGIN_ERROR,
+  REMOVE_LOGIN_ERROR,
 } from "./actions";
 
 export const isAuthorized = (state = false, action) => {
@@ -18,6 +20,21 @@ export const isAuthorized = (state = false, action) => {
     }
     case AUTH_USER_IN_SUCCESS: {
       return true;
+    }
+    default:
+      return state;
+  }
+};
+
+export const loginError = (state = "", action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case ADD_LOGIN_ERROR: {
+      return payload.error;
+    }
+    case REMOVE_LOGIN_ERROR: {
+      return "";
     }
     default:
       return state;

@@ -5,11 +5,13 @@ import {
   authUserInFailure,
   authUserInSuccess,
   updateUser,
-  deleteUser,
+  addLoginError,
+  removeLoginError,
 } from "./actions";
 
 export const loginUserRequest = (user) => async (dispatch, getState) => {
-  dispatch(authUserInProgress);
+  dispatch(authUserInProgress());
+
   try {
     const response = await axios.post(
       `http://localhost:5000/api/users/login`,
@@ -20,9 +22,11 @@ export const loginUserRequest = (user) => async (dispatch, getState) => {
 
     dispatch(authUserInSuccess(data));
     dispatch(updateUser(data));
+    dispatch(removeLoginError());
   } catch (err) {
     console.error(err);
-    dispatch(authUserInFailure);
+    dispatch(authUserInFailure());
+    dispatch(addLoginError(err.response.data.message));
   }
 };
 
@@ -30,7 +34,7 @@ export const authorizeUserRequest = (userId, token) => async (
   dispatch,
   getState
 ) => {
-  dispatch(authUserInProgress);
+  dispatch(authUserInProgress());
 
   try {
     const response = await axios.post(
@@ -45,9 +49,9 @@ export const authorizeUserRequest = (userId, token) => async (
       dispatch(authUserInSuccess({ _id: userId, token }));
       dispatch(updateUser({ _id: userId, token }));
     }
-    dispatch(authUserInFailure);
+    dispatch(authUserInFailure());
   } catch (err) {
-    dispatch(authUserInFailure);
+    dispatch(authUserInFailure());
     console.error(err);
   }
 };
