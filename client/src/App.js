@@ -5,7 +5,7 @@ const AuthenticatedApp = React.lazy(() => import("./components/Home"));
 const UnauthenticatedApp = React.lazy(() => import("./components/Login"));
 
 function App() {
-  const [user, authorize] = useLocalStorageState("user", false);
+  const [user, authorize] = useLocalStorageState("zestyauth");
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
       {user ? (
