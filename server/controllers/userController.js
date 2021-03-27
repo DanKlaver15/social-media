@@ -3,17 +3,18 @@ const query = require("../utils/query");
 const crudController = require("../utils/crud");
 
 const login = async (req, res) => {
-  if (!req.body.email || !req.body.password) {
-    return res.status(400).send({ message: "need email and password" });
-  }
+  const { email, password } = req.body;
+
+  if (!email || !password)
+    return res.status(400).send({ message: "Email or password required" });
 
   try {
-    const user = await query.findOne(User, { email: req.body.email });
+    const user = await query.findOne(User, { email });
 
     if (!user)
       return res.status(401).send({ message: "Invalid email or password" });
 
-    const match = await user.checkPassword(req.body.password);
+    const match = await user.checkPassword(password);
 
     if (!match)
       return res.status(401).send({ message: "Invalid email or password" });
@@ -22,7 +23,6 @@ const login = async (req, res) => {
 
     return res.status(201).send({ _id: user._id, token });
   } catch (err) {
-    console.error(err);
     return res.status(500).send({ message: err });
   }
 };
@@ -35,7 +35,7 @@ const authorize = async (req, res) => {
 
     if (!user) return res.status(401).send({ message: "Not authorized" });
 
-    return res.status(201).send({ message: "authorized" });
+    return res.status(201).send({ message: "Authorized" });
   } catch (err) {
     return res.status(500).send({ message: `Server error: ${err}` });
   }

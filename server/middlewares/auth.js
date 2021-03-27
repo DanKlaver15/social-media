@@ -10,13 +10,10 @@ function auth(req, res, next) {
       .send({ message: "Access denied. No token provided" });
 
   try {
-    const decoded = jwt.verify(token, config.get("authsecret"));
-
-    req.user = decoded;
+    req.user = jwt.verify(token, config.get("authsecret"));
 
     return next();
   } catch (err) {
-    console.error(err);
     return res.status(400).send({ message: "Invalid token." });
   }
 }
