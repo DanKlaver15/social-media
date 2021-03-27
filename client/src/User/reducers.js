@@ -4,27 +4,44 @@ import {
   AUTH_USER_IN_SUCCESS,
   UPDATE_USER,
   DELETE_USER,
+  ADD_LOGIN_ERROR,
+  REMOVE_LOGIN_ERROR,
 } from "./actions";
 
-export const authUser = (state = false, action) => {
+export const authorizing = (state = false, action) => {
   const { type } = action;
 
   switch (type) {
     case AUTH_USER_IN_PROGRESS: {
-      return false;
+      return true;
     }
     case AUTH_USER_IN_FAILURE: {
       return false;
     }
     case AUTH_USER_IN_SUCCESS: {
-      return true;
+      return false;
     }
     default:
       return state;
   }
 };
 
-export const user = (state = {}, action) => {
+export const loginError = (state = "", action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case ADD_LOGIN_ERROR: {
+      return payload.error;
+    }
+    case REMOVE_LOGIN_ERROR: {
+      return "";
+    }
+    default:
+      return state;
+  }
+};
+
+export const user = (state = null, action) => {
   const { type, payload } = action;
 
   switch (type) {

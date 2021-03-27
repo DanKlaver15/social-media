@@ -1,4 +1,44 @@
 const User = require("../models/user");
+const query = require("../utils/query");
 const crudController = require("../utils/crud");
 
-module.exports = crudController(User);
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password)
+    return res.status(400).send({ message: "Email or password required" });
+
+  try {
+    const user = await query.findOne(User, { email });
+
+    if (!user)
+      return res.status(401).send({ message: "Invalid email or password" });
+
+    const match = await user.checkPassword(password);
+
+    if (!match)
+      return res.status(401).send({ message: "Invalid email or password" });
+
+    const token = user.generateAuthToken();
+
+    return res.status(201).send({ _id: user._id, token });
+  } catch (err) {
+    return res.status(500).send({ message: err });
+  }
+};
+
+const authorize = async (req, res) => {
+  if (!req.body._id) return res.status(400).send({ message: "Id is required" });
+
+  try {
+    const user = await query.getOne(User, req.body._id);
+
+    if (!user) return res.status(401).send({ message: "Not authorized" });
+
+    return res.status(201).send({ message: "Authorized" });
+  } catch (err) {
+    return res.status(500).send({ message: `Server error: ${err}` });
+  }
+};
+
+module.exports = { ...crudController(User), login, authorize };
