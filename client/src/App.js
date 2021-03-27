@@ -14,7 +14,7 @@ function App({ isAuthorized, authorizeUser, authorizedUser }) {
       authorizeUser(user._id, user.token);
     }
 
-    if (authorizedUser && user) {
+    if (authorizedUser) {
       saveUser(authorizedUser);
     }
   }, [user, saveUser, authorizedUser, authorizeUser]);
