@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import UserMenu from "./UserMenu";
+import OnlineFriendsList from "./OnlineFriendsList/OnlineFriendsList";
 
 const Home = ({ logout }) => {
   const [userMenu, setUserMenu] = useState(false);
@@ -469,8 +470,10 @@ const Home = ({ logout }) => {
             </h1>
           </section>
 
-          <aside className="hidden lg:block lg:flex-shrink-0 lg:order-first">
-            <div className="h-full relative flex flex-col w-96 border-r border-gray-200 bg-gray-100"></div>
+          <aside className="hidden lg:block lg:flex-shrink-0 lg:order-last">
+            <div className="h-full relative flex flex-col w-96 border-r border-gray-200 bg-gray-100">
+              <OnlineFriendsList />
+            </div>
           </aside>
         </main>
       </div>
