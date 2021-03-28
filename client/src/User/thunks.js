@@ -1,16 +1,18 @@
 import axios from "axios";
+import { authHeader } from "../helpers/authHeader";
 
 import {
-  authUserInProgress,
-  authUserInFailure,
-  authUserInSuccess,
+  loginInProgress,
+  loginFailure,
+  loginSuccess,
   updateUser,
-  addLoginError,
+  logout,
   removeLoginError,
+  registerSucceess,
 } from "./actions";
 
-export const loginUserRequest = (user) => async (dispatch, getState) => {
-  dispatch(authUserInProgress());
+export const loginRequest = (user) => async (dispatch, getState) => {
+  dispatch(loginInProgress());
 
   try {
     const response = await axios.post(
@@ -20,40 +22,38 @@ export const loginUserRequest = (user) => async (dispatch, getState) => {
 
     const data = await response.data;
 
-    dispatch(authUserInSuccess(data));
-    dispatch(updateUser(data));
-    dispatch(removeLoginError());
+    dispatch(loginSuccess(data));
+    saveUser(data);
   } catch (err) {
-    console.error(err);
-    dispatch(authUserInFailure());
-    dispatch(addLoginError(err.response.data.message));
+    console.log(err);
+    dispatch(loginFailure(err.response.data.message));
   }
 };
 
-export const authorizeUserRequest = (userId, token) => async (
-  dispatch,
-  getState
-) => {
-  dispatch(authUserInProgress());
+export const logoutRequest = (user) => async (dispatch, getState) => {
+  removeFromLocalStorage();
+  dispatch(logout());
+  dispatch(removeLoginError());
+};
+
+export const authorizeRequest = (_id, token) => async (dispatch, getState) => {
+  dispatch(loginInProgress());
 
   try {
     const response = await axios.post(
       `http://localhost:5000/api/users/auth`,
-      { _id: userId },
-      { headers: { "x-auth-token": token } }
+      { _id },
+      authHeader()
     );
 
     const status = await response.status;
 
     if (status === 201) {
-      dispatch(authUserInSuccess({ _id: userId, token }));
-      dispatch(updateUser({ _id: userId, token }));
-    } else {
-      dispatch(authUserInFailure());
+      dispatch(loginSuccess({ _id, token }));
     }
   } catch (err) {
-    dispatch(authUserInFailure());
-    console.error(err);
+    dispatch(loginFailure(err.response.data.message));
+    // console.error(err);
   }
 };
 
@@ -71,3 +71,33 @@ export const updateUserRequest = (user) => async (dispatch, getState) => {
     console.log(err);
   }
 };
+
+export const registerRequest = (user) => async (dispatch, getState) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:5000/api/users/register`,
+      user
+    );
+
+    const data = await response.data;
+
+    dispatch(registerSucceess());
+    dispatch(loginSuccess(data));
+    saveUser(data);
+  } catch (err) {
+    console.log(err);
+    dispatch(loginFailure(err.response.data.message));
+  }
+};
+
+export function removeFromLocalStorage() {
+  localStorage.removeItem("zestyauth");
+}
+
+export function getFromLocalStorage() {
+  return JSON.parse(localStorage.getItem("zestyauth"));
+}
+
+function saveUser(user) {
+  return window.localStorage.setItem("zestyauth", JSON.stringify(user));
+}
