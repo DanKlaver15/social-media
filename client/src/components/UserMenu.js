@@ -16,7 +16,7 @@ const UserMenu = ({ isOpen, close, logout, updateUser }) => {
     >
       <div className="py-1" role="none">
         <button
-          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
           role="menuitem"
         >
           Your Profile
@@ -27,7 +27,7 @@ const UserMenu = ({ isOpen, close, logout, updateUser }) => {
             logout();
             updateUser();
           }}
-          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
           role="menuitem"
         >
           Sign Out
