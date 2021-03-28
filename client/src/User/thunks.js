@@ -9,6 +9,8 @@ import {
   removeLoginError,
 } from "./actions";
 
+import { getFriendsRequest } from "../Friend/thunks";
+
 export const loginUserRequest = (user) => async (dispatch, getState) => {
   dispatch(authUserInProgress());
 
@@ -23,6 +25,7 @@ export const loginUserRequest = (user) => async (dispatch, getState) => {
     dispatch(authUserInSuccess(data));
     dispatch(updateUser(data));
     dispatch(removeLoginError());
+    dispatch(getFriendsRequest(data._id, data.token));
   } catch (err) {
     console.error(err);
     dispatch(authUserInFailure());
