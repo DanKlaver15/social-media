@@ -1,43 +1,32 @@
 import React, { useEffect } from "react";
-import useAuth from "./Hooks/useLocalStorageState";
 import { connect } from "react-redux";
-import { authorizeUserRequest } from "./User/thunks";
+import { authorizeRequest, getFromLocalStorage } from "./User/thunks";
 
 const AuthenticatedApp = React.lazy(() => import("./components/Home"));
 const UnauthenticatedApp = React.lazy(() => import("./components/Login"));
 
-function App({ isAuthorized, authorizeUser, authorizedUser }) {
-  const [user, saveUser] = useAuth("zestyauth");
+function App({ isLoggedIn, authorize }) {
+  const user = getFromLocalStorage();
 
   useEffect(() => {
-    if (!authorizedUser && user) {
-      authorizeUser(user._id, user.token);
+    if (!isLoggedIn && user) {
+      authorize(user._id, user.token);
     }
-
-    if (authorizedUser) {
-      saveUser(authorizedUser);
-    }
-  }, [user, saveUser, authorizedUser, authorizeUser]);
+  }, [isLoggedIn, user, authorize]);
 
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
-      {authorizedUser ? (
-        <AuthenticatedApp logout={() => saveUser(null)} />
-      ) : (
-        <UnauthenticatedApp />
-      )}
+      {isLoggedIn ? <AuthenticatedApp /> : <UnauthenticatedApp />}
     </React.Suspense>
   );
 }
 
 const mapStateToProps = (state) => ({
-  isAuthorized: state.isAuthorized,
-  authorizedUser: state.user,
+  isLoggedIn: state.loggedIn,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  authorizeUser: (userId, token) =>
-    dispatch(authorizeUserRequest(userId, token)),
+  authorize: (userId, token) => dispatch(authorizeRequest(userId, token)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
