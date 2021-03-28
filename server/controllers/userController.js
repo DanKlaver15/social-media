@@ -27,6 +27,30 @@ const login = async (req, res) => {
   }
 };
 
+const register = async (req, res) => {
+  const { firstName, lastName, email, password } = req.body;
+
+  if (!email || !password || !firstName || !lastName)
+    return res.status(400).send({ message: "All fields are required" });
+
+  try {
+    const user = await query.findOne(User, { email });
+
+    if (user) return res.status(400).send({ message: "Email already in use" });
+
+    const newUser = await query.createOne(User, req.body);
+
+    if (!newUser)
+      return res.status(400).send({ message: "Failed to create new user" });
+
+    const token = newUser.generateAuthToken();
+
+    return res.status(201).send({ _id: newUser._id, token });
+  } catch (err) {
+    return res.status(500).send({ message: err });
+  }
+};
+
 const authorize = async (req, res) => {
   if (!req.body._id) return res.status(400).send({ message: "Id is required" });
 
@@ -41,4 +65,4 @@ const authorize = async (req, res) => {
   }
 };
 
-module.exports = { ...crudController(User), login, authorize };
+module.exports = { ...crudController(User), login, authorize, register };
