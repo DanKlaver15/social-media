@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const OnlineListItem = () => {
+const OnlineListItem = ({ friend }) => {
   const [menu, setMenu] = useState(false);
 
   const openClass = menu
@@ -28,10 +28,11 @@ const OnlineListItem = () => {
               ></span>
             </span>
             <div className="ml-4 truncate">
-              <p className="text-sm font-medium text-gray-900 truncate">
-                Leslie Alexander
+              <p className="text-sm font-medium text-gray-900 truncate text-left">
+                {friend.firstName + " "}
+                {friend.lastName}
               </p>
-              <p className="text-sm text-gray-500 truncate">@lesliealexander</p>
+              <p className="text-sm text-gray-500 truncate">{friend.email}</p>
             </div>
           </div>
         </button>
