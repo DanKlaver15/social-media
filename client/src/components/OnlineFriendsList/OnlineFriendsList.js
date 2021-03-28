@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
 import OnlineListItem from "./OnlineListItem";
+import { connect } from "react-redux";
 
-const OnlineFriendsList = ({ users, isLoading }) => {
-  return (
+const OnlineFriendsList = ({ friends, friendsLoading }) => {
+  return friendsLoading ? (
+    <p>Loading...</p>
+  ) : (
     <div className="absolute inset-y-0 right-0 pl-10 max-w-md flex sm:pl-16">
       <div className="w-screen max-w-md">
         <div className="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
@@ -73,7 +74,9 @@ const OnlineFriendsList = ({ users, isLoading }) => {
             </div>
           </div>
           <ul className="divide-y divide-gray-200 overflow-y-auto h-screen">
-            <OnlineListItem />
+            {friends.map((friend) => {
+              return <OnlineListItem key={friend._id} friend={friend} />;
+            })}
           </ul>
         </div>
       </div>
@@ -81,4 +84,9 @@ const OnlineFriendsList = ({ users, isLoading }) => {
   );
 };
 
-export default OnlineFriendsList;
+const mapStateToProps = (state) => ({
+  friends: state.friends,
+  friendsLoading: state.friendsLoading,
+});
+
+export default connect(mapStateToProps)(OnlineFriendsList);
