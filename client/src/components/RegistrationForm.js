@@ -1,13 +1,26 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { registerRequest } from "../User/thunks";
+import { Redirect } from "react-router-dom";
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ register, registered }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  if (registered)
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+          state: { from: "/registration" },
+        }}
+      />
+    );
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <img
           className="mx-auto h-12 w-auto"
@@ -19,12 +32,18 @@ const RegistrationForm = () => {
         </h2>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-8 divide-y">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                register({ firstName, lastName, email, password });
+              }}
+              className="space-y-8 divide-y"
+            >
               <div className="space-y-8">
                 <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                   <div className="sm:col-span-3">
                     <label
-                      for="first_name"
+                      htmlFor="first_name"
                       className="block text-sm font-medium text-gray-700"
                     >
                       First name
@@ -36,14 +55,14 @@ const RegistrationForm = () => {
                         type="text"
                         name="first_name"
                         id="first_name"
-                        autocomplete="given-name"
+                        autoComplete="given-name"
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
                   </div>
                   <div className="sm:col-span-3">
                     <label
-                      for="last_name"
+                      htmlFor="last_name"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Last name
@@ -55,7 +74,7 @@ const RegistrationForm = () => {
                         type="text"
                         name="last_name"
                         id="last_name"
-                        autocomplete="family-name"
+                        autoComplete="family-name"
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
@@ -120,4 +139,13 @@ const RegistrationForm = () => {
     </div>
   );
 };
-export default RegistrationForm;
+
+const mapDispatchToProps = (dispatch) => ({
+  register: (user) => dispatch(registerRequest(user)),
+});
+
+const mapStateToProps = (state) => ({
+  registered: state.registered,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegistrationForm);
