@@ -28,7 +28,6 @@ const userSchema = new mongoose.Schema({
   bio: { type: String, minlength: 5, trim: true },
   friends: [requestSchema],
   theme: { type: String, default: "light" },
-  online: { type: Boolean, default: false },
   registered: { type: Date, default: Date.now },
 });
 
