@@ -4,6 +4,6 @@ const onlineSchema = new mongoose.Schema({
   usersOnline: [mongoose.Types.ObjectId],
 });
 
-const usersOnline = mongoose.model("UsersOnline", onlineSchema);
+const UsersOnline = mongoose.model("UsersOnline", onlineSchema);
 
-module.exports = usersOnline;
+module.exports = UsersOnline;
