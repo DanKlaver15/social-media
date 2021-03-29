@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { loginUserRequest } from "../User/thunks";
+import { loginRequest } from "../User/thunks";
 
 function LoginForm({ loginRequest, loginError }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <img
           className="mx-auto h-12 w-auto"
@@ -116,7 +116,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loginRequest: (user) => dispatch(loginUserRequest(user)),
+  loginRequest: (user) => dispatch(loginRequest(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

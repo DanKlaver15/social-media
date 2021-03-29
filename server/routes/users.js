@@ -10,6 +10,7 @@ router.route("/").get(userController.getAll).post(userController.createOne);
 router.route("/login").post(userController.login);
 router.route("/auth").post(auth, userController.authorize);
 router.route("/online").get(onlineController.getAll); // add auth
+router.route("/register").post(userController.register);
 
 router
   .route("/:id")

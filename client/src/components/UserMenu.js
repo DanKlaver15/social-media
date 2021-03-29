@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateUser } from "../User/actions";
+import { logoutRequest } from "../User/thunks";
 
-const UserMenu = ({ isOpen, close, logout, updateUser }) => {
+const UserMenu = ({ isOpen, close, logout }) => {
   const openClass = isOpen
     ? "transition ease-in duration-75 transform opacity-100 scale-100"
     : "transition ease-out duration-100 transform opacity-0 scale-95";
@@ -23,9 +23,8 @@ const UserMenu = ({ isOpen, close, logout, updateUser }) => {
         </button>
         <button
           onClick={() => {
-            close();
             logout();
-            updateUser();
+            close();
           }}
           className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
           role="menuitem"
@@ -38,7 +37,7 @@ const UserMenu = ({ isOpen, close, logout, updateUser }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  updateUser: () => dispatch(updateUser(null)),
+  logout: () => dispatch(logoutRequest()),
 });
 
 export default connect(null, mapDispatchToProps)(UserMenu);
