@@ -65,4 +65,34 @@ const authorize = async (req, res) => {
   }
 };
 
-module.exports = { ...crudController(User), login, authorize, register };
+const avatar = async (req, res) => {
+  try {
+    const user = await query.getOne(User, req.params.id);
+
+    if (!user) return res.status(400).send({ message: "User does not exist" });
+
+    if (req.file && req.file.storedFilename) {
+      user.avatar = req.file.storedFilename;
+    }
+
+    const savedUser = await user.save();
+
+    if (!savedUser)
+      return res.status(400).send({ message: "Unable to save avatar" });
+
+    return res.status(201).send(savedUser);
+  } catch (err) {
+    if (req.file && req.file.storedFilename) {
+      await avatars.delete(req.file.storedFilename);
+    }
+    return res.status(500).send({ message: `Error: ${err}` });
+  }
+};
+
+module.exports = {
+  ...crudController(User),
+  login,
+  authorize,
+  register,
+  avatar,
+};
