@@ -1,4 +1,5 @@
 const Online = require("../models/online");
+const query = require("../utils/query");
 
 const online = () => async (req, res, next) => {
   const onlineUsers = await query.getAll(Online);
@@ -12,7 +13,9 @@ const online = () => async (req, res, next) => {
 
       return next();
     } catch (err) {
-      return res.status(400).send({ message: "Unable to " });
+      return res
+        .status(400)
+        .send({ message: "Unable to update online status" });
     }
   }
 };
