@@ -10,6 +10,9 @@ import {
   REGISTER_IN_PROGRESS,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
+  UPDATE_AVATAR_PROGRESS,
+  UPDATE_AVATAR_FAILURE,
+  UPDATE_AVATAR_SUCCESS,
 } from "./actions";
 
 export const loggedIn = (state = false, action) => {
@@ -84,6 +87,24 @@ export const registered = (state = false, action) => {
       return true;
     }
     case LOGOUT: {
+      return false;
+    }
+    default:
+      return state;
+  }
+};
+
+export const updateAvatar = (state = false, action) => {
+  const { type } = action;
+
+  switch (type) {
+    case UPDATE_AVATAR_PROGRESS: {
+      return true;
+    }
+    case UPDATE_AVATAR_FAILURE: {
+      return false;
+    }
+    case UPDATE_AVATAR_SUCCESS: {
       return false;
     }
     default:

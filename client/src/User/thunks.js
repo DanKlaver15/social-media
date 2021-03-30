@@ -9,6 +9,9 @@ import {
   logout,
   removeLoginError,
   registerSucceess,
+  updateAvatarProgress,
+  updateAvatarFailure,
+  updateAvatarSuccess,
 } from "./actions";
 
 import { getFriendsRequest } from "../Friend/thunks";
@@ -48,17 +51,42 @@ export const authorizeRequest = (_id, token) => async (dispatch, getState) => {
     const response = await axios.post(
       `http://localhost:5000/api/users/auth`,
       { _id },
-      authHeader()
+      { headers: authHeader() }
     );
 
-    const status = await response.status;
+    const data = await response.data;
 
-    if (status === 201) {
-      dispatch(loginSuccess());
-    }
+    dispatch(loginSuccess());
+    dispatch(updateUser(data.user));
   } catch (err) {
     dispatch(loginFailure(err.response.data.message));
     // console.error(err);
+  }
+};
+
+export const updateAvatarRequest = (userId, file) => async (
+  dispatch,
+  getState
+) => {
+  dispatch(updateAvatarProgress());
+  let formData = new FormData();
+  formData.append("avatar", file);
+
+  try {
+    const response = await axios.post(
+      `http://localhost:5000/api/users/${userId}/avatar`,
+      formData,
+      {
+        headers: { ...authHeader(), "Content-Type": "multipart/form-data" },
+      }
+    );
+
+    const updatedUser = await response.data;
+    dispatch(updateAvatarSuccess());
+    dispatch(updateUser(updatedUser));
+  } catch (err) {
+    dispatch(updateAvatarFailure());
+    console.log(err);
   }
 };
 
@@ -67,7 +95,7 @@ export const updateUserRequest = (user) => async (dispatch, getState) => {
     const response = await axios.put(
       `http://localhost:5000/api/users/${user._id}`,
       user,
-      authHeader()
+      { headers: authHeader() }
     );
 
     const updatedUser = await response.data;

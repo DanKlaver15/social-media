@@ -5,7 +5,7 @@ const Avatar = ({ source, width = 12, height = 12 }) =>
   source ? (
     <img
       className={`h-${height} w-${width} rounded-full`}
-      src={source}
+      src={`http://localhost:5000/avatars/${source}`}
       alt=""
     />
   ) : (

@@ -1,5 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import { user, loginError, loggedIn, registered } from "./User/reducers";
+import {
+  user,
+  loginError,
+  loggedIn,
+  registered,
+  updateAvatar,
+} from "./User/reducers";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { friendsLoading, friends } from "./Friend/reducers";
@@ -11,6 +17,7 @@ const reducers = {
   friends,
   loggedIn,
   registered,
+  updateAvatar,
 };
 
 const rootReducer = combineReducers(reducers);

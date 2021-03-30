@@ -1,7 +1,7 @@
 const multer = require("multer");
 const AvatarService = require("../services/avatarService");
 const path = require("path");
-const avatars = new AvatarService(path.join(__dirname, "../data/avatars"));
+const avatars = new AvatarService();
 
 const upload = multer({
   limits: {

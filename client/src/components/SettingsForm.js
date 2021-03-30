@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import FileUpload from "./Form/FileUpload";
-import { updateUserRequest } from "../User/thunks";
+import { updateAvatarRequest, updateUserRequest } from "../User/thunks";
 import Avatar from "./Avatar";
 
-const SettingsForm = ({ user, updateUser }) => {
+const SettingsForm = ({ user, updateUser, updateAvatar }) => {
   const [selectedFile, setSelectedfile] = useState(null);
   const [username, setUsername] = useState(user.username);
   const [bio, setBio] = useState(user.bio);
@@ -94,22 +94,13 @@ const SettingsForm = ({ user, updateUser }) => {
                 Avatar
               </label>
               <div className="mt-1 flex items-center">
-                {selectedFile ? (
-                  <div>{selectedFile.name}</div>
-                ) : (
-                  <Avatar source={user.avatar} width={12} height={12} />
-                )}
-
-                <FileUpload onFileSelect={setSelectedfile} />
-                {selectedFile && (
-                  <button
-                    onClick={() => setSelectedfile(null)}
-                    type="button"
-                    className="block ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    Clear
-                  </button>
-                )}
+                <Avatar source={user.avatar} width={12} height={12} />
+                <FileUpload
+                  onFileSelect={(file) => {
+                    updateAvatar(user._id, file);
+                    setSelectedfile(file);
+                  }}
+                />
               </div>
             </div>
             <div className="sm:col-span-4">
@@ -239,6 +230,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   updateUser: (user) => dispatch(updateUserRequest(user)),
+  updateAvatar: (userId, file) => dispatch(updateAvatarRequest(userId, file)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsForm);

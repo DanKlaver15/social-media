@@ -27,7 +27,7 @@ router.get("/avatar/:filename", (req, res) => {
 
 router.post(
   "/:id/avatar",
-  [avatar.upload.single("avatar"), avatar.handleAvatar()],
+  [auth, avatar.upload.single("avatar"), avatar.handleAvatar()],
   userController.avatar
 );
 

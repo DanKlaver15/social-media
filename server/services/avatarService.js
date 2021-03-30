@@ -7,8 +7,8 @@ const fs = require("fs");
 const fsunlink = util.promisify(fs.unlink);
 
 class AvatarService {
-  constructor(directory) {
-    this.directory = directory;
+  constructor() {
+    this.directory = path.join(__dirname, "../data/avatars");
   }
 
   async store(buffer) {

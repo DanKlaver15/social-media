@@ -56,3 +56,18 @@ export const REGISTER_FAILURE = "REGISTER_FAILURE";
 export const registerFailure = () => ({
   type: REGISTER_FAILURE,
 });
+
+export const UPDATE_AVATAR_PROGRESS = "UPDATE_AVATAR_PROGRESS";
+export const updateAvatarProgress = () => ({
+  type: UPDATE_AVATAR_PROGRESS,
+});
+
+export const UPDATE_AVATAR_SUCCESS = "UPDATE_AVATAR_SUCCESS";
+export const updateAvatarSuccess = () => ({
+  type: UPDATE_AVATAR_SUCCESS,
+});
+
+export const UPDATE_AVATAR_FAILURE = "UPDATE_AVATAR_FAILURE";
+export const updateAvatarFailure = () => ({
+  type: UPDATE_AVATAR_FAILURE,
+});

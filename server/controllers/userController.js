@@ -1,6 +1,8 @@
 const User = require("../models/user");
 const query = require("../utils/query");
 const crudController = require("../utils/crud");
+const AvatarService = require("../services/avatarService");
+const avatars = new AvatarService();
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -59,19 +61,27 @@ const authorize = async (req, res) => {
 
     if (!user) return res.status(401).send({ message: "Not authorized" });
 
-    return res.status(201).send({ message: "Authorized" });
+    return res.status(201).send({ user });
   } catch (err) {
     return res.status(500).send({ message: `Server error: ${err}` });
   }
 };
 
-const avatar = async (req, res) => {
+const avatar = async (req, res, next) => {
   try {
     const user = await query.getOne(User, req.params.id);
 
     if (!user) return res.status(400).send({ message: "User does not exist" });
 
     if (req.file && req.file.storedFilename) {
+      if (user.avatar) {
+        console.log(user.avatar);
+        try {
+          await avatars.delete(user.avatar);
+        } catch (err) {
+          next(err);
+        }
+      }
       user.avatar = req.file.storedFilename;
     }
 
