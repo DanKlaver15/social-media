@@ -25,9 +25,10 @@ export const loginRequest = (user) => async (dispatch, getState) => {
     const data = await response.data;
 
     dispatch(removeLoginError());
-    dispatch(getFriendsRequest(data._id, data.token));
-    dispatch(loginSuccess(data));
-    saveUser(data);
+    dispatch(getFriendsRequest(data.user._id, data.token));
+    dispatch(loginSuccess());
+    dispatch(updateUser(data.user));
+    saveUser({ _id: data.user._id, token: data.token });
   } catch (err) {
     console.log(err);
     dispatch(loginFailure(err.response.data.message));
@@ -53,7 +54,7 @@ export const authorizeRequest = (_id, token) => async (dispatch, getState) => {
     const status = await response.status;
 
     if (status === 201) {
-      dispatch(loginSuccess({ _id, token }));
+      dispatch(loginSuccess());
     }
   } catch (err) {
     dispatch(loginFailure(err.response.data.message));
@@ -65,7 +66,8 @@ export const updateUserRequest = (user) => async (dispatch, getState) => {
   try {
     const response = await axios.put(
       `http://localhost:5000/api/users/${user._id}`,
-      user
+      user,
+      authHeader()
     );
 
     const updatedUser = await response.data;
@@ -86,8 +88,9 @@ export const registerRequest = (user) => async (dispatch, getState) => {
     const data = await response.data;
 
     dispatch(registerSucceess());
-    dispatch(loginSuccess(data));
-    saveUser(data);
+    dispatch(loginSuccess());
+    dispatch(updateUser(data.user));
+    saveUser({ _id: data.user._id, token: data.token });
   } catch (err) {
     console.log(err);
     dispatch(loginFailure(err.response.data.message));

@@ -21,7 +21,7 @@ const login = async (req, res) => {
 
     const token = user.generateAuthToken();
 
-    return res.status(201).send({ _id: user._id, token });
+    return res.status(201).send({ user, token });
   } catch (err) {
     return res.status(500).send({ message: err });
   }
@@ -45,7 +45,7 @@ const register = async (req, res) => {
 
     const token = newUser.generateAuthToken();
 
-    return res.status(201).send({ _id: newUser._id, token });
+    return res.status(201).send({ user: newUser, token });
   } catch (err) {
     return res.status(500).send({ message: err });
   }

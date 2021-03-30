@@ -62,9 +62,8 @@ export const user = (state = null, action) => {
     case DELETE_USER: {
       return state;
     }
-    case LOGIN_SUCCESS: {
-      const { user } = payload;
-      return user;
+    case LOGOUT: {
+      return {};
     }
     default:
       return state;

@@ -15,9 +15,8 @@ export const loginFailure = (error = "Error") => ({
 });
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const loginSuccess = (user = {}) => ({
+export const loginSuccess = () => ({
   type: LOGIN_SUCCESS,
-  payload: { user },
 });
 
 export const ADD_LOGIN_ERROR = "ADD_LOGIN_ERROR";
