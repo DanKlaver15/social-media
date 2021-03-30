@@ -34,7 +34,11 @@ export const loginRequest = (user) => async (dispatch, getState) => {
     saveUser({ _id: data.user._id, token: data.token });
   } catch (err) {
     console.log(err);
-    dispatch(loginFailure(err.response.data.message));
+    if (err.response) {
+      dispatch(loginFailure(err.response.data.message));
+    } else {
+      dispatch(loginFailure("An unknown error has occured"));
+    }
   }
 };
 
@@ -59,8 +63,12 @@ export const authorizeRequest = (_id, token) => async (dispatch, getState) => {
     dispatch(loginSuccess());
     dispatch(updateUser(data.user));
   } catch (err) {
-    dispatch(loginFailure(err.response.data.message));
-    // console.error(err);
+    if (err.response) {
+      dispatch(loginFailure(err.response.data.message));
+    } else {
+      dispatch(loginFailure("An unknown error has occured"));
+    }
+    console.error(err);
   }
 };
 

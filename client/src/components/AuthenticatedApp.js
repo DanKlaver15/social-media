@@ -1,19 +1,24 @@
 import React from "react";
 import UserMenu from "./UserMenu";
 import OnlineFriendsList from "./OnlineFriendsList/OnlineFriendsList";
+import AppSearch from "./AppSearch";
+import { Link } from "react-router-dom";
 
 const AuthenticatedApp = ({ logout, children }) => {
   return (
     <div className="h-screen overflow-hidden bg-gray-100 flex flex-col">
       <header className="flex-shrink-0 relative h-16 bg-white flex items-center">
         <div className="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
-          <button className="flex items-center justify-center h-16 w-16 bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20">
+          <Link
+            to="/"
+            className="flex items-center justify-center h-16 w-16 bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20"
+          >
             <img
               className="h-8 w-auto"
               src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
               alt="Workflow"
             />
-          </button>
+          </Link>
         </div>
 
         <div className="mx-auto md:hidden">
@@ -80,34 +85,7 @@ const AuthenticatedApp = ({ logout, children }) => {
         </div>
 
         <div className="hidden md:min-w-0 md:flex-1 md:flex md:items-center md:justify-between">
-          <div className="min-w-0 flex-1">
-            <div className="max-w-2xl relative text-gray-400 focus-within:text-gray-500">
-              <label htmlFor="search" className="sr-only">
-                Search
-              </label>
-              <input
-                id="search"
-                type="search"
-                placeholder="Search"
-                className="block w-full border-transparent pl-12 placeholder-gray-500 focus:border-transparent sm:text-sm focus:ring-0"
-              />
-              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center justify-center pl-4">
-                <svg
-                  className="h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
+          <AppSearch />
           <div className="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
             <nav aria-label="Global" className="flex space-x-10">
               <button className="text-sm font-medium text-gray-900">

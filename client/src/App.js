@@ -4,6 +4,7 @@ import { authorizeRequest, getFromLocalStorage } from "./User/thunks";
 import SettingsForm from "./components/forms/SettingsForm";
 import { Switch, Route } from "react-router-dom";
 import Home from "./components/Home";
+import SearchResults from "./components/SearchResults";
 
 const AuthenticatedApp = React.lazy(() =>
   import("./components/AuthenticatedApp")
@@ -29,6 +30,7 @@ function App({ isLoggedIn, authorize }) {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/settings" component={SettingsForm} />
+            <Route path="/search" component={SearchResults} />
           </Switch>
         </AuthenticatedApp>
       ) : (

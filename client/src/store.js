@@ -6,9 +6,10 @@ import {
   registered,
   updateAvatar,
 } from "./User/reducers";
+import { friendsLoading, friends } from "./Friend/reducers";
+import { searching, searchResults } from "./Search/reducers";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { friendsLoading, friends } from "./Friend/reducers";
 
 const reducers = {
   user,
@@ -18,6 +19,8 @@ const reducers = {
   loggedIn,
   registered,
   updateAvatar,
+  searching,
+  searchResults,
 };
 
 const rootReducer = combineReducers(reducers);
