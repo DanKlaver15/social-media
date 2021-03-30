@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
   bgImage: { type: String },
   bio: { type: String, minlength: 5, trim: true },
   friends: [requestSchema],
-  theme: { type: String, default: "light" },
+  darkMode: { type: Boolean, default: false },
   registered: { type: Date, default: Date.now },
 });
 
