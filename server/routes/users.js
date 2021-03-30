@@ -16,7 +16,7 @@ router.route("/register").post(userController.register);
 router
   .route("/:id")
   .get(userController.getOne)
-  .put(userController.updateOne)
+  .put(auth, userController.updateOne)
   .delete(userController.removeOne);
 
 router.route("/:id/friends").get(auth, friendsController.getAll);
