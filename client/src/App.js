@@ -1,9 +1,17 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { authorizeRequest, getFromLocalStorage } from "./User/thunks";
+import SettingsForm from "./components/SettingsForm";
+import { Switch, Route } from "react-router-dom";
+import Home from "./components/Home";
 
-const AuthenticatedApp = React.lazy(() => import("./components/Home"));
-const UnauthenticatedApp = React.lazy(() => import("./components/Login"));
+const AuthenticatedApp = React.lazy(() =>
+  import("./components/AuthenticatedApp")
+);
+
+const UnauthenticatedApp = React.lazy(() =>
+  import("./components/UnauthenticatedApp")
+);
 
 function App({ isLoggedIn, authorize }) {
   const user = getFromLocalStorage();
@@ -16,7 +24,16 @@ function App({ isLoggedIn, authorize }) {
 
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
-      {isLoggedIn ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      {isLoggedIn ? (
+        <AuthenticatedApp>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/settings" component={SettingsForm} />
+          </Switch>
+        </AuthenticatedApp>
+      ) : (
+        <UnauthenticatedApp />
+      )}
     </React.Suspense>
   );
 }
