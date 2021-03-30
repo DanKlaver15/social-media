@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { logoutRequest } from "../User/thunks";
+import { Link } from "react-router-dom";
 
 const UserMenu = ({ isOpen, close, logout }) => {
   const openClass = isOpen
@@ -15,13 +16,15 @@ const UserMenu = ({ isOpen, close, logout }) => {
       aria-labelledby="menu-1"
     >
       <div className="py-1" role="none">
-        <button
+        <Link
           className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
           role="menuitem"
+          to="/settings"
         >
           Your Profile
-        </button>
-        <button
+        </Link>
+        <Link
+          to="/"
           onClick={() => {
             logout();
             close();
@@ -30,7 +33,7 @@ const UserMenu = ({ isOpen, close, logout }) => {
           role="menuitem"
         >
           Sign Out
-        </button>
+        </Link>
       </div>
     </div>
   );
