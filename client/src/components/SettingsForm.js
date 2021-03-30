@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import DefaultAvatar from "./DefaultAvatar";
 import FileUpload from "./Form/FileUpload";
 import { updateUserRequest } from "../User/thunks";
+import Avatar from "./Avatar";
 
 const SettingsForm = ({ user, updateUser }) => {
   const [selectedFile, setSelectedfile] = useState(null);
@@ -97,7 +97,7 @@ const SettingsForm = ({ user, updateUser }) => {
                 {selectedFile ? (
                   <div>{selectedFile.name}</div>
                 ) : (
-                  <DefaultAvatar />
+                  <Avatar source={user.avatar} width={12} height={12} />
                 )}
 
                 <FileUpload onFileSelect={setSelectedfile} />

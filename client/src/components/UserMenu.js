@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { logoutRequest } from "../User/thunks";
 import { Link } from "react-router-dom";
+import Avatar from "./Avatar";
 
-const UserMenu = ({ logout }) => {
+const UserMenu = ({ avatarSource, logout }) => {
   const [userMenu, setUserMenu] = useState(false);
 
   const openClass = userMenu
@@ -21,11 +22,7 @@ const UserMenu = ({ logout }) => {
         aria-haspopup="true"
       >
         <span className="sr-only">Open user menu</span>
-        <img
-          className="h-8 w-8 rounded-full"
-          src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixqx=sZQjNUjFo7&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          alt=""
-        />
+        <Avatar source={avatarSource} height={8} width={8} />
       </button>
       <div
         className={`origin-top-right absolute z-30 right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${openClass}`}
@@ -58,8 +55,12 @@ const UserMenu = ({ logout }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  avatarSource: state.user ? state.user.avatar : null,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch(logoutRequest()),
 });
 
-export default connect(null, mapDispatchToProps)(UserMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);

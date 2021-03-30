@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import UserMenu from "./UserMenu";
 import OnlineFriendsList from "./OnlineFriendsList/OnlineFriendsList";
 
