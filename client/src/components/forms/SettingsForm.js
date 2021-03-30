@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import FileUpload from "./Form/FileUpload";
-import { updateAvatarRequest, updateUserRequest } from "../User/thunks";
-import Avatar from "./Avatar";
+import FileUpload from "./components/FileUpload";
+import { updateAvatarRequest, updateUserRequest } from "../../User/thunks";
+import Avatar from "../Avatar";
 
 const SettingsForm = ({ user, updateUser, updateAvatar }) => {
   const [selectedFile, setSelectedfile] = useState(null);

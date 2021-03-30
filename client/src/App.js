@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { authorizeRequest, getFromLocalStorage } from "./User/thunks";
-import SettingsForm from "./components/SettingsForm";
+import SettingsForm from "./components/forms/SettingsForm";
 import { Switch, Route } from "react-router-dom";
 import Home from "./components/Home";
 
