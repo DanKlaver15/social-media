@@ -3,6 +3,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const users = require("./routes/users");
 const posts = require("./routes/posts");
+const search = require("./routes/search");
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(cors());
 app.use("/api/users", users);
 app.use("/api/posts", posts);
+app.use("/api/search", search);
 app.use(express.static("data"));
 
 const port = process.env.PORT || 5000;
