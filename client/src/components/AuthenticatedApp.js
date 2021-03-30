@@ -3,8 +3,6 @@ import UserMenu from "./UserMenu";
 import OnlineFriendsList from "./OnlineFriendsList/OnlineFriendsList";
 
 const AuthenticatedApp = ({ logout, children }) => {
-  const [userMenu, setUserMenu] = useState(false);
-
   return (
     <div className="h-screen overflow-hidden bg-gray-100 flex flex-col">
       <header className="flex-shrink-0 relative h-16 bg-white flex items-center">
@@ -145,26 +143,7 @@ const AuthenticatedApp = ({ logout, children }) => {
               </span>
 
               <div className="relative inline-block text-left">
-                <button
-                  onClick={() => setUserMenu(!userMenu)}
-                  type="button"
-                  className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
-                  id="menu-1"
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                >
-                  <span className="sr-only">Open user menu</span>
-                  <img
-                    className="h-8 w-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixqx=sZQjNUjFo7&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </button>
-                <UserMenu
-                  logout={logout}
-                  isOpen={userMenu}
-                  close={() => setUserMenu(false)}
-                />
+                <UserMenu logout={logout} />
               </div>
             </div>
           </div>
