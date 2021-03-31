@@ -40,7 +40,9 @@ const Post = ({ post }) => {
                   {post.user}
                 </Link>
               </div>
-              <p className="mt-0.5 text-sm text-gray-500">{post.date}</p>
+              <p className="mt-0.5 text-sm text-gray-500">
+                {post.date.split("T")[0]}
+              </p>
             </div>
             <div className="mt-2 text-sm text-gray-700">
               <p>{post.content}</p>

@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import Post from "./Post";
 
 const Feed = ({ feed }) => {
+  const posts = () => feed.map((post) => <Post post={post} />);
+
   return (
-    <div className="flow-root">
+    <div className="mt-4 flow-root">
       <ul className="-mb-8">
-        {feed.map((post) => {
-          return <Post post={post} />;
-        })}
+        {feed && feed.length > 0 ? posts() : <div>No posts found.</div>}
       </ul>
     </div>
   );
