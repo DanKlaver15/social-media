@@ -63,7 +63,9 @@ export const removePostRequest = (postId) => async (dispatch, getState) => {
       { headers: authHeader() }
     );
 
-    dispatch(removePost(postId));
+    const post = await response.data;
+
+    dispatch(removePost(post._id));
   } catch (err) {
     console.log(err);
     if (err.response) {
