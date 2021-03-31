@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authHeader } from "../helpers/authHeader";
+import { authHeader } from "../../helpers/authHeader";
 
 import { searchInProgress, searchSuccess, searchFailure } from "./actions";
 
