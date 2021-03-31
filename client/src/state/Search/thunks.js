@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authHeader } from "../../helpers/authHeader";
+import { authHeader, userId } from "../../helpers/authHeader";
 
 import { searchInProgress, searchSuccess, searchFailure } from "./actions";
 
@@ -7,8 +7,9 @@ export const searchPeopleRequest = (keywords) => async (dispatch, getState) => {
   dispatch(searchInProgress());
 
   try {
-    const response = await axios.get(
+    const response = await axios.post(
       `http://localhost:5000/api/search/people/${keywords}`,
+      { userId: userId() },
       { headers: authHeader() }
     );
 
