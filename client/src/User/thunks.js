@@ -43,9 +43,16 @@ export const loginRequest = (user) => async (dispatch, getState) => {
 };
 
 export const logoutRequest = (user) => async (dispatch, getState) => {
-  removeFromLocalStorage();
-  dispatch(logout());
-  dispatch(removeLoginError());
+  try {
+    await axios.post(`http://localhost:5000/api/users/logout`, user);
+
+    dispatch(updateUser({}));
+    removeFromLocalStorage();
+    dispatch(logout());
+    dispatch(removeLoginError());
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const authorizeRequest = (_id, token) => async (dispatch, getState) => {
