@@ -3,23 +3,20 @@ const router = express.Router();
 const Joi = require("joi");
 const userController = require("../controllers/userController");
 const friendsController = require("../controllers/friendsController");
-const onlineController = require("../controllers/onlineController");
 const auth = require("../middlewares/auth");
 const avatar = require("../middlewares/avatar");
-const online = require("../middlewares/online");
 
-router.route("/login").post(online, userController.login);
+router.route("/login").post(userController.login);
 router.route("/logout").post(userController.logout);
-router.route("/auth").post([auth, online], userController.authorize);
+router.route("/auth").post(auth, userController.authorize);
 router.route("/register").post(userController.register);
 
-router
-  .route("/:id")
-  .get(userController.getOne)
-  .put(auth, userController.updateOne)
-  .delete(userController.removeOne);
+router.route("/:id").put(auth, userController.updateOne);
 
 router.route("/:id/friends").get(auth, friendsController.getAll);
+router
+  .route("/:id/friends/:friendId")
+  .delete(auth, friendsController.deleteFriend);
 
 router.get("/avatar/:filename", (req, res) => {
   res.type("png");
