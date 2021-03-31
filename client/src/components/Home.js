@@ -8,16 +8,18 @@ import Feed from "./Feed";
 const Home = ({ user, getFeed, feed }) => {
   useEffect(() => {
     getFeed(user._id);
-  });
+  }, [getFeed, user]);
   return (
     <>
       <div className="-m-8 mb-4">
-        <div>
+        <div className="h-32 w-full lg:h-48 bg-indigo-500">
+          {/* 
+          TODO: Add bacground image
           <img
             className="h-32 w-full object-cover lg:h-48"
             src="https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
             alt=""
-          />
+          /> */}
         </div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">

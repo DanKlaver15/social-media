@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Post from "./Post";
 
 const Feed = ({ feed }) => {
-  const posts = () => feed.map((post) => <Post post={post} />);
+  const posts = () => feed.map((post) => <Post key={post._id} post={post} />);
 
   return (
     <div className="mt-4 flow-root">
