@@ -8,8 +8,7 @@ const auth = require("../middlewares/auth");
 const avatar = require("../middlewares/avatar");
 const online = require("../middlewares/online");
 
-router.route("/").get(userController.getAll).post(userController.createOne);
-router.route("/login").post(userController.login);
+router.route("/login").post(online, userController.login);
 router.route("/logout").post(userController.logout);
 router.route("/auth").post([auth, online], userController.authorize);
 router.route("/register").post(userController.register);
@@ -21,6 +20,7 @@ router
   .delete(userController.removeOne);
 
 router.route("/:id/friends").get(auth, friendsController.getAll);
+
 router.get("/avatar/:filename", (req, res) => {
   res.type("png");
   return res.sendFile(avatar.filepath(req.params.filename));
