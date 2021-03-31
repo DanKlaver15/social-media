@@ -42,9 +42,9 @@ export const loginRequest = (user) => async (dispatch, getState) => {
   }
 };
 
-export const logoutRequest = (user) => async (dispatch, getState) => {
+export const logoutRequest = (userId) => async (dispatch, getState) => {
   try {
-    await axios.post(`http://localhost:5000/api/users/logout`, user);
+    await axios.post(`http://localhost:5000/api/users/logout`, { userId });
 
     dispatch(updateUser({}));
     removeFromLocalStorage();

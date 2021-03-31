@@ -35,7 +35,7 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    const user = await query.getOne(User, req.body._id);
+    const user = await query.getOne(User, req.body.userId);
 
     if (!user) return res.status(401).send({ message: "User does not exist." });
 
