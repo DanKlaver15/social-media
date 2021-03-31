@@ -7,6 +7,8 @@ const OnlineListItem = ({ friend }) => {
     ? "transition ease-in duration-75 transform opacity-100 scale-100"
     : "transition ease-out duration-100 transform opacity-0 scale-95";
 
+  const onlineIndicator = friend.online ? "bg-green-400" : "bg-gray-400";
+
   return (
     <li className="px-6 py-5 relative">
       <div className="group flex justify-between items-center">
@@ -23,7 +25,7 @@ const OnlineListItem = ({ friend }) => {
                 alt=""
               />
               <span
-                className="bg-green-400 absolute top-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white"
+                className={`${onlineIndicator} absolute top-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white`}
                 aria-hidden="true"
               ></span>
             </span>
