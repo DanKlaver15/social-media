@@ -1,5 +1,4 @@
 const User = require("../models/user");
-const Online = require("../models/online");
 const query = require("../utils/query");
 const crudController = require("../utils/crud");
 const AvatarService = require("../services/avatarService");
@@ -22,9 +21,13 @@ const login = async (req, res) => {
     if (!match)
       return res.status(401).send({ message: "Invalid email or password" });
 
+    user.online = true;
+
+    const updatedUser = await query.updateOne(User, user);
+
     const token = user.generateAuthToken();
 
-    return res.status(201).send({ user, token });
+    return res.status(201).send({ updatedUser, token });
   } catch (err) {
     return res.status(500).send({ message: err });
   }
@@ -32,12 +35,16 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    const onlineUsers = await query.getAll(Online);
-    const updatedOnlineUsers = onlineUsers.filter((user) => {
-      return user !== req.params.id;
-    });
-    updatedOnlineUsers.save();
+    const user = await query.getOne(User, req.body._id);
+
+    if (!user) return res.status(401).send({ message: "User does not exist." });
+
+    user.online = false;
+    const updatedUser = await query.updateOne(User, user._id);
+
+    return res.status(200).end();
   } catch (err) {
+    console.log(err);
     return res.status(500).send({ message: err });
   }
 };
