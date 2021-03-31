@@ -4,7 +4,7 @@ import { logoutRequest } from "../state/User/thunks";
 import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
 
-const UserMenu = ({ avatarSource, logout }) => {
+const UserMenu = ({ avatarSource, logout, userId }) => {
   const [userMenu, setUserMenu] = useState(false);
 
   const openClass = userMenu
@@ -41,7 +41,7 @@ const UserMenu = ({ avatarSource, logout }) => {
           <Link
             to="/"
             onClick={() => {
-              logout();
+              logout(userId);
               setUserMenu(false);
             }}
             className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
@@ -57,10 +57,11 @@ const UserMenu = ({ avatarSource, logout }) => {
 
 const mapStateToProps = (state) => ({
   avatarSource: state.user ? state.user.avatar : null,
+  userId: state.user ? state.user._id : null,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  logout: () => dispatch(logoutRequest()),
+  logout: (userId) => dispatch(logoutRequest(userId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);
