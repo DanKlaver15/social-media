@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { registerRequest } from "../../User/thunks";
+import { registerRequest } from "../../state/User/thunks";
 import { Redirect } from "react-router-dom";
 
 const RegistrationForm = ({ register, registered }) => {

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import FileUpload from "./components/FileUpload";
-import { updateAvatarRequest, updateUserRequest } from "../../User/thunks";
+import {
+  updateAvatarRequest,
+  updateUserRequest,
+} from "../../state/User/thunks";
 import Avatar from "../Avatar";
 
 const SettingsForm = ({ user, updateUser, updateAvatar }) => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { logoutRequest } from "../User/thunks";
+import { logoutRequest } from "../state/User/thunks";
 import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
 
