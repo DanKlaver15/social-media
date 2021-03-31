@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { logoutRequest } from "../User/thunks";
+import { logoutRequest } from "../state/User/thunks";
 import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
 
@@ -22,7 +22,7 @@ const UserMenu = ({ avatarSource, logout }) => {
         aria-haspopup="true"
       >
         <span className="sr-only">Open user menu</span>
-        <Avatar source={avatarSource} height={8} width={8} />
+        <Avatar source={avatarSource} size={8} />
       </button>
       <div
         className={`origin-top-right absolute z-30 right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${openClass}`}

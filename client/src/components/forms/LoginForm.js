@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { loginRequest } from "../../User/thunks";
+import { loginRequest } from "../../state/User/thunks";
 
 function LoginForm({ loginRequest, loginError }) {
   const [email, setEmail] = useState("");

@@ -10,4 +10,6 @@ router
   .put(postController.updateOne)
   .delete(postController.removeOne);
 
+router.route("/:id/feed").get(postController.getFeed);
+
 module.exports = router;

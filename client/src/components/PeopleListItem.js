@@ -11,7 +11,7 @@ const PeopleListItem = ({ id, name, email, avatar }) => (
         </div>
         <p className="mt-1 text-gray-500 text-sm truncate">{email}</p>
       </div>
-      <Avatar height={10} width={10} source={avatar} />
+      <Avatar size={10} source={avatar} />
     </div>
     <div>
       <div className="-mt-px flex divide-x divide-gray-200">

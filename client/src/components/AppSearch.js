@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { searchPeopleRequest } from "../Search/thunks";
+import { searchPeopleRequest } from "../state/Search/thunks";
 import { Link } from "react-router-dom";
 
 const AppSearch = ({ searchPeople }) => {
