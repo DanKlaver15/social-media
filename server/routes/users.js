@@ -10,6 +10,7 @@ const online = require("../middlewares/online");
 
 router.route("/").get(userController.getAll).post(userController.createOne);
 router.route("/login").post(userController.login);
+router.route("/logout").post(userController.logout);
 router.route("/auth").post([auth, online], userController.authorize);
 router.route("/register").post(userController.register);
 
