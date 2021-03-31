@@ -8,7 +8,7 @@ const getAll = async (req, res) => {
 
     if (!user) return res.status(401).send({ message: "Invalid user" });
 
-    const friendIds = user.friends.map((friend) => {
+    const friendsIds = user.friends.map((friend) => {
       return friend.senderId;
     });
 
@@ -26,6 +26,7 @@ const getAll = async (req, res) => {
 
     return res.status(200).send(user.friends);
   } catch (err) {
+    console.log(err);
     return res.status(500).send({ message: `Server Error: ${err}` });
   }
 };
