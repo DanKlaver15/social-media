@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Online = require("../models/online");
 const query = require("../utils/query");
 const crudController = require("../utils/crud");
 const AvatarService = require("../services/avatarService");
@@ -24,6 +25,18 @@ const login = async (req, res) => {
     const token = user.generateAuthToken();
 
     return res.status(201).send({ user, token });
+  } catch (err) {
+    return res.status(500).send({ message: err });
+  }
+};
+
+const logout = async (req, res) => {
+  try {
+    const onlineUsers = await query.getAll(Online);
+    const updatedOnlineUsers = onlineUsers.filter((user) => {
+      return user !== req.params.id;
+    });
+    updatedOnlineUsers.save();
   } catch (err) {
     return res.status(500).send({ message: err });
   }
@@ -102,6 +115,7 @@ const avatar = async (req, res, next) => {
 module.exports = {
   ...crudController(User),
   login,
+  logout,
   authorize,
   register,
   avatar,
