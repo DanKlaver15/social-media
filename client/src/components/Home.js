@@ -7,7 +7,9 @@ import Feed from "./Feed";
 
 const Home = ({ user, getFeed, feed }) => {
   useEffect(() => {
-    getFeed(user._id);
+    if (user._id) {
+      getFeed(user._id);
+    }
   }, [getFeed, user]);
   return (
     <>
