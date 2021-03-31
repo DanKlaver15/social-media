@@ -94,7 +94,7 @@ const SettingsForm = ({ user, updateUser, updateAvatar }) => {
                 Avatar
               </label>
               <div className="mt-1 flex items-center">
-                <Avatar source={user.avatar} width={12} height={12} />
+                <Avatar source={user.avatar} size={12} />
                 <FileUpload
                   onFileSelect={(file) => {
                     updateAvatar(user._id, file);
