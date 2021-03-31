@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { requestSchema } = require("./request");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 const bcrypt = require("bcrypt");
@@ -25,8 +24,10 @@ const userSchema = new mongoose.Schema({
   avatar: { type: String },
   bgImage: { type: String },
   bio: { type: String, minlength: 5, trim: true },
-  friends: [requestSchema],
+  friends: [mongoose.Types.ObjectId],
   darkMode: { type: Boolean, default: false },
+  online: { type: Boolean, default: false },
+  lastOnline: { type: Date, default: Date.now },
   registered: { type: Date, default: Date.now },
 });
 
