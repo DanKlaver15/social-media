@@ -8,7 +8,8 @@ export const searchPeopleRequest = (keywords) => async (dispatch, getState) => {
 
   try {
     const response = await axios.get(
-      `http://localhost:5000/api/search/people/${keywords}`
+      `http://localhost:5000/api/search/people/${keywords}`,
+      { headers: authHeader() }
     );
 
     const data = await response.data;
