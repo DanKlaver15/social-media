@@ -27,7 +27,7 @@ const login = async (req, res) => {
 
     const token = user.generateAuthToken();
 
-    return res.status(201).send({ updatedUser, token });
+    return res.status(201).send({ user: updatedUser, token });
   } catch (err) {
     return res.status(500).send({ message: err });
   }
