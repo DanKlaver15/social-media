@@ -75,7 +75,7 @@ const OnlineFriendsList = ({ friends, friendsLoading }) => {
           </div>
           <ul className="divide-y divide-gray-200 overflow-y-auto h-screen">
             {friends.map((friend) => {
-              return <OnlineListItem key={friend._id} friend={friend} />;
+              return <OnlineListItem key={friend.senderId} friend={friend} />;
             })}
           </ul>
         </div>
