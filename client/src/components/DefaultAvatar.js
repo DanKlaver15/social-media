@@ -1,8 +1,8 @@
 import React from "react";
 
-const DefaultAvatar = ({ height = 12, width = 12 }) => (
+const DefaultAvatar = ({ size = 12 }) => (
   <div
-    className={`h-${height} w-${width} rounded-full overflow-hidden bg-gray-100`}
+    className={`h-${size} w-${size} rounded-full overflow-hidden bg-gray-100`}
   >
     <svg
       className="h-full w-full text-gray-300"

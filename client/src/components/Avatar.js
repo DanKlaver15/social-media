@@ -9,7 +9,7 @@ const Avatar = ({ source, size = 12 }) =>
       alt=""
     />
   ) : (
-    <DefaultAvatar height={size} width={size} />
+    <DefaultAvatar size={size} />
   );
 
 export default Avatar;
