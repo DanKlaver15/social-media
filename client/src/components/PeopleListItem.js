@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import Avatar from "./Avatar";
+import { sendFriendRequest } from "../state/FriendRequest/thunks";
 
-const PeopleListItem = ({ person }) => (
+const PeopleListItem = ({ person, sendFriendRequest }) => (
   <li className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
     <div className="w-full flex items-center justify-between p-6 space-x-6">
       <div className="flex-1 truncate">
@@ -25,12 +27,17 @@ const PeopleListItem = ({ person }) => (
         </div>
         <div className="-ml-px w-0 flex-1 flex">
           <button
+            disabled={person.friends !== "no"}
             onClick={() => {
-              console.log("Add friend!");
+              sendFriendRequest(person._id);
             }}
             className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
           >
-            {person.friends === "no" ? "Add Friend" : "Already Friends"}
+            {person.friends === "no"
+              ? "Add Friend"
+              : person.friends === "pending"
+              ? "Pending"
+              : "Already Friends"}
           </button>
         </div>
       </div>
@@ -38,4 +45,8 @@ const PeopleListItem = ({ person }) => (
   </li>
 );
 
-export default PeopleListItem;
+const mapDispatchToProps = (dispatch) => ({
+  sendFriendRequest: (receiverId) => dispatch(sendFriendRequest(receiverId)),
+});
+
+export default connect(null, mapDispatchToProps)(PeopleListItem);

@@ -28,27 +28,25 @@ const people = async (req, res) => {
       .lean()
       .exec();
 
-    // Can we add friend status?
     const user = await query.getOne(User, userId);
 
     if (!user) return res.status(400).send({ message: "User not found." });
 
-    // Get all friend requests ?.
-    const friendRequests = await FriendRequest.find({ accepted: true }).or([
-      { senderId: user._id },
-      { receiverId: user._id },
-    ]);
+    const friendRequests = await FriendRequest.find()
+      .or([{ senderId: user._id }, { receiverId: user._id }])
+      .lean()
+      .exec();
+
+    const requestIds = friendRequests.reduce((accumulator, request) => {
+      return [...accumulator, `${request.senderId}`, `${request.receiverId}`];
+    }, []);
 
     const resultsWithFriendStatus = results.map((result) => {
       if (result.friends.includes(user._id)) {
-        result.friend = "yes";
-      } else if (
-        result.friends.includes(friendRequests.senderId) ||
-        result.friends.includes(friendRequests.receiverId)
-      ) {
-        result.friend = "pending";
+        result.friends = "yes";
+      } else if (requestIds.includes(`${result._id}`)) {
+        result.friends = "pending";
       } else {
-        console.log(result.friends);
         result.friends = "no";
       }
       return result;

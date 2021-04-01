@@ -9,6 +9,7 @@ import {
 import { friendsLoading, friends } from "./Friend/reducers";
 import { searching, searchResults } from "./Search/reducers";
 import { isPosting, feed } from "./Post/reducers";
+import { sendingFriendRequest } from "./FriendRequest/reducers";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
@@ -24,6 +25,7 @@ const reducers = {
   searchResults,
   isPosting,
   feed,
+  sendingFriendRequest,
 };
 
 const rootReducer = combineReducers(reducers);
