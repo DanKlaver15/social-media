@@ -1,7 +1,20 @@
+import React, { useState, useEffect } from "react";
 import OnlineListItem from "./OnlineListItem";
 import { connect } from "react-redux";
 
 const OnlineFriendsList = ({ friends, friendsLoading }) => {
+  const [listType, setListType] = useState("all");
+
+  const showList = (friend) => {
+    if (listType === "all") {
+      return <OnlineListItem key={friend._id} friend={friend} />;
+    } else if (listType === "online" && friend.online === true) {
+      return <OnlineListItem key={friend._id} friend={friend} />;
+    } else if (listType === "offline" && friend.online === false) {
+      return <OnlineListItem key={friend._id} friend={friend} />;
+    }
+  };
+
   return friendsLoading ? (
     <p>Loading...</p>
   ) : (
@@ -59,23 +72,32 @@ const OnlineFriendsList = ({ friends, friendsLoading }) => {
           <div className="border-b border-gray-300">
             <div className="px-6">
               <nav className="-mb-px flex space-x-6">
-                <button className="border-indigo-500 text-indigo-600 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                <button
+                  className={`border-indigo-500 text-indigo-600 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm`}
+                  onClick={() => setListType("all")}
+                >
                   All
                 </button>
 
-                <button className="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                <button
+                  className={`border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm`}
+                  onClick={() => setListType("online")}
+                >
                   Online
                 </button>
 
-                <button className="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">
+                <button
+                  className={`border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm`}
+                  onClick={() => setListType("offline")}
+                >
                   Offline
                 </button>
               </nav>
             </div>
           </div>
-          <ul className="divide-y divide-gray-200 overflow-y-auto h-screen">
+          <ul className="divide-y divide-gray-200 overflow-y-auto h-screen transition ease-in duration-75 transform opacity-100 scale-100">
             {friends.map((friend) => {
-              return <OnlineListItem key={friend.senderId} friend={friend} />;
+              return showList(friend);
             })}
           </ul>
         </div>
