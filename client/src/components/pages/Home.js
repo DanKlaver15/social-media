@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import AddPostForm from "./forms/AddPostForm";
-import Avatar from "./Avatar";
-import { getFeedRequest } from "../state/Post/thunks";
-import Feed from "./Feed";
+import AddPostForm from "../forms/AddPostForm";
+import Avatar from "../Avatar";
+import { getFeedRequest } from "../../state/Post/thunks";
+import Feed from "../Feed";
 
 const Home = ({ user, getFeed, feed }) => {
   useEffect(() => {

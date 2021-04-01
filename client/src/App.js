@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { authorizeRequest, getFromLocalStorage } from "./state/User/thunks";
 import SettingsForm from "./components/forms/SettingsForm";
 import { Switch, Route } from "react-router-dom";
-import Home from "./components/Home";
+import Home from "./components/pages/Home";
 import SearchResults from "./components/SearchResults";
 
 const AuthenticatedApp = React.lazy(() =>

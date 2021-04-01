@@ -1,6 +1,6 @@
 import React from "react";
-import Navigation from "./Navigation";
-import RegistrationForm from "./forms/RegistrationForm";
+import Navigation from "../Navigation";
+import RegistrationForm from "../forms/RegistrationForm";
 
 const Registration = () => {
   return (
