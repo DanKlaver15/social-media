@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const User = require("../models/user");
 const FriendRequest = require("../models/friendRequest");
 const query = require("../utils/query");
@@ -30,19 +31,29 @@ const people = async (req, res) => {
 
     const user = await query.getOne(User, userId);
 
-    if (!user) return res.status(400).send({ message: "User not found." });
+    if (!user) return res.status(400).send({ error: "User not found." });
 
+    // Get user friend requests.
     const friendRequests = await FriendRequest.find()
-      .or([{ senderId: user._id }, { receiverId: user._id }])
+      .or([
+        { accepted: false, senderId: user._id },
+        { accepted: false, receiverId: user._id },
+      ])
       .lean()
       .exec();
 
+    // Combine pending ids all ids
     const requestIds = friendRequests.reduce((accumulator, request) => {
-      return [...accumulator, `${request.senderId}`, `${request.receiverId}`];
+      if (`${request.senderId}` === `${user._id}`) {
+        return [...accumulator, `${request.receiverId}`];
+      }
+
+      return [...accumulator, `${request.senderId}`];
     }, []);
 
     const resultsWithFriendStatus = results.map((result) => {
-      if (result.friends.includes(`${user._id}`)) {
+      const friends = result.friends.map((friend) => `${friend}`);
+      if (friends.includes(`${user._id}`)) {
         result.friends = "yes";
       } else if (requestIds.includes(`${result._id}`)) {
         result.friends = "pending";
