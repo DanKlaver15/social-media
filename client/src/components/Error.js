@@ -1,11 +1,11 @@
 import React from "react";
 
 const Error = ({ message = "Error!", details = [] }) => (
-  <div class="rounded-md bg-red-50 p-4">
-    <div class="flex">
-      <div class="flex-shrink-0">
+  <div className="rounded-md bg-red-50 p-4">
+    <div className="flex">
+      <div className="flex-shrink-0">
         <svg
-          class="h-5 w-5 text-red-400"
+          className="h-5 w-5 text-red-400"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
@@ -18,11 +18,11 @@ const Error = ({ message = "Error!", details = [] }) => (
           />
         </svg>
       </div>
-      <div class="ml-3">
-        <h3 class="text-sm font-medium text-red-800">{message}</h3>
+      <div className="ml-3">
+        <h3 className="text-sm font-medium text-red-800">{message}</h3>
 
-        <div class="mt-2 text-sm text-red-700">
-          <ul class="list-disc pl-5 space-y-1">
+        <div className="mt-2 text-sm text-red-700">
+          <ul className="list-disc pl-5 space-y-1">
             {details.map((detail, index) => {
               return <li key={index}>{detail}</li>;
             })}

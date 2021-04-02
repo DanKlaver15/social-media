@@ -22,12 +22,12 @@ const FriendRequestItem = ({
         <h3 className="mt-6 text-gray-900 text-sm font-medium">
           {`${friendRequest.firstName} ${friendRequest.lastName}`}
         </h3>
-        <dl class="mt-1 flex-grow flex flex-col justify-between">
-          <dt class="sr-only">Date</dt>
-          <dd class="text-gray-500 text-sm">
+        <dl className="mt-1 flex-grow flex flex-col justify-between">
+          <dt className="sr-only">Date</dt>
+          <dd className="text-gray-500 text-sm">
             {friendRequest.requestDate.split("T")[0]}
           </dd>
-          <dt class="sr-only">Role</dt>
+          <dt className="sr-only">Role</dt>
         </dl>
       </div>
       <div>
