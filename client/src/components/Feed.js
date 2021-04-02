@@ -6,7 +6,7 @@ import Error from "../components/Error";
 const Feed = ({ feed, error }) => {
   const posts = () => feed.map((post) => <Post key={post._id} post={post} />);
 
-  return !error.error ? (
+  return !error || !error.error ? (
     <div className="my-4 flow-root">
       <ul className="-mb-8">
         {feed && feed.length > 0 ? posts() : <div>No posts found.</div>}
