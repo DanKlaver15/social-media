@@ -16,6 +16,7 @@ import {
   acceptingFriendRequest,
   decliningFriendRequest,
 } from "./FriendRequest/reducers";
+import { error } from "./Error/reducers";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
@@ -36,6 +37,7 @@ const reducers = {
   friendRequests,
   acceptingFriendRequest,
   decliningFriendRequest,
+  error,
 };
 
 const rootReducer = combineReducers(reducers);

@@ -87,7 +87,7 @@ const authorize = async (req, res) => {
   }
 };
 
-const avatar = async (req, res, next) => {
+const addAvatar = async (req, res, next) => {
   try {
     const user = await query.getOne(User, req.params.id);
 
@@ -118,11 +118,34 @@ const avatar = async (req, res, next) => {
   }
 };
 
+const removeAvatar = async (req, res, next) => {
+  try {
+    const user = await query.getOne(User, req.params.id);
+
+    if (!user) return res.status(400).send({ message: "User does not exist" });
+
+    if (user.avatar) {
+      await avatars.delete(user.avatar);
+      user.avatar = undefined;
+    }
+
+    const savedUser = await user.save();
+
+    if (!savedUser)
+      return res.status(400).send({ message: "Unable to save avatar" });
+
+    return res.status(201).send(savedUser);
+  } catch (err) {
+    return res.status(500).send({ message: `Error: ${err}` });
+  }
+};
+
 module.exports = {
   ...crudController(User),
   login,
   logout,
   authorize,
   register,
-  avatar,
+  addAvatar,
+  removeAvatar,
 };

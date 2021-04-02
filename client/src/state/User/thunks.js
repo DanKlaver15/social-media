@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authHeader } from "../../helpers/authHeader";
+import { authHeader, userId, getError } from "../../helpers/authHeader";
 
 import {
   loginInProgress,
@@ -76,18 +76,35 @@ export const authorizeRequest = (_id, token) => async (dispatch, getState) => {
   }
 };
 
-export const updateAvatarRequest = (userId, file) => async (
-  dispatch,
-  getState
-) => {
+export const updateAvatarRequest = (file) => async (dispatch, getState) => {
   dispatch(updateAvatarProgress());
   let formData = new FormData();
   formData.append("avatar", file);
 
   try {
     const response = await axios.post(
-      `http://localhost:5000/api/users/${userId}/avatar`,
+      `http://localhost:5000/api/users/${userId()}/avatar`,
       formData,
+      {
+        headers: { ...authHeader(), "Content-Type": "multipart/form-data" },
+      }
+    );
+
+    const updatedUser = await response.data;
+    dispatch(updateAvatarSuccess());
+    dispatch(updateUser(updatedUser));
+  } catch (err) {
+    dispatch(updateAvatarFailure(getError(err)));
+    console.log(err);
+  }
+};
+
+export const removeAvatarRequest = () => async (dispatch, getState) => {
+  dispatch(updateAvatarProgress());
+
+  try {
+    const response = await axios.delete(
+      `http://localhost:5000/api/users/${userId()}/avatar`,
       {
         headers: { ...authHeader(), "Content-Type": "multipart/form-data" },
       }

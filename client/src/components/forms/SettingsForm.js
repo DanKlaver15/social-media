@@ -3,12 +3,19 @@ import { connect } from "react-redux";
 import FileUpload from "./components/FileUpload";
 import {
   updateAvatarRequest,
+  removeAvatarRequest,
   updateUserRequest,
 } from "../../state/User/thunks";
 import Avatar from "../Avatar";
+import Error from "../Error";
 
-const SettingsForm = ({ user, updateUser, updateAvatar }) => {
-  const [selectedFile, setSelectedfile] = useState(null);
+const SettingsForm = ({
+  user,
+  updateUser,
+  updateAvatar,
+  removeAvatar,
+  avatarError,
+}) => {
   const [username, setUsername] = useState(user.username);
   const [bio, setBio] = useState(user.bio);
   const [darkMode, setMode] = useState(user.darkMode);
@@ -96,15 +103,27 @@ const SettingsForm = ({ user, updateUser, updateAvatar }) => {
               >
                 Avatar
               </label>
-              <div className="mt-1 flex items-center">
+              <div className="my-1 flex items-center">
                 <Avatar source={user.avatar} size={12} />
                 <FileUpload
                   onFileSelect={(file) => {
-                    updateAvatar(user._id, file);
-                    setSelectedfile(file);
+                    updateAvatar(file);
                   }}
                 />
+                {user.avatar && (
+                  <button
+                    onClick={() => {
+                      removeAvatar();
+                    }}
+                    className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Remove
+                  </button>
+                )}
               </div>
+              {avatarError && avatarError.error && (
+                <Error message={avatarError.message} />
+              )}
             </div>
             <div className="sm:col-span-4">
               <div className="flex items-center justify-between">
@@ -229,11 +248,13 @@ const SettingsForm = ({ user, updateUser, updateAvatar }) => {
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  avatarError: state.error.updateAvatar,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   updateUser: (user) => dispatch(updateUserRequest(user)),
-  updateAvatar: (userId, file) => dispatch(updateAvatarRequest(userId, file)),
+  updateAvatar: (file) => dispatch(updateAvatarRequest(file)),
+  removeAvatar: () => dispatch(removeAvatarRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsForm);
