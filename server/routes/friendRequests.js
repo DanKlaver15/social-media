@@ -9,7 +9,11 @@ router
   .post(friendRequestController.requestFriend);
 router
   .route("/accept/:receiverId/:requestId")
-  .post(friendRequestController.accept);
-router.route("/:id").delete(friendRequestController.removeOne);
+  .put(friendRequestController.accept);
+
+router
+  .route("/:id")
+  .get(friendRequestController.getAll)
+  .delete(friendRequestController.removeOne);
 
 module.exports = router;

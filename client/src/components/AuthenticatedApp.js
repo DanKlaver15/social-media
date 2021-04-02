@@ -3,6 +3,7 @@ import UserMenu from "./UserMenu";
 import OnlineFriendsList from "./OnlineFriendsList/OnlineFriendsList";
 import AppSearch from "./AppSearch";
 import { Link } from "react-router-dom";
+import { UserAdd } from "./Icons/icons";
 
 const AuthenticatedApp = ({ logout, children }) => {
   return (
@@ -88,12 +89,6 @@ const AuthenticatedApp = ({ logout, children }) => {
           <AppSearch />
           <div className="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
             <nav aria-label="Global" className="flex space-x-10">
-              <button className="text-sm font-medium text-gray-900">
-                Inboxes
-              </button>
-              <button className="text-sm font-medium text-gray-900">
-                Reporting
-              </button>
               <button className="text-sm font-medium text-gray-900">
                 Settings
               </button>
@@ -223,26 +218,6 @@ const AuthenticatedApp = ({ logout, children }) => {
             </div>
             <div className="max-w-8xl mx-auto py-3 px-2 sm:px-4">
               <button className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100">
-                Inboxes
-              </button>
-
-              <button className="block rounded-md py-2 pl-5 pr-3 text-base font-medium text-gray-500 hover:bg-gray-100">
-                Technical Support
-              </button>
-
-              <button className="block rounded-md py-2 pl-5 pr-3 text-base font-medium text-gray-500 hover:bg-gray-100">
-                Sales
-              </button>
-
-              <button className="block rounded-md py-2 pl-5 pr-3 text-base font-medium text-gray-500 hover:bg-gray-100">
-                General
-              </button>
-
-              <button className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100">
-                Reporting
-              </button>
-
-              <button className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100">
                 Settings
               </button>
             </div>
@@ -302,24 +277,13 @@ const AuthenticatedApp = ({ logout, children }) => {
           className="hidden md:block md:flex-shrink-0 md:bg-gray-800 md:overflow-y-auto"
         >
           <div className="relative w-20 flex flex-col p-3 space-y-3">
-            <button className="bg-gray-900 text-white flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg">
-              <span className="sr-only">Open</span>
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-                />
-              </svg>
-            </button>
+            <Link
+              to="/requests"
+              className="bg-gray-900 text-white flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg"
+            >
+              <span className="sr-only">Friend Requests</span>
+              <UserAdd size={6} />
+            </Link>
 
             <button className="text-gray-400 hover:bg-gray-700 flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg">
               <span className="sr-only">Archive</span>
