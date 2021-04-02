@@ -6,7 +6,7 @@ const getFeed = async (req, res) => {
   try {
     const feed = await Post.find({ userId: req.params.id }).sort({ date: -1 });
 
-    if (feed)
+    if (!feed)
       return res.status(401).send({ error: "Error: User feed not found" });
 
     return res.status(201).send(feed);
