@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
   const [listType, setListType] = useState("all");
   const [query, setQuery] = useState("");
-  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -34,9 +33,12 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
       );
     }
     if (filteredFriends.length > 0) {
+      console.log("filtered friends", filteredFriends);
       return filteredFriends.map((friend) => {
         return showList(friend);
       });
+    } else if ((filteredFriends.length === 0) & (query.length > 0)) {
+      return <div className="flex justify-center p-6">No Friends Found</div>;
     } else {
       return friends.map((friend) => {
         return showList(friend);
@@ -76,16 +78,13 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
                     </svg>
                   </div>
                   <input
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    value={searchValue}
+                    onChange={(e) => setQuery(e.target.value.trim())}
+                    value={query}
                     type="text"
                     className="border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md pl-10 sm:text-sm"
                   />
                 </div>
-                <button
-                  onClick={() => setQuery(searchValue)}
-                  className="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-                >
+                <button className="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                   <svg
                     className="h-5 w-5 text-gray-400"
                     xmlns="http://www.w3.org/2000/svg"
