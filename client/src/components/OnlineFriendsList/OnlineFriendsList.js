@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from "react";
 import OnlineListItem from "./OnlineListItem";
+import { getFriendsRequest } from "../../state/Friend/thunks";
 import { connect } from "react-redux";
 
-const OnlineFriendsList = ({ friends, friendsLoading }) => {
+const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
   const [listType, setListType] = useState("all");
+  const [query, setQuery] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      getFriends();
+    }
+  }, [getFriends, user]);
 
   const showList = (friend) => {
     if (listType === "all") {
@@ -12,6 +21,26 @@ const OnlineFriendsList = ({ friends, friendsLoading }) => {
       return <OnlineListItem key={friend._id} friend={friend} />;
     } else if (listType === "offline" && friend.online === false) {
       return <OnlineListItem key={friend._id} friend={friend} />;
+    }
+  };
+
+  const searchFriends = (friends) => {
+    let filteredFriends = [];
+    if (query.trim().length > 0) {
+      filteredFriends = friends.filter(
+        (friend) =>
+          friend.firstName.toLowerCase().includes(query.toLowerCase()) |
+          friend.lastName.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+    if (filteredFriends.length > 0) {
+      return filteredFriends.map((friend) => {
+        return showList(friend);
+      });
+    } else {
+      return friends.map((friend) => {
+        return showList(friend);
+      });
     }
   };
 
@@ -47,11 +76,16 @@ const OnlineFriendsList = ({ friends, friendsLoading }) => {
                     </svg>
                   </div>
                   <input
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    value={searchValue}
                     type="text"
                     className="border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md pl-10 sm:text-sm"
                   />
                 </div>
-                <button className="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                <button
+                  onClick={() => setQuery(searchValue)}
+                  className="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                >
                   <svg
                     className="h-5 w-5 text-gray-400"
                     xmlns="http://www.w3.org/2000/svg"
@@ -96,9 +130,7 @@ const OnlineFriendsList = ({ friends, friendsLoading }) => {
             </div>
           </div>
           <ul className="divide-y divide-gray-200 overflow-y-auto h-screen transition ease-in duration-75 transform opacity-100 scale-100">
-            {friends.map((friend) => {
-              return showList(friend);
-            })}
+            {searchFriends(friends)}
           </ul>
         </div>
       </div>
@@ -109,6 +141,11 @@ const OnlineFriendsList = ({ friends, friendsLoading }) => {
 const mapStateToProps = (state) => ({
   friends: state.friends,
   friendsLoading: state.friendsLoading,
+  user: state.user,
 });
 
-export default connect(mapStateToProps)(OnlineFriendsList);
+const mapDispatchToProps = (dispatch) => ({
+  getFriends: () => dispatch(getFriendsRequest()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(OnlineFriendsList);
