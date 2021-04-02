@@ -34,7 +34,6 @@ const UserMenu = ({ avatarSource, logout, userId }) => {
           <Link
             className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
             role="menuitem"
-            to="/settings"
           >
             Your Profile
           </Link>
