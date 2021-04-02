@@ -6,13 +6,13 @@ export const searching = (state = false, action) => {
 
   switch (type) {
     case SEARCH_IN_PROGRESS: {
-      return false;
+      return true;
     }
     case SEARCH_FAILURE: {
-      return false;
+      return true;
     }
     case SEARCH_SUCCESS: {
-      return true;
+      return false;
     }
     default:
       return state;
