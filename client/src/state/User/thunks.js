@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authHeader, userId } from "../../helpers/authHeader";
+import { authHeader, userId, getError } from "../../helpers/authHeader";
 
 import {
   loginInProgress,
@@ -94,7 +94,7 @@ export const updateAvatarRequest = (file) => async (dispatch, getState) => {
     dispatch(updateAvatarSuccess());
     dispatch(updateUser(updatedUser));
   } catch (err) {
-    dispatch(updateAvatarFailure());
+    dispatch(updateAvatarFailure(getError(err)));
     console.log(err);
   }
 };

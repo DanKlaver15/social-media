@@ -68,6 +68,7 @@ export const updateAvatarSuccess = () => ({
 });
 
 export const UPDATE_AVATAR_FAILURE = "UPDATE_AVATAR_FAILURE";
-export const updateAvatarFailure = () => ({
+export const updateAvatarFailure = (error) => ({
   type: UPDATE_AVATAR_FAILURE,
+  payload: { error },
 });

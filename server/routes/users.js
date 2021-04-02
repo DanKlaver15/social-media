@@ -25,10 +25,7 @@ router.get("/avatar/:filename", (req, res) => {
 
 router
   .route("/:id/avatar")
-  .post(
-    [auth, avatar.upload.single("avatar"), avatar.handleAvatar()],
-    userController.addAvatar
-  )
+  .post([auth, avatar.upload, avatar.handleAvatar()], userController.addAvatar)
   .delete(auth, userController.removeAvatar);
 
 module.exports = router;

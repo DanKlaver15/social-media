@@ -7,8 +7,15 @@ import {
   updateUserRequest,
 } from "../../state/User/thunks";
 import Avatar from "../Avatar";
+import Error from "../Error";
 
-const SettingsForm = ({ user, updateUser, updateAvatar, removeAvatar }) => {
+const SettingsForm = ({
+  user,
+  updateUser,
+  updateAvatar,
+  removeAvatar,
+  avatarError,
+}) => {
   const [username, setUsername] = useState(user.username);
   const [bio, setBio] = useState(user.bio);
   const [darkMode, setMode] = useState(user.darkMode);
@@ -96,7 +103,7 @@ const SettingsForm = ({ user, updateUser, updateAvatar, removeAvatar }) => {
               >
                 Avatar
               </label>
-              <div className="mt-1 flex items-center">
+              <div className="my-1 flex items-center">
                 <Avatar source={user.avatar} size={12} />
                 <FileUpload
                   onFileSelect={(file) => {
@@ -114,6 +121,9 @@ const SettingsForm = ({ user, updateUser, updateAvatar, removeAvatar }) => {
                   </button>
                 )}
               </div>
+              {avatarError && avatarError.error && (
+                <Error message={avatarError.message} />
+              )}
             </div>
             <div className="sm:col-span-4">
               <div className="flex items-center justify-between">
@@ -238,6 +248,7 @@ const SettingsForm = ({ user, updateUser, updateAvatar, removeAvatar }) => {
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  avatarError: state.error.updateAvatar,
 });
 
 const mapDispatchToProps = (dispatch) => ({
