@@ -23,10 +23,12 @@ router.get("/avatar/:filename", (req, res) => {
   return res.sendFile(avatar.filepath(req.params.filename));
 });
 
-router.post(
-  "/:id/avatar",
-  [auth, avatar.upload.single("avatar"), avatar.handleAvatar()],
-  userController.avatar
-);
+router
+  .route("/:id/avatar")
+  .post(
+    [auth, avatar.upload.single("avatar"), avatar.handleAvatar()],
+    userController.addAvatar
+  )
+  .delete(auth, userController.removeAvatar);
 
 module.exports = router;

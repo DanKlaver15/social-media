@@ -3,11 +3,12 @@ import { connect } from "react-redux";
 import FileUpload from "./components/FileUpload";
 import {
   updateAvatarRequest,
+  removeAvatarRequest,
   updateUserRequest,
 } from "../../state/User/thunks";
 import Avatar from "../Avatar";
 
-const SettingsForm = ({ user, updateUser, updateAvatar }) => {
+const SettingsForm = ({ user, updateUser, updateAvatar, removeAvatar }) => {
   const [selectedFile, setSelectedfile] = useState(null);
   const [username, setUsername] = useState(user.username);
   const [bio, setBio] = useState(user.bio);
@@ -100,10 +101,20 @@ const SettingsForm = ({ user, updateUser, updateAvatar }) => {
                 <Avatar source={user.avatar} size={12} />
                 <FileUpload
                   onFileSelect={(file) => {
-                    updateAvatar(user._id, file);
+                    updateAvatar(file);
                     setSelectedfile(file);
                   }}
                 />
+                {user.avatar && (
+                  <button
+                    onClick={() => {
+                      removeAvatar();
+                    }}
+                    className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Remove
+                  </button>
+                )}
               </div>
             </div>
             <div className="sm:col-span-4">
@@ -233,7 +244,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   updateUser: (user) => dispatch(updateUserRequest(user)),
-  updateAvatar: (userId, file) => dispatch(updateAvatarRequest(userId, file)),
+  updateAvatar: (file) => dispatch(updateAvatarRequest(file)),
+  removeAvatar: () => dispatch(removeAvatarRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsForm);
