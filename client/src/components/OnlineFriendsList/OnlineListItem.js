@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Avatar from "../Avatar";
 
 const OnlineListItem = ({ friend }) => {
   const [menu, setMenu] = useState(false);
@@ -19,11 +20,7 @@ const OnlineListItem = ({ friend }) => {
           ></div>
           <div className="flex-1 flex items-center min-w-0 relative">
             <span className="flex-shrink-0 inline-block relative">
-              <img
-                className="h-10 w-10 rounded-full"
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=sZQjNUjFo7&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt=""
-              />
+              <Avatar size={10} source={friend.avatar} />
               <span
                 className={`${onlineIndicator} absolute top-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white`}
                 aria-hidden="true"
