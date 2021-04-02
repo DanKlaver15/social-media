@@ -42,7 +42,7 @@ const people = async (req, res) => {
     }, []);
 
     const resultsWithFriendStatus = results.map((result) => {
-      if (result.friends.includes(user._id)) {
+      if (result.friends.includes(`${user._id}`)) {
         result.friends = "yes";
       } else if (requestIds.includes(`${result._id}`)) {
         result.friends = "pending";
