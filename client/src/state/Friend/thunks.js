@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { authHeader, userId } from "../../helpers/authHeader";
+
 import {
   friendsInProgress,
   friendsInFailure,
@@ -7,16 +9,13 @@ import {
   updateFriends,
 } from "./actions";
 
-export const getFriendsRequest = (userId, token) => async (
-  dispatch,
-  getState
-) => {
+export const getFriendsRequest = () => async (dispatch, getState) => {
   dispatch(friendsInProgress());
 
   try {
     const response = await axios.get(
-      `http://localhost:5000/api/users/${userId}/friends`,
-      { headers: { "x-auth-token": token } }
+      `http://localhost:5000/api/users/${userId()}/friends`,
+      { headers: authHeader() }
     );
 
     const friends = await response.data;
