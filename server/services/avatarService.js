@@ -8,7 +8,23 @@ const fsunlink = util.promisify(fs.unlink);
 
 class AvatarService {
   constructor() {
-    this.directory = path.join(__dirname, "../data/avatars");
+    this.createDirectory();
+    const directory = path.join(__dirname, "../data/avatars");
+
+    this.directory = directory;
+  }
+
+  async createDirectory() {
+    const dataDirectory = path.join(__dirname, "../data");
+    if (!fs.existsSync(dataDirectory)) {
+      await fs.mkdirSync(dataDirectory);
+    }
+
+    const avatarsDirectory = path.join(dataDirectory, "/avatars");
+
+    if (!fs.existsSync(avatarsDirectory)) {
+      await fs.mkdirSync(avatarsDirectory);
+    }
   }
 
   async store(buffer) {
@@ -33,6 +49,9 @@ class AvatarService {
   }
 
   filepath(filename) {
+    if (!fs.existsSync(this.directory)) {
+      this.createDirectory();
+    }
     return path.resolve(`${this.directory}/${filename}`);
   }
 }
