@@ -14,8 +14,6 @@ import {
   updateAvatarSuccess,
 } from "./actions";
 
-import { getFriendsRequest } from "../Friend/thunks";
-
 export const loginRequest = (user) => async (dispatch, getState) => {
   dispatch(loginInProgress());
 
@@ -28,7 +26,6 @@ export const loginRequest = (user) => async (dispatch, getState) => {
     const data = await response.data;
 
     dispatch(removeLoginError());
-    dispatch(getFriendsRequest(data.user._id, data.token));
     dispatch(loginSuccess());
     dispatch(updateUser(data.user));
     saveUser({ _id: data.user._id, token: data.token });
