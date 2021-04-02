@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import AddPostForm from "../forms/AddPostForm";
 import Avatar from "../Avatar";
-import { getFeedRequest } from "../../state/Post/thunks";
+import { getFeedRequest } from "../../state/Feed/thunks";
 import Feed from "../Feed";
 
-const Home = ({ user, getFeed, feed }) => {
+const Home = ({ user, getFeed }) => {
   useEffect(() => {
     if (user._id) {
       getFeed(user._id);
@@ -93,11 +93,10 @@ const Home = ({ user, getFeed, feed }) => {
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  feed: state.feed,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getFeed: (userId) => dispatch(getFeedRequest(userId)),
+  getFeed: () => dispatch(getFeedRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

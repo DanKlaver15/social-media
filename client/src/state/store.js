@@ -8,7 +8,8 @@ import {
 } from "./User/reducers";
 import { friendsLoading, friends } from "./Friend/reducers";
 import { searching, searchResults } from "./Search/reducers";
-import { isPosting, feed } from "./Post/reducers";
+import { isPosting } from "./Post/reducers";
+import { feed } from "./Feed/reducers";
 import {
   sendingFriendRequest,
   loadingFriendRequests,
