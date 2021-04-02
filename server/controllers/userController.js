@@ -95,7 +95,6 @@ const avatar = async (req, res, next) => {
 
     if (req.file && req.file.storedFilename) {
       if (user.avatar) {
-        console.log(user.avatar);
         try {
           await avatars.delete(user.avatar);
         } catch (err) {

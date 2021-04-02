@@ -5,6 +5,7 @@ import SettingsForm from "./components/forms/SettingsForm";
 import { Switch, Route } from "react-router-dom";
 import Home from "./components/pages/Home";
 import SearchResults from "./components/SearchResults";
+import FriendRequests from "./components/FriendRequests";
 
 const AuthenticatedApp = React.lazy(() =>
   import("./components/AuthenticatedApp")
@@ -31,6 +32,7 @@ function App({ isLoggedIn, authorize }) {
             <Route path="/" exact component={Home} />
             <Route path="/settings" component={SettingsForm} />
             <Route path="/search" component={SearchResults} />
+            <Route path="/requests" component={FriendRequests} />
           </Switch>
         </AuthenticatedApp>
       ) : (
