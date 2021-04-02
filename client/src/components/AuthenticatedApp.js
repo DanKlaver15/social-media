@@ -89,9 +89,13 @@ const AuthenticatedApp = ({ logout, children }) => {
           <AppSearch />
           <div className="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
             <nav aria-label="Global" className="flex space-x-10">
-              <button className="text-sm font-medium text-gray-900">
+              <Link
+                className="text-sm font-medium text-gray-900"
+                role="menuitem"
+                to="/settings"
+              >
                 Settings
-              </button>
+              </Link>
             </nav>
             <div className="flex items-center space-x-8">
               <span className="inline-flex">
