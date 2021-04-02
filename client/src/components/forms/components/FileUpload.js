@@ -1,19 +1,19 @@
 import React, { useRef } from "react";
 
-// BUG: Can't open the same file twice after clearing.
-
 const FileUpload = ({ onFileSelect }) => {
   const fileInput = useRef(null);
 
   const handleFileInput = (e) => {
     if (e.target.files[0]) {
       onFileSelect(e.target.files[0]);
+      e.target.form.reset();
     }
   };
   return (
     <>
       <button
         onClick={(e) => {
+          onFileSelect("");
           fileInput.current.click();
         }}
         type="button"

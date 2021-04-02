@@ -9,7 +9,6 @@ import {
 import Avatar from "../Avatar";
 
 const SettingsForm = ({ user, updateUser, updateAvatar, removeAvatar }) => {
-  const [selectedFile, setSelectedfile] = useState(null);
   const [username, setUsername] = useState(user.username);
   const [bio, setBio] = useState(user.bio);
   const [darkMode, setMode] = useState(user.darkMode);
@@ -102,7 +101,6 @@ const SettingsForm = ({ user, updateUser, updateAvatar, removeAvatar }) => {
                 <FileUpload
                   onFileSelect={(file) => {
                     updateAvatar(file);
-                    setSelectedfile(file);
                   }}
                 />
                 {user.avatar && (
