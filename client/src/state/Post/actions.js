@@ -4,7 +4,7 @@ export const postInProgress = () => ({
 });
 
 export const POST_FAILURE = "POST_FAILURE";
-export const postFailure = (error = "Error") => ({
+export const postFailure = (error) => ({
   type: POST_FAILURE,
   payload: { error },
 });
@@ -30,10 +30,4 @@ export const UPDATE_POST = "UPDATE_POST";
 export const updatePost = (post) => ({
   type: UPDATE_POST,
   payload: { post },
-});
-
-export const UPDATE_FEED = "UPDATE_FEED";
-export const updateFeed = (feed) => ({
-  type: UPDATE_FEED,
-  payload: { feed },
 });

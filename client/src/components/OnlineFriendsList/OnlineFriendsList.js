@@ -33,7 +33,6 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
       );
     }
     if (filteredFriends.length > 0) {
-      console.log("filtered friends", filteredFriends);
       return filteredFriends.map((friend) => {
         return showList(friend);
       });

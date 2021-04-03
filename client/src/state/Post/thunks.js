@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authHeader } from "../../helpers/authHeader";
+import { authHeader, getError } from "../../helpers/authHeader";
 
 import {
   addPost,
@@ -8,7 +8,6 @@ import {
   postInProgress,
   postFailure,
   postSuccess,
-  updateFeed,
 } from "./actions";
 
 export const addPostRequest = (post) => async (dispatch, getState) => {
@@ -27,11 +26,8 @@ export const addPostRequest = (post) => async (dispatch, getState) => {
     dispatch(addPost(data));
   } catch (err) {
     console.log(err);
-    if (err.response) {
-      dispatch(postFailure(err.response.data.message));
-    } else {
-      dispatch(postFailure("An unknown error has occured"));
-    }
+
+    dispatch(postFailure(getError(err)));
   }
 };
 
@@ -66,26 +62,6 @@ export const removePostRequest = (postId) => async (dispatch, getState) => {
     const post = await response.data;
 
     dispatch(removePost(post._id));
-  } catch (err) {
-    console.log(err);
-    if (err.response) {
-      dispatch(postFailure(err.response.data.message));
-    } else {
-      dispatch(postFailure("An unknown error has occured"));
-    }
-  }
-};
-
-export const getFeedRequest = (userId) => async (dispatch, getState) => {
-  try {
-    const response = await axios.get(
-      `http://localhost:5000/api/posts/${userId}/feed`,
-      { headers: authHeader() }
-    );
-
-    const feed = await response.data;
-
-    dispatch(updateFeed(feed));
   } catch (err) {
     console.log(err);
     if (err.response) {
