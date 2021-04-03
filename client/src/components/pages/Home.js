@@ -14,7 +14,7 @@ const Home = ({ user, getFeed }) => {
   return (
     <>
       <div className="-m-8 mb-4">
-        <div className="h-32 w-full lg:h-48 bg-indigo-500">
+        <div className="h-32 w-full lg:h-48 bg-indigo-500 dark:bg-indigo-900">
           {/* 
           TODO: Add bacground image
           <img
@@ -30,14 +30,14 @@ const Home = ({ user, getFeed }) => {
             </div>
             <div className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
               <div className="sm:hidden md:block mt-6 min-w-0 flex-1">
-                <h1 className="text-2xl font-bold text-gray-900 truncate">
+                <h1 className="text-2xl font-bold text-gray-900 truncate dark:text-gray-400">
                   {`${user.firstName} ${user.lastName}`}
                 </h1>
               </div>
               <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                 <button
                   type="button"
-                  className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                  className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:bg-gray-600 dark:text-gray-400 dark:border-transparent"
                 >
                   <svg
                     className="-ml-1 mr-2 h-5 w-5 text-gray-400"
@@ -53,7 +53,7 @@ const Home = ({ user, getFeed }) => {
                 </button>
                 <button
                   type="button"
-                  className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                  className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:bg-gray-600 dark:text-gray-400 dark:border-transparent"
                 >
                   <svg
                     className="-ml-1 mr-2 h-5 w-5 text-gray-400"

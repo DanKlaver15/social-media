@@ -6,7 +6,7 @@ const SearchResults = ({ results }) => {
   return results && results.length > 0 ? (
     <PeopleList people={results} />
   ) : (
-    <div>No results found.</div>
+    <div className="dark:text-gray-400">No results found.</div>
   );
 };
 

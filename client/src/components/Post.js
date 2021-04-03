@@ -7,16 +7,16 @@ const Post = ({ post }) => {
     <li>
       <div className="relative pb-8">
         <span
-          className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
+          className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200 dark:bg-gray-600"
           aria-hidden="true"
         ></span>
         <div className="relative flex items-start space-x-3">
           <div className="relative">
             <Avatar size={10} source={post.avatar} />
 
-            <span className="absolute -bottom-0.5 -right-1 bg-white rounded-tl px-0.5 py-px">
+            <span className="absolute -bottom-0.5 -right-1 bg-white rounded-tl px-0.5 py-px dark:bg-transparent">
               <svg
-                className="h-5 w-5 text-gray-400"
+                className="h-5 w-5 text-gray-400 dark:text-gray-500"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -44,7 +44,7 @@ const Post = ({ post }) => {
                 {post.date.split("T")[0]}
               </p>
             </div>
-            <div className="mt-2 text-sm text-gray-700">
+            <div className="mt-2 text-sm text-gray-700 dark:text-gray-400">
               <p>{post.content}</p>
             </div>
           </div>
