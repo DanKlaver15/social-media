@@ -13,6 +13,31 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
     }
   }, [getFriends, user]);
 
+  let allListFormat = "";
+  let onlineListFormat = "";
+  let offlineListFormat = "";
+  if (listType === "all") {
+    allListFormat =
+      "focus:border-transaprent border-indigo-500 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400";
+  } else {
+    allListFormat =
+      "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300  dark:text-gray-400 dark:hover:text-gray-300";
+  }
+  if (listType === "online") {
+    onlineListFormat =
+      "focus:border-transaprent border-indigo-500 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400";
+  } else {
+    onlineListFormat =
+      "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300";
+  }
+  if (listType === "offline") {
+    offlineListFormat =
+      "focus:border-transaprent border-indigo-500 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400";
+  } else {
+    offlineListFormat =
+      "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 w dark:text-gray-400 dark:hover:text-gray-300";
+  }
+
   const showList = (friend) => {
     if (listType === "all") {
       return <OnlineListItem key={friend._id} friend={friend} />;
@@ -37,7 +62,11 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
         return showList(friend);
       });
     } else if ((filteredFriends.length === 0) & (query.length > 0)) {
-      return <div className="flex justify-center p-6">No Friends Found</div>;
+      return (
+        <div className="flex justify-center p-6 dark:text-gray-400">
+          No Friends Found
+        </div>
+      );
     } else {
       return friends.map((friend) => {
         return showList(friend);
@@ -101,25 +130,25 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
               </div>
             </div>
           </div>
-          <div className="border-b border-gray-300">
+          <div className="border-b border-gray-300 dark:border-gray-500">
             <div className="px-6">
               <nav className="-mb-px flex space-x-6">
                 <button
-                  className={`border-indigo-500 text-indigo-600 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm dark:text-gray-400`}
+                  className={`${allListFormat} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm`}
                   onClick={() => setListType("all")}
                 >
                   All
                 </button>
 
                 <button
-                  className={`border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm dark:text-gray-400`}
+                  className={`${onlineListFormat} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm`}
                   onClick={() => setListType("online")}
                 >
                   Online
                 </button>
 
                 <button
-                  className={`border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm dark:text-gray-400`}
+                  className={`${offlineListFormat} hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm`}
                   onClick={() => setListType("offline")}
                 >
                   Offline
