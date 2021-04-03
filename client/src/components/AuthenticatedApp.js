@@ -289,7 +289,7 @@ const AuthenticatedApp = ({ logout, children, user }) => {
       <div className="min-h-0 flex-1 flex overflow-hidden">
         <nav
           aria-label="Sidebar"
-          className="hidden md:block md:flex-shrink-0 md:bg-gray-800 md:overflow-y-auto"
+          className="hidden md:block md:flex-shrink-0 md:bg-gray-800 md:overflow-y-auto dark:bg-gray-900"
         >
           <div className="relative w-20 flex flex-col p-3 space-y-3">
             <Link
@@ -397,7 +397,7 @@ const AuthenticatedApp = ({ logout, children, user }) => {
           </div>
         </nav>
 
-        <main className="min-w-0 flex-1 border-t border-gray-200 lg:flex">
+        <main className="min-w-0 flex-1 border-t border-gray-200 lg:flex dark:bg-gray-800">
           <section
             aria-labelledby="primary-heading"
             className="min-w-0 flex-1 h-full flex flex-col overflow-hidden lg:order-last p-8 overflow-scroll"
