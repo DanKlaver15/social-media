@@ -4,11 +4,22 @@ import OnlineFriendsList from "./OnlineFriendsList/OnlineFriendsList";
 import AppSearch from "./AppSearch";
 import { Link } from "react-router-dom";
 import { UserAdd } from "./Icons/icons";
+import { connect } from "react-redux";
 
-const AuthenticatedApp = ({ logout, children }) => {
+const AuthenticatedApp = ({ logout, children, user }) => {
+  const darkOrLight = () => {
+    if (user.darkMode === true) {
+      return "dark";
+    } else {
+      return "";
+    }
+  };
+
   return (
-    <div className="h-screen overflow-hidden bg-gray-100 flex flex-col">
-      <header className="flex-shrink-0 relative h-16 bg-white flex items-center">
+    <div
+      className={`${darkOrLight()} h-screen overflow-hidden bg-gray-100 flex flex-col`}
+    >
+      <header className="flex-shrink-0 relative h-16 bg-white flex items-center dark:bg-gray-800">
         <div className="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
           <Link
             to="/"
@@ -408,4 +419,8 @@ const AuthenticatedApp = ({ logout, children }) => {
   );
 };
 
-export default AuthenticatedApp;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(AuthenticatedApp);
