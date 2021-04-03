@@ -38,6 +38,76 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
       "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 w dark:text-gray-400 dark:hover:text-gray-300";
   }
 
+  const alpha = Array.from(Array(26)).map((e, i) => i + 65);
+  const alphabet = alpha.map((x) => String.fromCharCode(x));
+
+  const letterDivider = (letter, listArray) => {
+    let alphaAll = [];
+    let alphaOnline = [];
+    let alphaOffline = [];
+
+    if (listType === "all") {
+      alphaAll = listArray.filter(
+        (friend) => friend.lastName.toUpperCase().charAt(0) === letter
+      );
+    }
+
+    if (listType === "online") {
+      alphaOnline = listArray.filter(
+        (friend) =>
+          (friend.lastName.toUpperCase().charAt(0) === letter) &
+          (friend.online === true)
+      );
+    }
+
+    if (listType === "offline") {
+      alphaOffline = listArray.filter(
+        (friend) =>
+          (friend.lastName.toUpperCase().charAt(0) === letter) &
+          (friend.online === false)
+      );
+    }
+
+    let emptyAll = alphaAll.length === 0;
+    let emptyOnline = alphaOnline.length === 0;
+    let emptyOffline = alphaOffline.length === 0;
+
+    if ((listType === "all") & !emptyAll) {
+      return (
+        <div>
+          <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500 dark:bg-gray-600 dark:border-gray-400 dark:text-gray-400">
+            <h3>{letter}</h3>
+          </div>
+          {alphaAll.map((friend) => {
+            return showList(friend);
+          })}
+        </div>
+      );
+    } else if ((listType === "online") & !emptyOnline) {
+      return (
+        <div>
+          <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500 dark:bg-gray-600 dark:border-gray-400 dark:text-gray-400">
+            <h3>{letter}</h3>
+          </div>
+          {alphaOnline.map((friend) => {
+            return showList(friend);
+          })}
+        </div>
+      );
+    } else if ((listType === "offline") & !emptyOffline) {
+      return (
+        <div>
+          <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500 dark:bg-gray-600 dark:border-gray-400 dark:text-gray-400">
+            <h3>{letter}</h3>
+          </div>
+          {alphaOffline.map((friend) => {
+            return showList(friend);
+          })}
+        </div>
+      );
+    }
+  };
+
   const showList = (friend) => {
     if (listType === "all") {
       return <OnlineListItem key={friend._id} friend={friend} />;
@@ -48,6 +118,18 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
     }
   };
 
+  function sortList(a, b) {
+    var nameA = a.lastName.toUpperCase(); // ignore upper and lowercase
+    var nameB = b.lastName.toUpperCase(); // ignore upper and lowercase
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  }
+
   const searchFriends = (friends) => {
     let filteredFriends = [];
     if (query.trim().length > 0) {
@@ -57,9 +139,11 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
           friend.lastName.toLowerCase().includes(query.toLowerCase())
       );
     }
+    friends.sort(sortList);
+    filteredFriends.sort(sortList);
     if (filteredFriends.length > 0) {
-      return filteredFriends.map((friend) => {
-        return showList(friend);
+      return alphabet.map((letter) => {
+        return letterDivider(letter, filteredFriends);
       });
     } else if ((filteredFriends.length === 0) & (query.length > 0)) {
       return (
@@ -68,8 +152,8 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
         </div>
       );
     } else {
-      return friends.map((friend) => {
-        return showList(friend);
+      return alphabet.map((letter) => {
+        return letterDivider(letter, friends);
       });
     }
   };
@@ -79,7 +163,7 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
   ) : (
     <div className="absolute inset-y-0 right-0 pl-10 max-w-md flex sm:pl-16">
       <div className="w-screen max-w-md">
-        <div className="h-full flex flex-col bg-white shadow-xl overflow-y-scroll dark:bg-gray-800">
+        <div className="h-full w-max flex right-0 flex-col bg-white shadow-xl overflow-y-scroll dark:bg-gray-800">
           <div className="pl-6 pt-3 pb-3">
             <div className="flex items-start justify-between">
               <h2
