@@ -2,14 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
 
-const Post = ({ post }) => {
+const Post = ({ post, index, length }) => {
   return (
     <li>
       <div className="relative pb-8">
-        <span
-          className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200 dark:bg-gray-600"
-          aria-hidden="true"
-        ></span>
+        {index < length - 1 ? (
+          <span
+            className="absolute top-12 left-5 -ml-px h-6 w-0.5 bg-gray-200 dark:bg-gray-600"
+            aria-hidden="true"
+          ></span>
+        ) : (
+          <></>
+        )}
         <div className="relative flex items-start space-x-3">
           <div className="relative">
             <Avatar size={10} source={post.avatar} />

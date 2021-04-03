@@ -4,7 +4,10 @@ import Post from "./Post";
 import Error from "../components/Error";
 
 const Feed = ({ feed, error }) => {
-  const posts = () => feed.map((post) => <Post key={post._id} post={post} />);
+  const posts = () =>
+    feed.map((post, i) => (
+      <Post key={post._id} post={post} index={i} length={feed.length} />
+    ));
 
   return !error || !error.error ? (
     <div className="my-4 flow-root">
