@@ -39,12 +39,12 @@ const SettingsForm = ({
           email,
         });
       }}
-      className="space-y-8 divide-y divide-gray-200"
+      className="space-y-8 divide-y divide-gray-200 dark:divide-gray-600 dark:bg-gray-800"
     >
-      <div className="space-y-8 divide-y divide-gray-200">
+      <div className="space-y-8 divide-y divide-gray-200 dark:divide-gray-600">
         <div>
           <div>
-            <h3 className="text-lg leading-6 font-medium text-gray-900">
+            <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-400">
               Profile
             </h3>
             <p className="mt-1 text-sm text-gray-500">
@@ -57,7 +57,7 @@ const SettingsForm = ({
             <div className="sm:col-span-4">
               <label
                 htmlFor="username"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-400"
               >
                 Username
               </label>
@@ -69,7 +69,7 @@ const SettingsForm = ({
                   name="username"
                   id="username"
                   autoComplete="username"
-                  className="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-none rounded-md sm:text-sm border-gray-300"
+                  className="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-none rounded-md sm:text-sm border-gray-300 dark:bg-gray-500 dark:text-gray-300"
                 />
               </div>
             </div>
@@ -77,7 +77,7 @@ const SettingsForm = ({
             <div className="sm:col-span-6">
               <label
                 htmlFor="about"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-400"
               >
                 About
               </label>
@@ -88,7 +88,7 @@ const SettingsForm = ({
                   id="about"
                   name="about"
                   rows="3"
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-500 dark:text-gray-300"
                 ></textarea>
               </div>
               <p className="mt-2 text-sm text-gray-500">
@@ -99,7 +99,7 @@ const SettingsForm = ({
             <div className="sm:col-span-6">
               <label
                 htmlFor="photo"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-400"
               >
                 Avatar
               </label>
@@ -115,7 +115,7 @@ const SettingsForm = ({
                     onClick={() => {
                       removeAvatar();
                     }}
-                    className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-500 dark:text-gray-300"
                   >
                     Remove
                   </button>
@@ -131,12 +131,12 @@ const SettingsForm = ({
                   className="flex-grow flex flex-col"
                   id="availability-label"
                 >
-                  <span className="text-sm font-medium text-gray-900">
+                  <span className="text-sm font-medium text-gray-900 dark:text-gray-400">
                     Dark Mode
                   </span>
                   <span className="text-sm text-gray-500">
-                    Nulla amet tempus sit accumsan. Aliquet turpis sed sit
-                    lacinia.
+                    Turn dark mode on or off to change the appearance of the
+                    app.
                   </span>
                 </span>
 
@@ -161,7 +161,7 @@ const SettingsForm = ({
 
         <div className="pt-8">
           <div>
-            <h3 className="text-lg leading-6 font-medium text-gray-900">
+            <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-400">
               Personal Information
             </h3>
             <p className="mt-1 text-sm text-gray-500">
@@ -172,7 +172,7 @@ const SettingsForm = ({
             <div className="sm:col-span-3">
               <label
                 htmlFor="first_name"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-400"
               >
                 First name
               </label>
@@ -184,7 +184,7 @@ const SettingsForm = ({
                   name="first_name"
                   id="first_name"
                   autoComplete="given-name"
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-500 dark:text-gray-300"
                 />
               </div>
             </div>
@@ -192,7 +192,7 @@ const SettingsForm = ({
             <div className="sm:col-span-3">
               <label
                 htmlFor="last_name"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-400"
               >
                 Last name
               </label>
@@ -204,7 +204,7 @@ const SettingsForm = ({
                   name="last_name"
                   id="last_name"
                   autoComplete="family-name"
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-500 dark:text-gray-300"
                 />
               </div>
             </div>
@@ -212,7 +212,7 @@ const SettingsForm = ({
             <div className="sm:col-span-4">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-400"
               >
                 Email address
               </label>
@@ -224,7 +224,7 @@ const SettingsForm = ({
                   name="email"
                   type="email"
                   autoComplete="email"
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-500 dark:text-gray-300"
                 />
               </div>
             </div>

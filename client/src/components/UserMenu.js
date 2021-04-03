@@ -25,7 +25,7 @@ const UserMenu = ({ avatarSource, logout, userId }) => {
         <Avatar source={avatarSource} size={8} />
       </button>
       <div
-        className={`origin-top-right absolute z-30 right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${openClass}`}
+        className={`origin-top-right absolute z-30 right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none ${openClass}`}
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="menu-1"
@@ -33,7 +33,7 @@ const UserMenu = ({ avatarSource, logout, userId }) => {
         <div className="py-1" role="none">
           <Link
             to="/profile"
-            className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
+            className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600"
             role="menuitem"
           >
             Your Profile
@@ -44,7 +44,7 @@ const UserMenu = ({ avatarSource, logout, userId }) => {
               logout(userId);
               setUserMenu(false);
             }}
-            className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
+            className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600"
             role="menuitem"
           >
             Sign Out

@@ -15,7 +15,7 @@ const OnlineListItem = ({ friend }) => {
       <div className="group flex justify-between items-center">
         <button className="-m-1 p-1 block">
           <div
-            className="absolute inset-0 group-hover:bg-gray-50"
+            className="absolute inset-0 group-hover:bg-gray-50 dark:group-hover:bg-gray-600"
             aria-hidden="true"
           ></div>
           <div className="flex-1 flex items-center min-w-0 relative">
@@ -27,7 +27,7 @@ const OnlineListItem = ({ friend }) => {
               ></span>
             </span>
             <div className="ml-4 truncate">
-              <p className="text-sm font-medium text-gray-900 truncate text-left">
+              <p className="text-sm font-medium text-gray-900 truncate text-left dark:text-gray-400">
                 {friend.firstName + " "}
                 {friend.lastName}
               </p>
@@ -38,7 +38,7 @@ const OnlineListItem = ({ friend }) => {
         <div className="ml-2 relative inline-block text-left">
           <button
             type="button"
-            className="group relative w-8 h-8 bg-white rounded-full inline-flex items-center justify-center focus:outline-none"
+            className="group relative w-8 h-8 bg-white rounded-full inline-flex items-center justify-center focus:outline-none dark:bg-gray-600"
             id="options-menu-0"
             aria-expanded="false"
             aria-haspopup="true"
@@ -58,20 +58,20 @@ const OnlineListItem = ({ friend }) => {
             </span>
           </button>
           <div
-            className={`origin-top-right absolute z-10 top-0 right-9 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${openClass}`}
+            className={`origin-top-right absolute z-10 top-0 right-9 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${openClass} dark:bg-gray-700`}
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="options-menu-0"
           >
             <div className="py-1" role="none">
               <button
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600"
                 role="menuitem"
               >
                 View profile
               </button>
               <button
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600"
                 role="menuitem"
               >
                 Send message

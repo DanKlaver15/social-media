@@ -101,7 +101,7 @@ const AuthenticatedApp = ({ logout, children, user }) => {
           <div className="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
             <nav aria-label="Global" className="flex space-x-10">
               <Link
-                className="text-sm font-medium text-gray-900"
+                className="text-sm font-medium text-gray-900 hover:text-gray-500 dark:text-gray-400"
                 role="menuitem"
                 to="/settings"
               >
@@ -110,7 +110,7 @@ const AuthenticatedApp = ({ logout, children, user }) => {
             </nav>
             <div className="flex items-center space-x-8">
               <span className="inline-flex">
-                <button className="-mx-1 bg-white p-1 rounded-full text-gray-400 hover:text-gray-500">
+                <button className="-mx-1 bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 dark:bg-transparent">
                   <span className="sr-only">View notifications</span>
                   <svg
                     className="h-6 w-6"
@@ -273,7 +273,7 @@ const AuthenticatedApp = ({ logout, children, user }) => {
                 </button>
               </div>
               <div className="mt-3 max-w-8xl mx-auto px-2 space-y-1 sm:px-4">
-                <button className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-50">
+                <button className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-200">
                   Your Profile
                 </button>
 
