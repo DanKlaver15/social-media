@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { searchPeopleRequest } from "../state/Search/thunks";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const AppSearch = ({ searchPeople }) => {
   const [query, setQuery] = useState("");
+
+  const history = useHistory();
+
+  const handleEnter = (event) => {
+    if (event.which === 13) {
+      event.preventDefault();
+      searchPeople(query);
+      setQuery("");
+      history.push("/search");
+    }
+  };
+
   return (
     <div className="min-w-0 flex-1">
       <div className="max-w-2xl relative text-gray-400 focus-within:text-gray-500">
@@ -24,6 +36,7 @@ const AppSearch = ({ searchPeople }) => {
                   </svg>
                 </div>
                 <input
+                  onKeyDown={handleEnter}
                   onChange={(e) => setQuery(e.target.value)}
                   value={query}
                   type="text"
