@@ -57,6 +57,7 @@ const RegistrationForm = ({ register, registered }) => {
                         id="first_name"
                         autoComplete="given-name"
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md bg-gray-100 h-9"
+                        required
                       />
                     </div>
                   </div>
@@ -76,6 +77,7 @@ const RegistrationForm = ({ register, registered }) => {
                         id="last_name"
                         autoComplete="family-name"
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md bg-gray-100 h-9"
+                        required
                       />
                     </div>
                   </div>
