@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Navigation = () => {
+  const [activePage, setActivePage] = useState("login");
+  let loginFormat = "";
+  let registerFormat = "";
+
+  if (activePage === "login") {
+    loginFormat = "border-indigo-500 text-gray-900";
+  } else {
+    loginFormat =
+      "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700";
+  }
+  if (activePage === "register") {
+    registerFormat = "border-indigo-500 text-gray-900";
+  } else {
+    registerFormat =
+      "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700";
+  }
+
   return (
     <nav className="bg-white shadow">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
@@ -13,13 +30,15 @@ const Navigation = () => {
             {/* <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" --> */}
             <Link
               to="/"
-              className="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              className={`${loginFormat} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+              onClick={() => setActivePage("login")}
             >
               Login
             </Link>
             <Link
               to="/register"
-              className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              className={`${registerFormat} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+              onClick={() => setActivePage("register")}
             >
               Register
             </Link>
