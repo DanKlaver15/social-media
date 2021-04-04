@@ -2,16 +2,22 @@ const Post = require("../models/post");
 const query = require("../utils/query");
 const crudController = require("../utils/crud");
 
-const getFeed = async (req, res) => {
+const createOne = async (req, res) => {
   try {
-    const feed = await Post.find({ userId: req.params.id }).sort({ date: -1 });
+    const post = await Post.create({ ...req.body });
 
-    if (!feed) return res.status(401).send({ message: "Feed unavailable" });
+    if (!post) return res.status(401).send({ error: "Failed to create post." });
 
-    return res.status(201).send(feed);
+    const updatedPost = await Post.findById(post._id)
+      .populate("userId")
+      .lean()
+      .exec();
+
+    return res.status(201).send(updatedPost);
   } catch (err) {
-    return res.status(500).send({ message: err });
+    console.log(err);
+    return res.status(500).send({ error: `${err}` });
   }
 };
 
-module.exports = { ...crudController(Post), getFeed };
+module.exports = { ...crudController(Post), createOne };
