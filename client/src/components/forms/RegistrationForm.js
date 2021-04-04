@@ -40,7 +40,7 @@ const RegistrationForm = ({ register, registered }) => {
               className="space-y-8 divide-y"
             >
               <div className="space-y-8">
-                <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 h-16">
                   <div className="sm:col-span-3">
                     <label
                       htmlFor="first_name"
@@ -56,7 +56,7 @@ const RegistrationForm = ({ register, registered }) => {
                         name="first_name"
                         id="first_name"
                         autoComplete="given-name"
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md bg-gray-100 h-9"
                       />
                     </div>
                   </div>
@@ -75,7 +75,7 @@ const RegistrationForm = ({ register, registered }) => {
                         name="last_name"
                         id="last_name"
                         autoComplete="family-name"
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md bg-gray-100 h-9"
                       />
                     </div>
                   </div>
@@ -95,7 +95,7 @@ const RegistrationForm = ({ register, registered }) => {
                       type="email"
                       autoComplete="email"
                       required
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-100"
                       value={email}
                     />
                   </div>
@@ -115,7 +115,7 @@ const RegistrationForm = ({ register, registered }) => {
                       type="password"
                       autoComplete="current-password"
                       required
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-100"
                       value={password}
                     />
                   </div>
