@@ -27,7 +27,7 @@ function App({ isLoggedIn, authorize }) {
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
       {isLoggedIn ? (
-        <AuthenticatedApp>
+        <AuthenticatedApp user={user}>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/settings" component={SettingsForm} />
