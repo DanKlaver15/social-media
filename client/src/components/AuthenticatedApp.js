@@ -294,7 +294,7 @@ const AuthenticatedApp = ({ logout, children, user }) => {
           <div className="relative w-20 flex flex-col p-3 space-y-3">
             <Link
               to="/requests"
-              className="bg-gray-900 text-white flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg"
+              className="bg-gray-900 text-white flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg dark:text-gray-400"
             >
               <span className="sr-only">Friend Requests</span>
               <UserAdd size={6} />
@@ -408,7 +408,7 @@ const AuthenticatedApp = ({ logout, children, user }) => {
             {children}
           </section>
 
-          <aside className="hidden lg:block lg:flex-shrink-0 lg:order-last">
+          <aside className="hidden lg:block lg:flex-shrink-0 lg:order-last border-8 border-gray-900">
             <div className="h-full relative flex flex-col w-96 border-r border-gray-200 bg-gray-100">
               <OnlineFriendsList />
             </div>
