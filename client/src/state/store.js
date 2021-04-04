@@ -43,5 +43,10 @@ const reducers = {
 
 const rootReducer = combineReducers(reducers);
 
+const composeEnhancers = composeWithDevTools({
+  trace: true,
+  traceLimit: 25,
+});
+
 export const configureStore = () =>
-  createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+  createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
