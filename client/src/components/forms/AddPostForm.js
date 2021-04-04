@@ -22,7 +22,7 @@ const AddPostForm = ({ userId, addPost }) => {
           id="comment"
           name="comment"
           rows="3"
-          className="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md dark:bg-gray-600 dark:text-gray-300 dark:placeholder-gray-300"
+          className="shadow-sm pl-2 pt-1 block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md dark:bg-gray-600 dark:text-gray-300 dark:placeholder-gray-400"
           placeholder="Add a post..."
         ></textarea>
       </div>
