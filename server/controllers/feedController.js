@@ -7,40 +7,14 @@ const getFeed = async (req, res) => {
   try {
     const feed = await Post.find({ userId: req.params.id })
       .sort({ date: -1 })
-      .lean();
+      .populate("userId")
+      .lean()
+      .exec();
 
     if (!feed)
       return res.status(401).send({ error: "Error: User feed not found" });
 
-    const userIds = feed.map((post) => post.userId);
-
-    const postUsers = await User.find({
-      _id: { $in: userIds },
-    })
-      .select({
-        username: 1,
-        email: 1,
-        firstName: 1,
-        lastName: 1,
-        avatar: 1,
-        online: 1,
-      })
-      .lean()
-      .exec();
-
-    const toReturn = feed.map((post) => {
-      const match = postUsers.find(
-        (user) => `${post.userId}` === `${user._id}`
-      );
-
-      if (match) {
-        return { ...post, ...match };
-      }
-
-      return post;
-    });
-
-    return res.status(201).send(toReturn);
+    return res.status(201).send(feed);
   } catch (err) {
     console.log(err);
     return res.status(500).send({ error: `${err}` });

@@ -16,7 +16,7 @@ const Post = ({ post, index, length }) => {
         )}
         <div className="relative flex items-start space-x-3">
           <div className="relative">
-            <Avatar size={10} source={post.avatar} />
+            <Avatar size={10} source={post.userId.avatar} />
 
             <span className="absolute -bottom-0.5 -right-1 bg-white rounded-tl px-0.5 py-px dark:bg-transparent">
               <svg
