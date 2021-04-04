@@ -53,15 +53,15 @@ const SettingsForm = ({
             </p>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <div className="sm:col-span-4">
+          <div className="mt-6 grid grid-cols-5 gap-y-6 gap-x-4 xs:grid-cols-6">
+            <div className="col-span-1 xs:col-span-4">
               <label
                 htmlFor="username"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-400"
               >
                 Username
               </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              <div className="mt-1 flex rounded-md shadow-sm h-8">
                 <input
                   onChange={(e) => setUsername(e.target.value)}
                   value={username}
@@ -69,7 +69,7 @@ const SettingsForm = ({
                   name="username"
                   id="username"
                   autoComplete="username"
-                  className="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-none rounded-md sm:text-sm border-gray-300 dark:bg-gray-500 dark:text-gray-300"
+                  className="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block min-w-0 rounded-none rounded-md sm:text-sm border-gray-300 dark:bg-gray-500 dark:text-gray-300 pl-1"
                 />
               </div>
             </div>
@@ -81,14 +81,14 @@ const SettingsForm = ({
               >
                 About
               </label>
-              <div className="mt-1">
+              <div className="mt-1 w-2/3 h-full">
                 <textarea
                   onChange={(e) => setBio(e.target.value)}
                   value={bio}
                   id="about"
                   name="about"
                   rows="3"
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-500 dark:text-gray-300"
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full h-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-500 dark:text-gray-300 pl-1"
                 ></textarea>
               </div>
               <p className="mt-2 text-sm text-gray-500">
@@ -96,7 +96,7 @@ const SettingsForm = ({
               </p>
             </div>
 
-            <div className="sm:col-span-6">
+            <div className="sm:col-span-6 mt-12">
               <label
                 htmlFor="photo"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-400"
@@ -125,36 +125,39 @@ const SettingsForm = ({
                 <Error message={avatarError.message} />
               )}
             </div>
-            <div className="sm:col-span-4">
-              <div className="flex items-center justify-between">
-                <span
-                  className="flex-grow flex flex-col"
-                  id="availability-label"
-                >
-                  <span className="text-sm font-medium text-gray-900 dark:text-gray-400">
-                    Dark Mode
-                  </span>
-                  <span className="text-sm text-gray-500">
-                    Turn dark mode on or off to change the appearance of the
-                    app.
-                  </span>
+          </div>
+        </div>
+        <div className="pt-8">
+          <div>
+            <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-400">
+              Appearance
+            </h3>
+          </div>
+          <div className="sm:col-span-4 mt-6">
+            <div className="flex items-center justify-between">
+              <span className="flex-grow flex flex-col" id="availability-label">
+                <span className="text-sm font-medium text-gray-900 dark:text-gray-400">
+                  Dark Mode
                 </span>
+                <span className="text-sm text-gray-500">
+                  Turn dark mode on or off to change the appearance of the app.
+                </span>
+              </span>
 
-                <button
-                  onClick={() => setMode(!darkMode)}
-                  type="button"
-                  className={`bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${toggleClass}`}
-                  aria-pressed="false"
-                  aria-labelledby="availability-label"
-                >
-                  <span className="sr-only">Use setting</span>
+              <button
+                onClick={() => setMode(!darkMode)}
+                type="button"
+                className={`bg-gray-300 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:border-gray-400 ${toggleClass}`}
+                aria-pressed="false"
+                aria-labelledby="availability-label"
+              >
+                <span className="sr-only">Use setting</span>
 
-                  <span
-                    aria-hidden="true"
-                    className={`translate-x-0 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 ${toggleButtonClass}`}
-                  ></span>
-                </button>
-              </div>
+                <span
+                  aria-hidden="true"
+                  className={`translate-x-0 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 ${toggleButtonClass}`}
+                ></span>
+              </button>
             </div>
           </div>
         </div>
@@ -168,15 +171,15 @@ const SettingsForm = ({
               Use a permanent address where you can receive mail.
             </p>
           </div>
-          <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <div className="sm:col-span-3">
+          <div className="mt-6 grid grid-cols-5 gap-y-6 gap-x-7 xs:grid-cols-6">
+            <div className="col-span-1 xs:col-span-2">
               <label
                 htmlFor="first_name"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-400"
               >
                 First name
               </label>
-              <div className="mt-1">
+              <div className="mt-1 flex h-8">
                 <input
                   onChange={(e) => setFirstName(e.target.value)}
                   value={firstName}
@@ -184,19 +187,19 @@ const SettingsForm = ({
                   name="first_name"
                   id="first_name"
                   autoComplete="given-name"
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-500 dark:text-gray-300"
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-500 dark:text-gray-300 pl-1"
                 />
               </div>
             </div>
 
-            <div className="sm:col-span-3">
+            <div className="col-span-1 h-full xs:col-span-2">
               <label
                 htmlFor="last_name"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-400"
               >
                 Last name
               </label>
-              <div className="mt-1">
+              <div className="mt-1 flex h-8">
                 <input
                   onChange={(e) => setLastName(e.target.value)}
                   value={lastName}
@@ -204,19 +207,19 @@ const SettingsForm = ({
                   name="last_name"
                   id="last_name"
                   autoComplete="family-name"
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-500 dark:text-gray-300"
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-500 dark:text-gray-300 pl-1"
                 />
               </div>
             </div>
 
-            <div className="sm:col-span-4">
+            <div className="col-span-2 h-full xs:col-span-2 row-start-2">
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-400"
               >
                 Email address
               </label>
-              <div className="mt-1">
+              <div className="mt-1 w-2/3 flex h-8">
                 <input
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
@@ -224,7 +227,7 @@ const SettingsForm = ({
                   name="email"
                   type="email"
                   autoComplete="email"
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-500 dark:text-gray-300"
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-500 dark:text-gray-300 pl-1"
                 />
               </div>
             </div>
