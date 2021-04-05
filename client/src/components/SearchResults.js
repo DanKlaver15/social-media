@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
+    zIndex: theme.zIndex.drawer + 600,
     color: "#fff",
   },
 }));
@@ -22,7 +22,7 @@ const SearchResults = ({ results, inProgress }) => {
   const classes = useStyles();
 
   return inProgress ? (
-    <Backdrop className={classes.root}>
+    <Backdrop open={true} className={classes.backdrop}>
       <CircularProgress color="white" />
     </Backdrop>
   ) : results && results.length > 0 ? (
@@ -34,7 +34,7 @@ const SearchResults = ({ results, inProgress }) => {
 
 const mapStateToProps = (state) => ({
   results: state.searchResults,
-  inProgress: state.searchInProgress,
+  inProgress: state.searching,
 });
 
 export default connect(mapStateToProps)(SearchResults);
