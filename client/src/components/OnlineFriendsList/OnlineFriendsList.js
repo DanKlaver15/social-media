@@ -74,7 +74,7 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
 
     if ((listType === "all") & !emptyAll) {
       return (
-        <div>
+        <div key={letter}>
           <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500 dark:bg-gray-600 dark:border-gray-400 dark:text-gray-400">
             <h3>{letter}</h3>
           </div>
@@ -85,7 +85,7 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
       );
     } else if ((listType === "online") & !emptyOnline) {
       return (
-        <div>
+        <div key={letter}>
           <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500 dark:bg-gray-600 dark:border-gray-400 dark:text-gray-400">
             <h3>{letter}</h3>
           </div>
@@ -96,7 +96,7 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
       );
     } else if ((listType === "offline") & !emptyOffline) {
       return (
-        <div>
+        <div key={letter}>
           <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500 dark:bg-gray-600 dark:border-gray-400 dark:text-gray-400">
             <h3>{letter}</h3>
           </div>
