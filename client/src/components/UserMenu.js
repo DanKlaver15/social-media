@@ -25,7 +25,7 @@ const UserMenu = ({ avatarSource, logout, userId }) => {
         <Avatar source={avatarSource} size={8} />
       </button>
       <div
-        className={`origin-top-right absolute z-30 right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none ${openClass}`}
+        className={`origin-top-right absolute z-30 right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none ${openClass}`}
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="menu-1"
