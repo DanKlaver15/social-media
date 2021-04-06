@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Avatar from "../Avatar";
 
 const OnlineListItem = ({ friend }) => {
@@ -64,18 +65,13 @@ const OnlineListItem = ({ friend }) => {
             aria-labelledby="options-menu-0"
           >
             <div className="py-1 w-full" role="none">
-              <button
+              <Link
+                to={`/person/${friend._id}`}
                 className="block px-4 py-2 w-full text-left text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600"
                 role="menuitem"
               >
                 View profile
-              </button>
-              <button
-                className="block px-4 py-2 w-full text-left text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600"
-                role="menuitem"
-              >
-                Send message
-              </button>
+              </Link>
             </div>
           </div>
         </div>
