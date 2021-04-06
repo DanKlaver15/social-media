@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
-const requestSchema = new mongoose.Schema({
+const friendSchema = new mongoose.Schema({
   senderId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
   receiverId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
   accepted: { type: Boolean, default: false },
   date: { type: Date, default: Date.now },
 });
 
-const Request = mongoose.model("FriendRequest", requestSchema);
+const Friend = mongoose.model("Friend", friendSchema);
 
-module.exports = Request;
+module.exports = Friend;
