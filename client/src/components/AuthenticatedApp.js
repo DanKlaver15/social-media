@@ -295,7 +295,10 @@ const AuthenticatedApp = ({ logout, children, user }) => {
               <UserAdd size={6} />
             </Link>
 
-            <button className="text-gray-400 hover:bg-gray-700 flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg">
+            <Link
+              to="/recipes"
+              className="text-gray-400 hover:bg-gray-700 flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg"
+            >
               <span className="sr-only">Archive</span>
               <svg
                 className="h-6 w-6"
@@ -312,7 +315,7 @@ const AuthenticatedApp = ({ logout, children, user }) => {
                   d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
                 />
               </svg>
-            </button>
+            </Link>
 
             <button className="text-gray-400 hover:bg-gray-700 flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg">
               <span className="sr-only">Customers</span>
