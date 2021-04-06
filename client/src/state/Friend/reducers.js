@@ -3,6 +3,7 @@ import {
   FRIENDS_IN_FAILURE,
   FRIENDS_IN_PROGRESS,
   FRIENDS_IN_SUCCESS,
+  ADD_FRIEND,
 } from "./actions";
 import { LOGOUT } from "../User/actions";
 
@@ -32,6 +33,10 @@ export const friends = (state = [], action) => {
       const { friends } = payload;
       return friends;
     }
+    case ADD_FRIEND: {
+      const { friend } = payload;
+      return [...state, friend];
+    }
     case LOGOUT: {
       return [];
     }
@@ -39,3 +44,10 @@ export const friends = (state = [], action) => {
       return state;
   }
 };
+
+const friendReducers = {
+  friends,
+  friendsLoading,
+};
+
+export default friendReducers;

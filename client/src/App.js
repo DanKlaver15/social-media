@@ -4,8 +4,9 @@ import { authorizeRequest, getFromLocalStorage } from "./state/User/thunks";
 import SettingsForm from "./components/forms/SettingsForm";
 import { Switch, Route } from "react-router-dom";
 import Home from "./components/pages/Home";
-import SearchResults from "./components/SearchResults";
-import FriendRequests from "./components/FriendRequests";
+import SearchResults from "./components/pages/SearchResults";
+import FriendRequests from "./components/pages/FriendRequests";
+import Recipes from "./components/pages/Recipes";
 
 const AuthenticatedApp = React.lazy(() =>
   import("./components/AuthenticatedApp")
@@ -33,6 +34,7 @@ function App({ isLoggedIn, authorize }) {
             <Route path="/settings" component={SettingsForm} />
             <Route path="/search" component={SearchResults} />
             <Route path="/requests" component={FriendRequests} />
+            <Route path="/recipes" component={Recipes} />
           </Switch>
         </AuthenticatedApp>
       ) : (

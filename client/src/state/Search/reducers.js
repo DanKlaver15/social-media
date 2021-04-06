@@ -44,3 +44,10 @@ export const searchResults = (state = [], action) => {
       return state;
   }
 };
+
+const searchReducers = {
+  searching,
+  searchResults,
+};
+
+export default searchReducers;

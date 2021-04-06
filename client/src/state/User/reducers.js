@@ -111,3 +111,13 @@ export const updateAvatar = (state = false, action) => {
       return state;
   }
 };
+
+const userReducers = {
+  loggedIn,
+  loginError,
+  user,
+  registered,
+  updateAvatar,
+};
+
+export default userReducers;

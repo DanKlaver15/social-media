@@ -55,7 +55,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getFeed: () => dispatch(getFeedRequest()),
+  getFeed: (userId) => dispatch(getFeedRequest(userId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

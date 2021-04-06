@@ -19,12 +19,18 @@ import {
   declineFriend,
 } from "./actions";
 
+import { addFriend } from "../Friend/actions";
+
 export const sendFriendRequest = (receiverId) => async (dispatch, getState) => {
   dispatch(sendFriendRequestInProgress());
 
   try {
     const response = await axios.post(
-      `http://localhost:5000/api/friendRequest/${userId()}/${receiverId}`,
+      `http://localhost:5000/api/friends`,
+      {
+        senderId: userId(),
+        receiverId: receiverId,
+      },
       { headers: authHeader() }
     );
 
@@ -45,7 +51,7 @@ export const getFriendRequests = () => async (dispatch, getState) => {
 
   try {
     const response = await axios.get(
-      `http://localhost:5000/api/friendRequest/${userId()}`,
+      `http://localhost:5000/api/users/${userId()}/friendRequests`,
       { headers: authHeader() }
     );
 
@@ -59,7 +65,7 @@ export const getFriendRequests = () => async (dispatch, getState) => {
   }
 };
 
-export const acceptFriendRequest = (requestId) => async (
+export const acceptFriendRequest = (friendRequest) => async (
   dispatch,
   getState
 ) => {
@@ -67,14 +73,18 @@ export const acceptFriendRequest = (requestId) => async (
 
   try {
     const response = await axios.put(
-      `http://localhost:5000/api/friendRequest/accept/${userId()}/${requestId}`,
-      { headers: authHeader() }
+      `http://localhost:5000/api/friends/${friendRequest._id}`,
+      friendRequest,
+      {
+        headers: authHeader(),
+      }
     );
 
     const updatedRequest = response.data;
 
     dispatch(acceptFriendRequestSuccess());
     dispatch(updateFriendRequest(updatedRequest));
+    dispatch(addFriend(updatedRequest.senderId));
   } catch (err) {
     if (err.response) {
       dispatch(acceptFriendRequestFailure(err.response.data.message));

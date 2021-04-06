@@ -18,10 +18,7 @@ export const loginRequest = (user) => async (dispatch, getState) => {
   dispatch(loginInProgress());
 
   try {
-    const response = await axios.post(
-      `http://localhost:5000/api/users/login`,
-      user
-    );
+    const response = await axios.post(`http://localhost:5000/auth/login`, user);
 
     const data = await response.data;
 
@@ -41,7 +38,7 @@ export const loginRequest = (user) => async (dispatch, getState) => {
 
 export const logoutRequest = (userId) => async (dispatch, getState) => {
   try {
-    await axios.post(`http://localhost:5000/api/users/logout`, { userId });
+    await axios.post(`http://localhost:5000/auth/logout`, { userId });
 
     dispatch(updateUser({}));
     removeFromLocalStorage();
@@ -57,7 +54,7 @@ export const authorizeRequest = (_id, token) => async (dispatch, getState) => {
 
   try {
     const response = await axios.post(
-      `http://localhost:5000/api/users/auth`,
+      `http://localhost:5000/auth`,
       { _id },
       { headers: authHeader() }
     );
@@ -137,10 +134,7 @@ export const updateUserRequest = (user) => async (dispatch, getState) => {
 
 export const registerRequest = (user) => async (dispatch, getState) => {
   try {
-    const response = await axios.post(
-      `http://localhost:5000/api/users/register`,
-      user
-    );
+    const response = await axios.post(`http://localhost:5000/api/users`, user);
 
     const data = await response.data;
 

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("../models/user");
-const FriendRequest = require("../models/friendRequest");
+const Friend = require("../models/friend");
 const query = require("../utils/query");
 
 const people = async (req, res) => {

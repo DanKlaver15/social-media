@@ -12,21 +12,16 @@ const FriendRequestItem = ({
   acceptRequest,
   declineRequest,
   friendRequest,
-  userId,
 }) => {
-  const friendInfo =
-    userId === friendRequest.senderId._id
-      ? friendRequest.receiverId
-      : friendRequest.senderId;
-
+  const { senderId: friend } = friendRequest;
   return (
     <li className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
       <div className="flex-1 flex flex-col p-8">
         <div className="mx-auto">
-          <Avatar source={friendInfo.avatar} size={32} />
+          <Avatar source={friend.avatar} size={32} />
         </div>
         <h3 className="mt-6 text-gray-900 text-sm font-medium">
-          {`${friendInfo.firstName} ${friendInfo.lastName}`}
+          {`${friend.firstName} ${friend.lastName}`}
         </h3>
         <dl className="mt-1 flex-grow flex flex-col justify-between">
           <dt className="sr-only">Date</dt>
@@ -39,21 +34,19 @@ const FriendRequestItem = ({
       <div>
         <div className="-mt-px flex divide-x divide-gray-200">
           <div className="w-0 flex-1 flex">
-            {friendRequest.receiverId._id === userId ? (
-              <button
-                disabled={friendRequest.accepted}
-                onClick={(e) => acceptRequest(friendRequest._id)}
-                className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
-              >
-                {friendRequest.accepted ? "Accepted" : "Accept"}
-              </button>
-            ) : (
-              <span className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
-                {friendRequest.accepted
-                  ? `Accepted`
-                  : `Waiting for ${friendInfo.firstName}`}
-              </span>
-            )}
+            <button
+              disabled={friendRequest.accepted}
+              onClick={(e) =>
+                acceptRequest({
+                  ...friendRequest,
+                  senderId: friendRequest.senderId._id,
+                  accepted: true,
+                })
+              }
+              className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
+            >
+              {friendRequest.accepted ? "Accepted" : "Accept"}
+            </button>
           </div>
           {!friendRequest.accepted && (
             <div className="-ml-px w-0 flex-1 flex">
@@ -74,11 +67,11 @@ const FriendRequestItem = ({
 const mapStateToProps = (state) => ({
   isAccepting: state.acceptingFriendRequest,
   isDeclining: state.decliningFriendRequest,
-  userId: state.user?._id,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  acceptRequest: (id) => dispatch(acceptFriendRequest(id)),
+  acceptRequest: (friendRequest) =>
+    dispatch(acceptFriendRequest(friendRequest)),
   declineRequest: (id) => dispatch(declineFriendRequest(id)),
 });
 
