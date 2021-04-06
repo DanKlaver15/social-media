@@ -4,6 +4,7 @@ import {
   GET_FEED_SUCCESS,
   GET_FEED_FAILURE,
 } from "./actions";
+import { LOGOUT } from "../User/actions";
 
 import { ADD_POST, REMOVE_POST, UPDATE_POST } from "../Post/actions";
 
@@ -50,6 +51,9 @@ export const feed = (state = [], action) => {
     case UPDATE_FEED: {
       const { feed } = payload;
       return feed;
+    }
+    case LOGOUT: {
+      return [];
     }
     default:
       return state;

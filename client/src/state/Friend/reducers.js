@@ -4,6 +4,7 @@ import {
   FRIENDS_IN_PROGRESS,
   FRIENDS_IN_SUCCESS,
 } from "./actions";
+import { LOGOUT } from "../User/actions";
 
 export const friendsLoading = (state = false, action) => {
   const { type } = action;
@@ -30,6 +31,9 @@ export const friends = (state = [], action) => {
     case UPDATE_FRIENDS: {
       const { friends } = payload;
       return friends;
+    }
+    case LOGOUT: {
+      return [];
     }
     default:
       return state;
