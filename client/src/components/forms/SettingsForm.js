@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import FileUpload from "./components/FileUpload";
 import {
@@ -22,6 +22,15 @@ const SettingsForm = ({
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user.email);
+
+  useEffect(() => {
+    updateUser({ ...user, darkMode });
+  }, [updateUser, user, darkMode]);
+
+  const toggleDarkMode = (e) => {
+    setMode(!darkMode);
+    updateUser({ ...user, darkMode });
+  };
 
   const toggleClass = darkMode ? "bg-indigo-600" : "bg-gray-200";
   const toggleButtonClass = darkMode ? "translate-x-5" : "translate-x-0";
@@ -145,7 +154,7 @@ const SettingsForm = ({
               </span>
 
               <button
-                onClick={() => setMode(!darkMode)}
+                onClick={(e) => toggleDarkMode(e)}
                 type="button"
                 className={`bg-gray-300 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:border-gray-400 ${toggleClass}`}
                 aria-pressed="false"

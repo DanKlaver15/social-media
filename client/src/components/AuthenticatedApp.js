@@ -17,9 +17,7 @@ const AuthenticatedApp = ({ logout, children, user }) => {
   };
 
   return (
-    <div
-      className={`${darkOrLight()} h-screen overflow-hidden bg-gray-100 flex flex-col`}
-    >
+    <div className={`${darkOrLight()} h-screen overflow-hidden flex flex-col`}>
       <header className="flex-shrink-0 relative h-16 bg-white flex items-center dark:bg-gray-800">
         <div className="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
           <Link
@@ -394,10 +392,10 @@ const AuthenticatedApp = ({ logout, children, user }) => {
           </div>
         </nav>
 
-        <main className="min-w-0 flex-1 border-t border-gray-200 lg:flex dark:bg-gray-800">
+        <main className="min-w-0 flex-1 border-t border-gray-200 lg:flex dark:bg-gray-800 dark:border-gray-500">
           <section
             aria-labelledby="primary-heading"
-            className="min-w-0 flex-1 h-full flex flex-col overflow-hidden lg:order-last p-8 overflow-scroll"
+            className="min-w-0 flex-1 h-full flex flex-col lg:order-last p-8 pb-0 overflow-scroll scrollbar scrollbar-track-gray-700"
           >
             <h1 id="primary-heading" className="sr-only">
               Home
@@ -405,8 +403,8 @@ const AuthenticatedApp = ({ logout, children, user }) => {
             {children}
           </section>
 
-          <aside className="hidden lg:block lg:flex-shrink-0 lg:order-last border-8 border-gray-900">
-            <div className="h-full relative flex flex-col w-96 border-r border-gray-200 bg-gray-100">
+          <aside className="hidden lg:block lg:flex-shrink-0 lg:order-last">
+            <div className="h-full relative flex flex-col w-96 border-t border-l border-gray-300 bg-gray-100 dark:border-gray-500 scrollbar-thin scrollbar-track-gray-700">
               <OnlineFriendsList />
             </div>
           </aside>

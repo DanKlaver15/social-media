@@ -8,10 +8,8 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    if (user) {
-      getFriends();
-    }
-  }, [getFriends, user]);
+    getFriends();
+  }, [getFriends]);
 
   let allListFormat = "";
   let onlineListFormat = "";
@@ -74,7 +72,7 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
 
     if ((listType === "all") & !emptyAll) {
       return (
-        <div>
+        <div key={letter}>
           <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500 dark:bg-gray-600 dark:border-gray-400 dark:text-gray-400">
             <h3>{letter}</h3>
           </div>
@@ -85,7 +83,7 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
       );
     } else if ((listType === "online") & !emptyOnline) {
       return (
-        <div>
+        <div key={letter}>
           <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500 dark:bg-gray-600 dark:border-gray-400 dark:text-gray-400">
             <h3>{letter}</h3>
           </div>
@@ -96,7 +94,7 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
       );
     } else if ((listType === "offline") & !emptyOffline) {
       return (
-        <div>
+        <div key={letter}>
           <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500 dark:bg-gray-600 dark:border-gray-400 dark:text-gray-400">
             <h3>{letter}</h3>
           </div>
@@ -162,8 +160,8 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
     <p>Loading...</p>
   ) : (
     <div className="absolute inset-y-0 right-0 pl-10 max-w-md flex sm:pl-16">
-      <div className="w-screen max-w-md">
-        <div className="h-full w-max flex right-0 flex-col bg-white shadow-xl overflow-y-scroll dark:bg-gray-800">
+      <div className="w-screen">
+        <div className="h-full w-full flex flex-col bg-white shadow-xl overflow-y-scroll p-0 dark:bg-gray-800 scrollbar-thin scrollbar-track-gray-700">
           <div className="pl-6 pt-3 pb-3">
             <div className="flex items-start justify-between">
               <h2
