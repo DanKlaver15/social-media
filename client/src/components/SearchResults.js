@@ -23,7 +23,7 @@ const SearchResults = ({ results, inProgress }) => {
 
   return inProgress ? (
     <Backdrop open={true} className={classes.backdrop}>
-      <CircularProgress color="white" />
+      <CircularProgress color="inherit" />
     </Backdrop>
   ) : results && results.length > 0 ? (
     <PeopleList people={results} />

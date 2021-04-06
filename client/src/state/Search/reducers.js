@@ -1,5 +1,6 @@
 import { SEARCH_IN_PROGRESS, SEARCH_SUCCESS, SEARCH_FAILURE } from "./actions";
 import { UPDATE_FRIEND_STATUS } from "../FriendRequest/actions";
+import { LOGOUT } from "../User/actions";
 
 export const searching = (state = false, action) => {
   const { type } = action;
@@ -36,7 +37,9 @@ export const searchResults = (state = [], action) => {
         return friend;
       });
     }
-
+    case LOGOUT: {
+      return [];
+    }
     default:
       return state;
   }

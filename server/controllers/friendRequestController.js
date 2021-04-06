@@ -6,6 +6,7 @@ const crudController = require("../utils/crud");
 
 const requestFriend = async (req, res) => {
   const { senderId, receiverId } = req.params;
+
   try {
     const receiver = await query.getOne(User, receiverId);
 
@@ -21,6 +22,12 @@ const requestFriend = async (req, res) => {
       receiverId: receiver._id,
     });
 
+    receiver.friendRequests.push(request._id);
+    sender.friendRequests.push(request._id);
+
+    await receiver.save();
+    await sender.save();
+
     return res.status(200).send(request);
   } catch (err) {
     return res.status(500).send({ message: `${err}` });
@@ -28,33 +35,36 @@ const requestFriend = async (req, res) => {
 };
 
 const accept = async (req, res) => {
-  const { receiverId, requestId } = req.params;
+  const { requestId } = req.params;
 
   try {
-    const receiver = await query.getOne(User, receiverId);
-    if (!receiver) return res.status(400).send({ message: "User not found." });
+    const request = await FriendRequest.findById(requestId)
+      .populate("senderId")
+      .populate("receiverId");
 
-    const request = await query.getOne(FriendRequest, requestId);
+    if (!request) return res.status(400).send({ error: "Request not found" });
 
-    if (!request) return res.status(400).send({ message: "Request not found" });
+    const receiver = await query.getOne(User, request.receiverId);
+
+    if (!receiver) return res.status(400).send({ error: "User not found." });
 
     const sender = await query.getOne(User, request.senderId);
 
-    if (!sender) return res.status(400).send({ message: "User not found." });
+    if (!sender) return res.status(400).send({ error: "User not found." });
 
     request.accepted = true;
 
-    // TODO: Can't have duplicates
     receiver.friends.push(sender._id);
     sender.friends.push(receiver._id);
 
-    await request.save();
+    let updatedRequest = await request.save();
+
     await receiver.save();
     await sender.save();
 
-    return res.status(200).send({ message: "Friend added." });
+    return res.status(200).send(updatedRequest);
   } catch (err) {
-    return res.status(500).send({ message: `${err}` });
+    return res.status(500).send({ error: `Server Error: ${err}` });
   }
 };
 
@@ -62,51 +72,16 @@ const getAll = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const requests = await FriendRequest.find({
-      receiverId: mongoose.Types.ObjectId(id),
-    })
-      .sort({
-        date: -1,
+    const user = await User.findById(id)
+      .populate({
+        path: "friendRequests",
+        populate: [{ path: "receiverId" }, { path: "senderId" }],
       })
-      .lean()
       .exec();
 
-    if (!requests)
-      return res.status(400).send({ message: "No requests found." });
+    if (!user) return res.status(400).send({ message: "User not found." });
 
-    const senderIds = requests.map((request) => request.senderId);
-
-    // TODO: Refactor this query. It is used elsewhere.
-    const senders = await User.find({
-      _id: { $in: senderIds },
-    })
-      .select({
-        username: 1,
-        email: 1,
-        firstName: 1,
-        lastName: 1,
-        avatar: 1,
-        online: 1,
-      })
-      .lean()
-      .exec();
-
-    const toReturn = senders.map((sender) => {
-      const match = requests.find(
-        (request) => `${request.senderId}` == `${sender._id}`
-      );
-      if (!match) {
-        return sender;
-      }
-      return {
-        ...sender,
-        _id: match._id,
-        accepted: match.accepted,
-        requestDate: match.date,
-      };
-    });
-
-    return res.status(200).send(toReturn);
+    return res.status(200).send(user.friendRequests);
   } catch (err) {
     return res.status(500).send({ message: `${err}` });
   }
