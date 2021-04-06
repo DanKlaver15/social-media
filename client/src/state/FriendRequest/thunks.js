@@ -34,7 +34,6 @@ export const sendFriendRequest = (receiverId) => async (dispatch, getState) => {
       { headers: authHeader() }
     );
 
-    console.log(response);
     const request = await response.data;
 
     dispatch(sendFriendRequestSuccess(request));

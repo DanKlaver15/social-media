@@ -72,8 +72,6 @@ const getUserFriends = async (req, res) => {
       },
     ]);
 
-    console.log(acceptedFriends);
-
     let friends = [];
 
     if (acceptedFriends.length === 0) {
