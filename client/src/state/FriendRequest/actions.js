@@ -10,8 +10,9 @@ export const sendFriendRequestFailure = () => ({
 });
 
 export const SEND_FRIEND_REQUEST_SUCCESS = "SEND_FRIEND_REQUEST_SUCCESS";
-export const sendFriendRequestSuccess = () => ({
+export const sendFriendRequestSuccess = (friendRequest) => ({
   type: SEND_FRIEND_REQUEST_SUCCESS,
+  payload: { friendRequest },
 });
 
 export const UPDATE_FRIEND_STATUS = "UPDATE_FRIEND_STATUS";
@@ -48,8 +49,9 @@ export const acceptFriendRequestInProgress = () => ({
 });
 
 export const ACCEPT_FRIEND_REQUEST_FAILURE = "ACCEPT_FRIEND_REQUEST_FAILURE";
-export const acceptFriendRequestFailure = () => ({
+export const acceptFriendRequestFailure = (error) => ({
   type: ACCEPT_FRIEND_REQUEST_FAILURE,
+  payload: { error },
 });
 
 export const ACCEPT_FRIEND_REQUEST_SUCCESS = "ACCEPT_FRIEND_REQUEST_SUCCESS";
@@ -73,10 +75,10 @@ export const declineFriendRequestSuccess = () => ({
   type: DECLINE_FRIEND_REQUEST_SUCCESS,
 });
 
-export const ACCEPT_FRIEND = "  ACCEPT_FRIEND";
-export const acceptFriend = (friendRequestId) => ({
-  type: ACCEPT_FRIEND,
-  payload: { friendRequestId },
+export const UPDATE_FRIEND_REQUEST = "UPDATE_FRIEND_REQUEST";
+export const updateFriendRequest = (friendRequest) => ({
+  type: UPDATE_FRIEND_REQUEST,
+  payload: { friendRequest },
 });
 
 export const DECLINE_FRIEND = "DECLINE_FRIEND";

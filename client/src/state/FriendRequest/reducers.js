@@ -12,9 +12,10 @@ import {
   DECLINE_FRIEND_REQUEST_IN_PROGRESS,
   DECLINE_FRIEND_REQUEST_SUCCESS,
   DECLINE_FRIEND_REQUEST_FAILURE,
-  ACCEPT_FRIEND,
+  UPDATE_FRIEND_REQUEST,
   DECLINE_FRIEND,
 } from "./actions";
+import { LOGOUT } from "../User/actions";
 
 export const sendingFriendRequest = (state = false, action) => {
   const { type } = action;
@@ -60,13 +61,13 @@ export const friendRequests = (state = [], action) => {
       const { friendRequests } = payload;
       return friendRequests;
     }
-    case ACCEPT_FRIEND: {
-      const { friendRequestId } = payload;
-      return state.map((friendRequest) => {
-        if (friendRequest._id === friendRequestId) {
-          return { ...friendRequest, accepted: true };
+    case UPDATE_FRIEND_REQUEST: {
+      const { friendRequest } = payload;
+      return state.map((stateRequest) => {
+        if (stateRequest._id === friendRequest._id) {
+          return friendRequest;
         }
-        return friendRequests;
+        return stateRequest;
       });
     }
     case DECLINE_FRIEND: {
@@ -74,6 +75,13 @@ export const friendRequests = (state = [], action) => {
       return state.filter(
         (friendRequest) => friendRequest._id === friendRequestId
       );
+    }
+    case SEND_FRIEND_REQUEST_SUCCESS: {
+      const { friendRequest } = payload;
+      return [...state, friendRequest];
+    }
+    case LOGOUT: {
+      return [];
     }
     default:
       return state;

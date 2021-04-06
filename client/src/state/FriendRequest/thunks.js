@@ -5,7 +5,6 @@ import {
   sendFriendRequestInProgress,
   sendFriendRequestSuccess,
   sendFriendRequestFailure,
-  updateFriendStatus,
   updateAllFriendRequests,
   friendRequestsInProgress,
   friendRequestsSuccess,
@@ -16,7 +15,7 @@ import {
   declineFriendRequestInProgress,
   declineFriendRequestSuccess,
   declineFriendRequestFailure,
-  acceptFriend,
+  updateFriendRequest,
   declineFriend,
 } from "./actions";
 
@@ -29,10 +28,9 @@ export const sendFriendRequest = (receiverId) => async (dispatch, getState) => {
       { headers: authHeader() }
     );
 
-    const data = await response.data;
+    const request = await response.data;
 
-    dispatch(sendFriendRequestSuccess(data));
-    dispatch(updateFriendStatus(receiverId, "pending"));
+    dispatch(sendFriendRequestSuccess(request));
   } catch (err) {
     console.log(err);
     if (err.response) {
@@ -68,15 +66,21 @@ export const acceptFriendRequest = (requestId) => async (
   dispatch(acceptFriendRequestInProgress());
 
   try {
-    await axios.put(
+    const response = await axios.put(
       `http://localhost:5000/api/friendRequest/accept/${userId()}/${requestId}`,
       { headers: authHeader() }
     );
 
+    const updatedRequest = response.data;
+
     dispatch(acceptFriendRequestSuccess());
-    dispatch(acceptFriend(requestId));
+    dispatch(updateFriendRequest(updatedRequest));
   } catch (err) {
-    dispatch(acceptFriendRequestFailure());
+    if (err.response) {
+      dispatch(acceptFriendRequestFailure(err.response.data.message));
+    } else {
+      dispatch(acceptFriendRequestFailure(`${err}`));
+    }
   }
 };
 
