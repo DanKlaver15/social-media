@@ -24,8 +24,6 @@ const userSchema = new mongoose.Schema({
   avatar: { type: String },
   bgImage: { type: String },
   bio: { type: String, minlength: 5, trim: true },
-  friends: [{ type: mongoose.Types.ObjectId, ref: "User" }],
-  friendRequests: [{ type: mongoose.Types.ObjectId, ref: "FriendRequest" }],
   darkMode: { type: Boolean, default: false },
   online: { type: Boolean, default: false },
   lastOnline: { type: Date, default: Date.now },

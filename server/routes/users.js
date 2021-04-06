@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Joi = require("joi");
 const userController = require("../controllers/userController");
-const friendsController = require("../controllers/friendsController");
+const friendController = require("../controllers/friendController");
 const feedController = require("../controllers/feedController");
 const auth = require("../middlewares/auth");
 const { validateUser } = require("../middlewares/validate");
@@ -11,10 +11,8 @@ const avatar = require("../middlewares/avatar");
 router.route("/").post(validateUser, userController.createOne);
 router.route("/:id").put(auth, userController.updateOne);
 
-router.route("/:id/friends").get(auth, friendsController.getAll);
-router
-  .route("/:id/friends/:friendId")
-  .delete(auth, friendsController.deleteFriend);
+router.route("/:id/friends").get(friendController.getUserFriends);
+router.route("/:id/friendRequests").get(friendController.getUserFriendRequests);
 
 router.get("/avatar/:filename", (req, res) => {
   res.type("png");
