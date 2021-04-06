@@ -44,3 +44,10 @@ export const friends = (state = [], action) => {
       return state;
   }
 };
+
+const friendReducers = {
+  friends,
+  friendsLoading,
+};
+
+export default friendReducers;

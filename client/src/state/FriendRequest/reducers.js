@@ -123,3 +123,13 @@ export const decliningFriendRequest = (state = false, action) => {
       return state;
   }
 };
+
+const friendRequestReducers = {
+  sendingFriendRequest,
+  loadingFriendRequests,
+  friendRequests,
+  acceptingFriendRequest,
+  decliningFriendRequest,
+};
+
+export default friendRequestReducers;
