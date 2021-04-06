@@ -18,3 +18,9 @@ export const updateFriends = (friends) => ({
   type: UPDATE_FRIENDS,
   payload: { friends },
 });
+
+export const ADD_FRIEND = "ADD_FRIEND";
+export const addFriend = (friend) => ({
+  type: ADD_FRIEND,
+  payload: { friend },
+});
