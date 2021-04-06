@@ -8,10 +8,8 @@ const OnlineFriendsList = ({ friends, friendsLoading, getFriends, user }) => {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    if (user) {
-      getFriends();
-    }
-  }, [getFriends, user]);
+    getFriends();
+  }, [getFriends]);
 
   let allListFormat = "";
   let onlineListFormat = "";
