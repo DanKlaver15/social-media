@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp } from "@fortawesome/pro-duotone-svg-icons";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { updatePostRequest } from "../state/Post/thunks";
 import Avatar from "./Avatar";
 
-const Post = ({ post, index, length }) => {
+const Post = ({ post, updatePost, index, length }) => {
+  const [likes, setLikes] = useState(post.likes);
+  const [likesDisplayed, setLikesDisplayed] = useState(post.likes);
+
+  const addLike = (e) => {
+    e.preventDefault();
+    setLikes(likes + 1);
+    setLikesDisplayed(likes);
+    updatePost({ ...post, likes });
+  };
+
   return (
     <li>
       <div className="relative pb-8">
         {index < length - 1 ? (
           <span
-            className="absolute top-12 left-5 -ml-px h-6 w-0.5 bg-gray-200 dark:bg-gray-600"
+            className="absolute top-14 left-5 -ml-px h-10 w-0.5 bg-gray-300 dark:bg-gray-600"
             aria-hidden="true"
           ></span>
         ) : (
@@ -18,9 +32,9 @@ const Post = ({ post, index, length }) => {
           <div className="relative">
             <Avatar size={10} source={post.userId.avatar} />
 
-            <span className="absolute -bottom-0.5 -right-1 bg-white rounded-tl px-0.5 py-px dark:bg-transparent">
+            <span className="absolute -bottom-0.5 -right-1 rounded-tl px-0.5 py-px">
               <svg
-                className="h-5 w-5 text-gray-400 dark:text-gray-500"
+                className="h-5 w-5 text-gray-500"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -51,6 +65,16 @@ const Post = ({ post, index, length }) => {
             <div className="mt-2 text-sm text-gray-700 dark:text-gray-400">
               <p>{post.content}</p>
             </div>
+            <div className="pt-3">
+              <button onClick={(e) => addLike(e)}>
+                {post.userId.darkMode ? (
+                  <FontAwesomeIcon icon={faThumbsUp} inverse></FontAwesomeIcon>
+                ) : (
+                  <FontAwesomeIcon icon={faThumbsUp}></FontAwesomeIcon>
+                )}
+              </button>
+              <div>{likesDisplayed}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -58,4 +82,8 @@ const Post = ({ post, index, length }) => {
   );
 };
 
-export default Post;
+const mapDispatchToProps = (dispatch) => ({
+  updatePost: (post) => dispatch(updatePostRequest(post)),
+});
+
+export default connect(null, mapDispatchToProps)(Post);
