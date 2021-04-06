@@ -6,40 +6,20 @@ const recipeSchema = new mongoose.Schema({
   caloriesPerServing: { type: Number },
   comments: [commentSchema],
   cookTime: { type: Number, minLength: 1 },
-  description: { type: String, required: true, minlength: 5 },
-  directions: [{ type: String }],
+  description: { type: String, minlength: 5 },
+  directions: [{ type: String, required: true }],
   ingredients: [
     {
-      name: { type: String, required: true, minlength: 3 },
-      quantity: {
-        amount: { type: Number, required: true, minlength: 1 },
-        unit: { type: String, required: true, minlength: 1 },
-      },
+      type: String,
+      required: true,
+      minlength: 3,
     },
   ],
   likes: { type: Number, default: 0 },
-  prepTime: { type: Number, required: true },
-  rating: [
-    {
-      number: { type: Number },
-      raterId: { type: mongoose.Types.ObjectId },
-    },
-  ],
-  averageRating: {
-    type: Number,
-    default: function () {
-      let total = 0;
-      for (let i = 0; i < this.rating.length; i++) {
-        total += this.rating[i];
-      }
-      return total / this.rating.length;
-    },
-  },
-  servings: { type: Number, required: true, minglength: 1 },
-  tags: [{ type: String }],
-  category: { type: String },
+  prepTime: { type: Number },
+  servings: { type: Number, minglength: 1 },
   date: { type: Date, default: Date.now },
-  userId: { type: mongoose.Types.ObjectId },
+  userId: { type: mongoose.Types.ObjectId, ref: "User", required: true },
 });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);

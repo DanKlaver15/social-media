@@ -4,6 +4,7 @@ const Joi = require("joi");
 const userController = require("../controllers/userController");
 const friendController = require("../controllers/friendController");
 const feedController = require("../controllers/feedController");
+const recipeController = require("../controllers/recipeController");
 const auth = require("../middlewares/auth");
 const { validateUser } = require("../middlewares/validate");
 const avatar = require("../middlewares/avatar");
@@ -25,5 +26,6 @@ router
   .delete(auth, userController.removeAvatar);
 
 router.route("/:id/feed").get(feedController.getFeed);
+router.route("/:id/recipes").get(recipeController.getUserRecipes);
 
 module.exports = router;
