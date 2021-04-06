@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import FriendRequestItem from "./FriendRequestItem";
-import { getFriendRequests } from "../state/FriendRequest/thunks";
+import FriendRequestItem from "../FriendRequestItem";
+import { getFriendRequests } from "../../state/FriendRequest/thunks";
 
 const FriendRequests = ({ friendRequests, getFriendRequests }) => {
   useEffect(() => {
