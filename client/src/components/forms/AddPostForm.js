@@ -10,6 +10,7 @@ const AddPostForm = ({ userId, addPost }) => {
       onSubmit={(e) => {
         e.preventDefault();
         addPost({ userId, content });
+        setContent("");
       }}
     >
       <div>
