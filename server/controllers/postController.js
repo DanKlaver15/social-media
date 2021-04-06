@@ -20,4 +20,20 @@ const createOne = async (req, res) => {
   }
 };
 
-module.exports = { ...crudController(Post), createOne };
+const updateOne = async (req, res) => {
+  try {
+    const post = await Post.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    }).populate("userId");
+
+    if (!post)
+      return res.status(404).json({
+        error: `Failed to update post.`,
+      });
+    res.status(200).send(post);
+  } catch (err) {
+    return res.status(500).send({ error: `${err}` });
+  }
+};
+
+module.exports = { ...crudController(Post), createOne, updateOne };
