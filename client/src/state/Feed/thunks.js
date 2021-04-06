@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authHeader, userId, getError } from "../../helpers/authHeader";
+import { authHeader, getError } from "../../helpers/authHeader";
 
 import {
   getFeedInProgress,
@@ -8,12 +8,12 @@ import {
   updateFeed,
 } from "./actions";
 
-export const getFeedRequest = () => async (dispatch, getState) => {
+export const getFeedRequest = (userId) => async (dispatch, getState) => {
   dispatch(getFeedInProgress());
 
   try {
     const response = await axios.get(
-      `http://localhost:5000/api/users/${userId()}/feed`,
+      `http://localhost:5000/api/users/${userId}/feed`,
       { headers: authHeader() }
     );
 
