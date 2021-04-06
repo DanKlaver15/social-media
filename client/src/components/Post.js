@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp } from "@fortawesome/pro-duotone-svg-icons";
+import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { updatePostRequest } from "../state/Post/thunks";
@@ -9,11 +9,18 @@ import Avatar from "./Avatar";
 const Post = ({ post, updatePost, index, length }) => {
   const [likes, setLikes] = useState(post.likes);
   const [likesDisplayed, setLikesDisplayed] = useState(post.likes);
+  const [color, setColor] = useState("");
+  const [darkColor, setDarkColor] = useState("#999da5");
 
   const addLike = (e) => {
     e.preventDefault();
     setLikes(likes + 1);
     setLikesDisplayed(likes);
+    if (post.userId.darkMode) {
+      setDarkColor("purple");
+    } else {
+      setColor("blue");
+    }
     updatePost({ ...post, likes });
   };
 
@@ -68,9 +75,15 @@ const Post = ({ post, updatePost, index, length }) => {
             <div className="pt-3">
               <button onClick={(e) => addLike(e)}>
                 {post.userId.darkMode ? (
-                  <FontAwesomeIcon icon={faThumbsUp} inverse></FontAwesomeIcon>
+                  <FontAwesomeIcon
+                    icon={faThumbsUp}
+                    color={darkColor}
+                  ></FontAwesomeIcon>
                 ) : (
-                  <FontAwesomeIcon icon={faThumbsUp}></FontAwesomeIcon>
+                  <FontAwesomeIcon
+                    icon={faThumbsUp}
+                    color={color}
+                  ></FontAwesomeIcon>
                 )}
               </button>
               <div>{likesDisplayed}</div>
