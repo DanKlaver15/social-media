@@ -5,13 +5,10 @@ const userController = require("../controllers/userController");
 const friendsController = require("../controllers/friendsController");
 const feedController = require("../controllers/feedController");
 const auth = require("../middlewares/auth");
+const { validateUser } = require("../middlewares/validate");
 const avatar = require("../middlewares/avatar");
 
-router.route("/login").post(userController.login);
-router.route("/logout").post(userController.logout);
-router.route("/auth").post(auth, userController.authorize);
-router.route("/register").post(userController.register);
-
+router.route("/").post(validateUser, userController.createOne);
 router.route("/:id").put(auth, userController.updateOne);
 
 router.route("/:id/friends").get(auth, friendsController.getAll);

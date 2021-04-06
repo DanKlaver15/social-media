@@ -57,7 +57,7 @@ export const authorizeRequest = (_id, token) => async (dispatch, getState) => {
 
   try {
     const response = await axios.post(
-      `http://localhost:5000/api/users/auth`,
+      `http://localhost:5000/api/auth`,
       { _id },
       { headers: authHeader() }
     );
@@ -137,10 +137,7 @@ export const updateUserRequest = (user) => async (dispatch, getState) => {
 
 export const registerRequest = (user) => async (dispatch, getState) => {
   try {
-    const response = await axios.post(
-      `http://localhost:5000/api/users/register`,
-      user
-    );
+    const response = await axios.post(`http://localhost:5000/api/users`, user);
 
     const data = await response.data;
 
