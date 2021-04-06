@@ -15,7 +15,9 @@ const FriendRequests = ({ friendRequests, getFriendRequests }) => {
       })}
     </ul>
   ) : (
-    <div>You have no pending friend requests.</div>
+    <div className="dark:text-gray-400">
+      You have no pending friend requests.
+    </div>
   );
 };
 
