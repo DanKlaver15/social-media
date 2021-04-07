@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import FileUpload from "./components/FileUpload";
 import {
   updateAvatarRequest,
   removeAvatarRequest,
   updateUserRequest,
+  deleteUserRequest,
 } from "../../state/User/thunks";
 import Avatar from "../Avatar";
 import Error from "../Error";
@@ -15,6 +17,7 @@ const SettingsForm = ({
   updateAvatar,
   removeAvatar,
   avatarError,
+  deleteUser,
 }) => {
   const [username, setUsername] = useState(user.username);
   const [bio, setBio] = useState(user.bio);
@@ -27,7 +30,7 @@ const SettingsForm = ({
     updateUser({ ...user, darkMode });
   }, [updateUser, user, darkMode]);
 
-  const toggleDarkMode = (e) => {
+  const toggleDarkMode = () => {
     setMode(!darkMode);
     updateUser({ ...user, darkMode });
   };
@@ -48,7 +51,7 @@ const SettingsForm = ({
           email,
         });
       }}
-      className="space-y-8 divide-y divide-gray-200 dark:divide-gray-600 dark:bg-gray-800"
+      className="space-y-8 divide-y divide-gray-200 overscroll-auto dark:divide-gray-600 dark:bg-gray-800"
     >
       <div className="space-y-8 divide-y divide-gray-200 dark:divide-gray-600">
         <div>
@@ -154,7 +157,7 @@ const SettingsForm = ({
               </span>
 
               <button
-                onClick={(e) => toggleDarkMode(e)}
+                onClick={() => toggleDarkMode()}
                 type="button"
                 className={`bg-gray-300 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:border-gray-400 ${toggleClass}`}
                 aria-pressed="false"
@@ -254,6 +257,33 @@ const SettingsForm = ({
           </button>
         </div>
       </div>
+      <div className="pt-8 pb-12">
+        <div>
+          <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-400">
+            Delete Account
+          </h3>
+        </div>
+        <div className="sm:col-span-4 mt-6">
+          <div className="flex items-center justify-between">
+            <span className="flex-grow flex flex-col" id="availability-label">
+              <span className="text-sm text-gray-500">
+                Would you like to delete your account?
+              </span>
+            </span>
+
+            <Link
+              to="/"
+              onClick={() => deleteUser(user._id)}
+              className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-800 hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              aria-pressed="false"
+              aria-labelledby="availability-label"
+            >
+              DELETE
+              <span className="sr-only">Delete Account</span>
+            </Link>
+          </div>
+        </div>
+      </div>
     </form>
   );
 };
@@ -267,6 +297,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateUser: (user) => dispatch(updateUserRequest(user)),
   updateAvatar: (file) => dispatch(updateAvatarRequest(file)),
   removeAvatar: () => dispatch(removeAvatarRequest()),
+  deleteUser: (userId) => dispatch(deleteUserRequest(userId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsForm);
