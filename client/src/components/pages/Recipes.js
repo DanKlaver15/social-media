@@ -13,6 +13,7 @@ const Recipes = ({ userId, recipes, getRecipes }) => {
 
   return (
     <>
+      <AddRecipeForm />
       {recipes && recipes.length > 0 ? (
         <RecipeList recipes={recipes} />
       ) : (
