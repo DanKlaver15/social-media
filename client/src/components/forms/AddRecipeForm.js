@@ -28,6 +28,7 @@ const AddRecipeForm = ({ userId, addRecipe }) => {
           directions: [...directions.map((direction) => direction.value)],
           ingredients: [...ingredients.map((ingredient) => ingredient.value)],
           userId,
+          description,
         });
       }}
       className="space-y-8 divide-y divide-gray-200"
