@@ -1,73 +1,21 @@
-import React, { useReducer, useState } from "react";
-import IngredientField from "../forms/components/IngredientField";
-
-function ingredientReducer(state, action) {
-  const { type, payload } = action;
-  switch (type) {
-    case "ADD_INGREDIENT": {
-      return [...state, ""];
-    }
-    case "REMOVE_INGREDIENT": {
-      const { ingredientIndex } = payload;
-      console.log(state.length);
-      if (state.length === 1) {
-        return state;
-      }
-      return state.filter((ingredient, index) => index === ingredientIndex);
-    }
-    case "UPDATE_INGREDIENT": {
-      const { ingredientIndex, value } = payload;
-      return state.map((ingredient, index) => {
-        if (index === ingredientIndex) {
-          return value;
-        }
-        return ingredient;
-      });
-    }
-    default: {
-      return state;
-    }
-  }
-}
+import React, { useState } from "react";
+import useDyanmicFields from "../hooks/useDynamicFields";
 
 const AddRecipeForm = () => {
-  const [ingredients, setIngredients] = useReducer(ingredientReducer, [""]);
-  const [numIngredients, setNumIngredients] = useState(1);
+  const [
+    ingredients,
+    setIngredientInput,
+    addIngredientField,
+    removeIngredientField,
+  ] = useDyanmicFields();
+  const [
+    directions,
+    setDirectionInput,
+    addDirectionField,
+    removeDirectionField,
+  ] = useDyanmicFields();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
-  const ingredientFields = () => {
-    let fields = [];
-
-    for (let i = 0; i < numIngredients; i++) {
-      fields.push(
-        <IngredientField
-          key={i}
-          value={ingredients[i]}
-          index={i + 1}
-          setInput={(e) => {
-            e.preventDefault();
-            setIngredients({
-              type: "UPDATE_INGREDIENT",
-              payload: { ingredientIndex: i, value: e.target.value },
-            });
-          }}
-          remove={(e) => {
-            e.preventDefault();
-            setIngredients({
-              type: "REMOVE_INGREDIENT",
-              payload: { ingredientIndex: i },
-            });
-            if (numIngredients > 1) {
-              setNumIngredients(numIngredients - 1);
-            }
-          }}
-        />
-      );
-    }
-
-    return fields;
-  };
 
   return (
     <form className="space-y-8 divide-y divide-gray-200">
@@ -138,15 +86,20 @@ const AddRecipeForm = () => {
             </p>
           </div>
           <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            {ingredientFields().map((field) => field)}
+            {ingredients.map((Ingredient, index) => (
+              <Ingredient.Component
+                name="Ingredient"
+                key={index}
+                index={index + 1}
+                currentValue={Ingredient.value}
+                setInput={setIngredientInput(index)}
+                remove={removeIngredientField(index)}
+              />
+            ))}
             <div className="pt-5">
               <div className="flex justify-start">
                 <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setNumIngredients(numIngredients + 1);
-                    setIngredients({ type: "ADD_INGREDIENT" });
-                  }}
+                  onClick={addIngredientField}
                   className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Add Ingredient
@@ -166,15 +119,20 @@ const AddRecipeForm = () => {
             </p>
           </div>
           <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            {ingredientFields().map((field) => field)}
+            {directions.map((Direction, index) => (
+              <Direction.Component
+                name="Step"
+                key={index}
+                index={index + 1}
+                currentValue={Direction.value}
+                setInput={setDirectionInput(index)}
+                remove={removeDirectionField(index)}
+              />
+            ))}
             <div className="pt-5">
               <div className="flex justify-start">
                 <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setNumIngredients(numIngredients + 1);
-                    setIngredients({ type: "ADD_INGREDIENT" });
-                  }}
+                  onClick={addDirectionField}
                   className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Add Ingredient
@@ -188,16 +146,10 @@ const AddRecipeForm = () => {
       <div className="pt-5">
         <div className="flex justify-end">
           <button
-            type="button"
-            className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Cancel
-          </button>
-          <button
             type="submit"
             className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Save
+            Add Recipe
           </button>
         </div>
       </div>

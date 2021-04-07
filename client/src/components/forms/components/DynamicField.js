@@ -1,21 +1,27 @@
 import React from "react";
 
-const IngredientField = ({ index = 1, value, setInput, remove }) => {
+const DynamicField = ({
+  name = "Field",
+  index = 1,
+  currentValue,
+  setInput,
+  remove,
+}) => {
   return (
     <div className="sm:col-span-4">
       <label
         htmlFor={`ingredient-${index}`}
         className="block text-sm font-medium text-gray-700"
       >
-        {`Ingredient - ${index}`}
+        {`${name} - ${index}`}
       </label>
       <div className="mt-1 flex rounded-md shadow-sm relative">
         <input
           onChange={setInput}
-          value={value}
+          value={currentValue}
           type="text"
-          name={`ingredient-${index}`}
-          id={`ingredient-${index}`}
+          name={`${name}-${index}`}
+          id={`${name}-${index}`}
           className="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-none rounded-md sm:text-sm border-gray-300"
         />
         <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -41,4 +47,4 @@ const IngredientField = ({ index = 1, value, setInput, remove }) => {
   );
 };
 
-export default IngredientField;
+export default DynamicField;
