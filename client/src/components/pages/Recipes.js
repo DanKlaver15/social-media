@@ -1,30 +1,34 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import RecipeList from "../RecipeList";
-import AddRecipeForm from "../forms/AddRecipeForm";
+import UserPageHeader from "../UserPageHeader";
 import { getRecipesRequest } from "../../state/Recipe/thunks.js";
 
-const Recipes = ({ userId, recipes, getRecipes }) => {
+const Recipes = ({ user, recipes, getRecipes }) => {
   useEffect(() => {
-    if (userId) {
-      getRecipes(userId);
+    if (user._id) {
+      getRecipes(user._id);
     }
-  }, [userId, getRecipes]);
+  }, [user._id, getRecipes]);
 
   return (
     <>
-      <AddRecipeForm />
-      {recipes && recipes.length > 0 ? (
-        <RecipeList recipes={recipes} />
-      ) : (
-        <div>You have no recipes</div>
-      )}
+      <UserPageHeader
+        name={`${user.firstName} ${user.lastName}`}
+        avatar={user.avatar}
+      >
+        {recipes && recipes.length > 0 ? (
+          <RecipeList recipes={recipes} />
+        ) : (
+          <div>You have no recipes</div>
+        )}
+      </UserPageHeader>
     </>
   );
 };
 
 const mapStateToProps = (state) => ({
-  userId: state.user._id,
+  user: state.user,
   recipes: state.recipes,
 });
 
