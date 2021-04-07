@@ -16,4 +16,17 @@ const getUserRecipes = async (req, res) => {
   }
 };
 
-module.exports = { ...crudController(Recipe), getUserRecipes };
+const createOne = async (req, res) => {
+  try {
+    let recipe = await Recipe.create(req.body);
+
+    recipe = await Recipe.populate(recipe, { path: "userId" });
+
+    return res.status(201).send(recipe);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send(`Server error: ${err}`);
+  }
+};
+
+module.exports = { ...crudController(Recipe), getUserRecipes, createOne };

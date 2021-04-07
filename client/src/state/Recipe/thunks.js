@@ -31,9 +31,13 @@ export const getRecipesRequest = (userId) => async (dispatch, getState) => {
 
 export const addRecipeRequest = (recipe) => async (dispatch, getState) => {
   try {
-    const response = await axios.post(`http://localhost:5000/recipes`, recipe, {
-      headers: authHeader(),
-    });
+    const response = await axios.post(
+      `http://localhost:5000/api/recipes`,
+      recipe,
+      {
+        headers: authHeader(),
+      }
+    );
 
     const data = await response.data;
 
@@ -46,7 +50,7 @@ export const addRecipeRequest = (recipe) => async (dispatch, getState) => {
 export const updateRecipeRequest = (recipe) => async (dispatch, getState) => {
   try {
     const response = await axios.put(
-      `http://localhost:5000/recipes/${recipe._id}`,
+      `http://localhost:5000/api/recipes/${recipe._id}`,
       recipe,
       { headers: authHeader() }
     );
@@ -62,7 +66,7 @@ export const updateRecipeRequest = (recipe) => async (dispatch, getState) => {
 export const removeRecipeRequest = (recipeId) => async (dispatch, getState) => {
   try {
     const response = await axios.delete(
-      `http://localhost:5000/recipes/${recipeId}`,
+      `http://localhost:5000/api/recipes/${recipeId}`,
       { headers: authHeader() }
     );
 

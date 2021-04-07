@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import useDyanmicFields from "../hooks/useDynamicFields";
+import { addRecipeRequest } from "../../state/Recipe/thunks";
 
-const AddRecipeForm = () => {
+const AddRecipeForm = ({ userId, addRecipe }) => {
   const [
     ingredients,
     setIngredientInput,
@@ -18,7 +20,18 @@ const AddRecipeForm = () => {
   const [description, setDescription] = useState("");
 
   return (
-    <form className="space-y-8 divide-y divide-gray-200">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        addRecipe({
+          title,
+          directions: [...directions.map((direction) => direction.value)],
+          ingredients: [...ingredients.map((ingredient) => ingredient.value)],
+          userId,
+        });
+      }}
+      className="space-y-8 divide-y divide-gray-200"
+    >
       <div className="space-y-8 divide-y divide-gray-200">
         <div>
           <div>
@@ -157,4 +170,12 @@ const AddRecipeForm = () => {
   );
 };
 
-export default AddRecipeForm;
+const mapStateToProps = (state) => ({
+  userId: state.user._id,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addRecipe: (recipe) => dispatch(addRecipeRequest(recipe)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddRecipeForm);
