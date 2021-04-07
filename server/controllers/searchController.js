@@ -12,9 +12,10 @@ const people = async (req, res) => {
       .or([
         {
           firstName: filter,
+          _id: { $ne: userId },
         },
-        { lastName: filter },
-        { username: filter },
+        { lastName: filter, _id: { $ne: userId } },
+        { username: filter, _id: { $ne: userId } },
       ])
       .select({
         username: 1,
