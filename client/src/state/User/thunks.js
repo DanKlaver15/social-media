@@ -6,6 +6,7 @@ import {
   loginFailure,
   loginSuccess,
   updateUser,
+  deleteUser,
   logout,
   removeLoginError,
   registerSucceess,
@@ -145,6 +146,18 @@ export const registerRequest = (user) => async (dispatch, getState) => {
   } catch (err) {
     console.log(err);
     dispatch(loginFailure(err.response.data.message));
+  }
+};
+
+export const deleteUserRequest = (userId) => async (dispatch, getState) => {
+  dispatch(logout());
+
+  try {
+    const response = await axios.delete(
+      `http://localhost:5000/api/users/${userId}`
+    );
+  } catch (err) {
+    console.log(err);
   }
 };
 

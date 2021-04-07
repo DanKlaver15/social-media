@@ -1,6 +1,8 @@
 const User = require("../models/user");
 const query = require("../utils/query");
 const crudController = require("../utils/crud");
+const friendController = require("./friendController");
+const Friend = require("../models/friend");
 const AvatarService = require("../services/avatarService");
 const avatars = new AvatarService();
 
@@ -81,9 +83,26 @@ const removeAvatar = async (req, res, next) => {
   }
 };
 
+const removeOne = async (req, res, next) => {
+  try {
+    const deletedUser = await query.removeOne(User, req.params.id);
+    const friendRequests = await Friend.remove({}).or([
+      { senderId: req.params.id },
+      { receiverId: req.params.id },
+    ]);
+    if (deletedUser.length === 0) {
+      return res.status(400).send({ message: "Unable to delete your account" });
+    }
+    return res.status(200).send({ message: "User account has been deleted" });
+  } catch (err) {
+    return res.status(500).send({ message: `Error: ${err}` });
+  }
+};
+
 module.exports = {
   ...crudController(User),
   createOne,
   addAvatar,
   removeAvatar,
+  removeOne,
 };

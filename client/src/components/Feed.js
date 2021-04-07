@@ -12,7 +12,11 @@ const Feed = ({ feed, error }) => {
   return !error || !error.error ? (
     <div className="my-4 flow-root">
       <ul className="-mb-8">
-        {feed && feed.length > 0 ? posts() : <div>No posts found.</div>}
+        {feed && feed.length > 0 ? (
+          posts()
+        ) : (
+          <div className="dark:text-gray-400">No posts found.</div>
+        )}
       </ul>
     </div>
   ) : (

@@ -56,7 +56,7 @@ const RegistrationForm = ({ register, registered }) => {
                         name="first_name"
                         id="first_name"
                         autoComplete="given-name"
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md bg-gray-100 h-9"
+                        className="shadow-sm pl-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md bg-gray-100 h-9"
                         required
                       />
                     </div>
@@ -76,7 +76,7 @@ const RegistrationForm = ({ register, registered }) => {
                         name="last_name"
                         id="last_name"
                         autoComplete="family-name"
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md bg-gray-100 h-9"
+                        className="shadow-sm pl-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md bg-gray-100 h-9"
                         required
                       />
                     </div>
@@ -97,7 +97,7 @@ const RegistrationForm = ({ register, registered }) => {
                       type="email"
                       autoComplete="email"
                       required
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-100"
+                      className="appearance-none pl-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-100"
                       value={email}
                     />
                   </div>
@@ -117,7 +117,7 @@ const RegistrationForm = ({ register, registered }) => {
                       type="password"
                       autoComplete="current-password"
                       required
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-100"
+                      className="appearance-none pl-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-100"
                       value={password}
                     />
                   </div>
