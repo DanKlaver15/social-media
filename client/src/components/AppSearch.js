@@ -18,7 +18,7 @@ const AppSearch = ({ searchPeople }) => {
   return (
     <div className="min-w-0 flex-1">
       <div className="max-w-2xl relative text-gray-400 focus-within:text-gray-500">
-        <div className="border-t border-gray-300 px-6 pb-4">
+        <div className="px-6 pb-4">
           <div>
             <div className="mt-1 flex rounded-md shadow-md pt-3">
               <div className="relative flex items-stretch flex-grow focus-within:z-10">
