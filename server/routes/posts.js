@@ -1,13 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const Joi = require("joi");
 const postController = require("../controllers/postController");
+const auth = require("../middlewares/auth");
 
-router.route("/").get(postController.getAll).post(postController.createOne);
+router
+  .route("/")
+  .get(auth, postController.getAll)
+  .post(auth, postController.createOne);
 router
   .route("/:id")
-  .get(postController.getOne)
-  .put(postController.updateOne)
-  .delete(postController.removeOne);
+  .get(auth, postController.getOne)
+  .put(auth, postController.updateOne)
+  .delete(auth, postController.removeOne);
 
 module.exports = router;
