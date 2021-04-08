@@ -7,6 +7,7 @@ import {
   AddRecipeSidebarIcon,
   SettingsSidebarIcon,
 } from "../Icons/icons";
+import Logo from "../Logo";
 
 const NarrowSidebar = ({ isOpen, close }) => {
   const menuOverlay = isOpen ? "opacity-100" : "opacity-0";
@@ -19,11 +20,7 @@ const NarrowSidebar = ({ isOpen, close }) => {
       <div className="hidden w-28 bg-indigo-700 overflow-y-auto md:block dark:bg-gray-900">
         <div className="w-full py-6 flex flex-col items-center">
           <div className="flex-shrink-0 flex items-center">
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
-              alt="Workflow"
-            />
+            <Logo />
           </div>
           <div className="flex-1 mt-6 w-full px-2 space-y-1">
             {/* <!-- Current: "bg-indigo-800 text-white", Default: "text-indigo-100 hover:bg-indigo-800 hover:text-white" --> */}
@@ -103,11 +100,7 @@ const NarrowSidebar = ({ isOpen, close }) => {
             </div>
 
             <div className="flex-shrink-0 px-4 flex items-center">
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
-                alt="Workflow"
-              />
+              <Logo />
             </div>
             <div className="mt-5 flex-1 h-0 px-2 overflow-y-auto">
               <nav className="h-full flex flex-col">

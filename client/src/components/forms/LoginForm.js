@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { loginRequest } from "../../state/User/thunks";
+import Logo from "../Logo";
 
 function LoginForm({ loginRequest, loginError }) {
   const [email, setEmail] = useState("");
@@ -9,11 +10,9 @@ function LoginForm({ loginRequest, loginError }) {
   return (
     <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <img
-          className="mx-auto h-12 w-auto"
-          src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-          alt="Workflow"
-        />
+        <div className="flex justify-center">
+          <Logo size={12} />
+        </div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Sign in to your account
         </h2>
