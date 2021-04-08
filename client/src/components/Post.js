@@ -21,13 +21,13 @@ const Post = ({ userId, post, updatePost, removePost, index, length }) => {
   const addLike = (e) => {
     e.preventDefault();
     setLikes(likes + 1);
-    setLikesDisplayed(likes);
+    setLikesDisplayed(likes + 1);
     if (post.userId.darkMode) {
       setDarkColor("purple");
     } else {
       setColor("blue");
     }
-    updatePost({ ...post, likes });
+    updatePost({ ...post, likes: likes + 1 });
   };
 
   return (
