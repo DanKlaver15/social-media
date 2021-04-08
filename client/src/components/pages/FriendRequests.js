@@ -19,7 +19,6 @@ const FriendRequests = ({ friendRequests, getFriendRequests }) => {
   ) : (
     <>
       <Info message="You do not have any pending friend requests. Try searching to find more friends." />
-      <AppSearch />
     </>
   );
 };
