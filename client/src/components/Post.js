@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { updatePostRequest } from "../state/Post/thunks";
+import { updatePostRequest, removePostRequest } from "../state/Post/thunks";
 import Avatar from "./Avatar";
 
-const Post = ({ post, updatePost, index, length }) => {
+const Post = ({ post, updatePost, removePost, index, length }) => {
   const [likes, setLikes] = useState(post.likes);
   const [likesDisplayed, setLikesDisplayed] = useState(post.likes);
   const [color, setColor] = useState("");
   const [darkColor, setDarkColor] = useState("#999da5");
+
+  useEffect(() => {
+    if (!post) {
+      removePost(post._id);
+    }
+  }, [post, removePost]);
 
   const addLike = (e) => {
     e.preventDefault();
@@ -86,7 +92,18 @@ const Post = ({ post, updatePost, index, length }) => {
                   ></FontAwesomeIcon>
                 )}
               </button>
-              <div>{likesDisplayed}</div>
+              <div className="dark:text-gray-400">{likesDisplayed}</div>
+            </div>
+          </div>
+          <div className="pt-5">
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={() => removePost(post._id)}
+                className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-red-900 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Delete
+              </button>
             </div>
           </div>
         </div>
@@ -97,6 +114,7 @@ const Post = ({ post, updatePost, index, length }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   updatePost: (post) => dispatch(updatePostRequest(post)),
+  removePost: (post) => dispatch(removePostRequest(post)),
 });
 
 export default connect(null, mapDispatchToProps)(Post);
