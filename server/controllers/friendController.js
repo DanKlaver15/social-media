@@ -1,4 +1,5 @@
 const Friend = require("../models/friend");
+const User = require("../models/user");
 const crudController = require("../utils/crud");
 const { getFriends } = require("../utils/friendRequests");
 
@@ -14,7 +15,7 @@ const getUserFriendRequests = async (req, res) => {
 
     return res.status(200).send(friendRequests);
   } catch (err) {
-    return res.status(500).send({ message: `${err}` });
+    return res.status(500).send({ error: `${err}` });
   }
 };
 
@@ -26,7 +27,7 @@ const getUserFriends = async (req, res) => {
 
     return res.status(200).send(friends);
   } catch (err) {
-    return res.status(500).send({ message: `${err}` });
+    return res.status(500).send({ error: `${err}` });
   }
 };
 
@@ -44,7 +45,7 @@ const updateOne = async (req, res, next) => {
 
     res.status(200).send(result);
   } catch (err) {
-    return next(err);
+    return res.status(500).send({ error: `${err}` });
   }
 };
 
