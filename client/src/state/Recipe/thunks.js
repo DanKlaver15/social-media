@@ -9,6 +9,7 @@ import {
   removeRecipe,
   updateRecipe,
   updateRecipes,
+  getRecipe,
 } from "./actions";
 
 export const getRecipesRequest = (userId) => async (dispatch, getState) => {
@@ -26,6 +27,20 @@ export const getRecipesRequest = (userId) => async (dispatch, getState) => {
   } catch (err) {
     console.log(err);
     dispatch(recipesFailure(getError(err)));
+  }
+};
+
+export const getRecipeRequest = (recipeId) => async (dispatch, getState) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:5000/api/recipes/${recipeId}`
+    );
+
+    const data = await response.data;
+
+    dispatch(getRecipe(data));
+  } catch (err) {
+    console.log(err);
   }
 };
 

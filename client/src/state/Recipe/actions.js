@@ -37,3 +37,9 @@ export const removeRecipe = (recipeId) => ({
   type: REMOVE_RECIPE,
   payload: { recipeId },
 });
+
+export const GET_RECIPE = "GET_RECIPE";
+export const getRecipe = (recipe) => ({
+  type: GET_RECIPE,
+  payload: { recipe },
+});

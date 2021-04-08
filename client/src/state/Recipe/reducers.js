@@ -1,6 +1,7 @@
 import { LOGOUT } from "../User/actions";
 import {
   ADD_RECIPE,
+  GET_RECIPE,
   RECIPES_FAILURE,
   RECIPES_IN_PROGRESS,
   RECIPES_SUCCESS,
@@ -61,9 +62,26 @@ export const recipes = (state = [], action) => {
   }
 };
 
+export const recipe = (state = {}, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case GET_RECIPE: {
+      const { recipe } = payload;
+      return recipe;
+    }
+    case LOGOUT: {
+      return {};
+    }
+    default:
+      return state;
+  }
+};
+
 const recipeReducers = {
   loadingRecipes,
   recipes,
+  recipe,
 };
 
 export default recipeReducers;
