@@ -5,7 +5,7 @@ const UserPageHeader = ({ avatar, name, children }) => (
   <>
     <div className="-m-8 mb-4">
       <div className="h-32 w-full lg:h-48 bg-indigo-500 dark:bg-indigo-900"></div>
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-12 sm:px-14 lg:px-16">
         <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
           <div className="flex">
             <Avatar size={32} source={avatar} />
