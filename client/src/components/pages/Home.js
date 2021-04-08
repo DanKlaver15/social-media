@@ -23,7 +23,6 @@ const Home = ({ user, getFeed }) => {
             <Avatar size={10} source={user.avatar} />
           </div>
           <div className="min-w-0 flex-1">
-            {" "}
             <AddPostForm />
             <Feed />
           </div>

@@ -63,10 +63,34 @@ const getUserFriends = async (req, res) => {
         },
       },
       {
+        $lookup: {
+          from: "users",
+          localField: "friendId",
+          foreignField: "_id",
+          as: "friend",
+        },
+      },
+      {
+        $addFields: {
+          friend: { $arrayElemAt: ["$friend", 0] },
+        },
+      },
+      {
         $group: {
           _id: null,
           friends: {
-            $push: "$friendId",
+            $push: {
+              requestId: "$_id",
+              _id: "$friend._id",
+              accepted: "$accepted",
+              date: "$date",
+              online: "$friend.online",
+              username: "$friend.username",
+              firstName: "$friend.firstName",
+              lastName: "$friend.lastName",
+              email: "$friend.email",
+              avatar: "$friend.avatar",
+            },
           },
         },
       },
@@ -78,18 +102,7 @@ const getUserFriends = async (req, res) => {
       return res.status(200).send(friends);
     }
 
-    friends = await User.find({
-      _id: { $in: acceptedFriends[0].friends },
-    }).select({
-      username: 1,
-      email: 1,
-      firstName: 1,
-      lastName: 1,
-      avatar: 1,
-      online: 1,
-    });
-
-    return res.status(200).send(friends);
+    return res.status(200).send(acceptedFriends[0].friends);
   } catch (err) {
     return res.status(500).send({ message: `${err}` });
   }
