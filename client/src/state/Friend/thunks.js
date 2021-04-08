@@ -10,12 +10,12 @@ import {
   deleteFriend,
 } from "./actions";
 
-export const getFriendsRequest = () => async (dispatch, getState) => {
+export const getFriendsRequest = (userId) => async (dispatch, getState) => {
   dispatch(friendsInProgress());
 
   try {
     const response = await axios.get(
-      `http://localhost:5000/api/users/${userId()}/friends`,
+      `http://localhost:5000/api/users/${userId}/friends`,
       { headers: authHeader() }
     );
 
