@@ -24,3 +24,9 @@ export const addFriend = (friend) => ({
   type: ADD_FRIEND,
   payload: { friend },
 });
+
+export const DELETE_FRIEND = "DELETE_FRIEND";
+export const deleteFriend = (friendId) => ({
+  type: DELETE_FRIEND,
+  payload: { friendId },
+});
