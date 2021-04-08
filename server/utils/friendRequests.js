@@ -85,6 +85,39 @@ const getFriends = async (id) => {
   }
 };
 
+const getFriendStatus = async (firstId, secondId) => {
+  try {
+    const status = await Friend.aggregate([
+      {
+        $match: {
+          $or: [
+            {
+              senderId: mongoose.Types.ObjectId(firstId),
+              receiverId: mongoose.Types.ObjectId(secondId),
+            },
+            {
+              senderId: mongoose.Types.ObjectId(secondId),
+              receiverId: mongoose.Types.ObjectId(firstId),
+            },
+          ],
+        },
+      },
+      {
+        $project: {
+          accepted: 1,
+        },
+      },
+    ]);
+
+    if (!status || status.length === 0) return false;
+
+    return status[0].accepted ? true : false;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 module.exports = {
   getFriends,
+  getFriendStatus,
 };

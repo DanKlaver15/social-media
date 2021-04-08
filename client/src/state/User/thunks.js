@@ -150,10 +150,13 @@ export const registerRequest = (user) => async (dispatch, getState) => {
   }
 };
 
-export const getUserRequest = (userId) => async (dispatch, getState) => {
+export const getPersonRequest = (personId, userId) => async (
+  dispatch,
+  getState
+) => {
   try {
     const response = await axios.get(
-      `http://localhost:5000/api/users/${userId}`,
+      `http://localhost:5000/api/users/${userId}/person/${personId}`,
       { headers: authHeader() }
     );
 

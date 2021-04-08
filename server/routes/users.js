@@ -18,6 +18,7 @@ router
 
 router.route("/:id/friends").get(friendController.getUserFriends);
 router.route("/:id/friendRequests").get(friendController.getUserFriendRequests);
+router.route("/:id/person/:personId").get(userController.getPerson);
 
 router.get("/avatar/:filename", (req, res) => {
   res.type("png");

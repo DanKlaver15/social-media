@@ -5,6 +5,7 @@ const friendController = require("./friendController");
 const Friend = require("../models/friend");
 const AvatarService = require("../services/avatarService");
 const avatars = new AvatarService();
+const { getFriendStatus } = require("../utils/friendRequests");
 
 const createOne = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
@@ -99,10 +100,38 @@ const removeOne = async (req, res, next) => {
   }
 };
 
+const getPerson = async (req, res) => {
+  const { id, personId } = req.params;
+
+  try {
+    const person = await User.findById(personId)
+      .select({
+        bio: 1,
+        username: 1,
+        firstName: 1,
+        lastName: 1,
+        avatar: 1,
+        email: 1,
+        bio: 1,
+        friends: 1,
+        online: 1,
+      })
+      .lean()
+      .exec();
+
+    if (!person) return res.status(404).send({ error: "Person not found." });
+
+    const isFriend = await getFriendStatus(id, personId);
+
+    return res.status(200).send({ ...person, isFriend });
+  } catch (err) {}
+};
+
 module.exports = {
   ...crudController(User),
   createOne,
   addAvatar,
   removeAvatar,
   removeOne,
+  getPerson,
 };
