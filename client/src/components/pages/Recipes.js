@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import RecipeList from "../RecipeList";
 import UserPageHeader from "../UserPageHeader";
 import { getRecipesRequest } from "../../state/Recipe/thunks.js";
+import { Link } from "react-router-dom";
+import Action from "../alerts/Action";
 
 const Recipes = ({ user, recipes, getRecipes }) => {
   useEffect(() => {
@@ -20,7 +22,11 @@ const Recipes = ({ user, recipes, getRecipes }) => {
         {recipes && recipes.length > 0 ? (
           <RecipeList recipes={recipes} />
         ) : (
-          <div>You have no recipes</div>
+          <Action
+            message={`You currently do not have any recipes. To add your first recipe, click more info.`}
+            action="More Info"
+            link="/add-recipe"
+          />
         )}
       </UserPageHeader>
     </>

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { getPersonRequest } from "../../state/User/thunks";
-import Error from "../Error";
+import Error from "../alerts/Error";
 import UsePageHeader from "../UserPageHeader";
 import UserBio from "../UserBio";
 import Feed from "../Feed";

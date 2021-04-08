@@ -1,7 +1,7 @@
 import React from "react";
 
 import Post from "./Post";
-import Error from "../components/Error";
+import Error from "../components/alerts/Error";
 
 const Feed = ({ feed, error }) => {
   const posts = () => feed.map((post) => <Post key={post._id} post={post} />);

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getRecipeRequest } from "../../state/Recipe/thunks";
 import List from "../List";
-import Error from "../Error";
+import Error from "../alerts/Error";
 import { CheckCircle, ShoppingCart } from "../Icons/icons";
 
 const SingleRecipe = ({ recipe, getRecipe }) => {

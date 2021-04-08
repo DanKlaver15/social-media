@@ -9,7 +9,7 @@ import {
   deleteUserRequest,
 } from "../../state/User/thunks";
 import Avatar from "../Avatar";
-import Error from "../Error";
+import Error from "../alerts/Error";
 
 const SettingsForm = ({
   user,
