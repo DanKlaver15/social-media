@@ -15,7 +15,7 @@ const AuthenticatedApp = ({ user, children }) => {
   };
   return (
     <div
-      className={`${darkOrLight()} h-screen bg-gray-50 flex overflow-hidden`}
+      className={`${darkOrLight()} min-h-screen bg-gray-50 flex overflow-hidden`}
     >
       <NarrowSidebar
         isOpen={sidebarOpen}
@@ -34,14 +34,14 @@ const AuthenticatedApp = ({ user, children }) => {
             {/* <!-- Primary column --> */}
             <section
               aria-labelledby="primary-heading"
-              className="min-w-0 flex-1 h-full flex flex-col overflow-hidden lg:order-last p-8 pb-0 overflow-scroll scrollbar scrollbar-track-gray-700"
+              className="min-w-0 flex-1 h-full flex flex-col overflow-hidden lg:order-last p-8 pb-0 overflow-scroll scrollbar dark:scrollbar-track-gray-500"
             >
               {children}
             </section>
           </main>
 
           {/* <!-- Secondary column (hidden on smaller screens) --> */}
-          <aside className="hidden w-96 bg-white border-l border-gray-200 dark:border-gray-500 overflow-y-auto lg:block">
+          <aside className="hidden w-96 bg-white border-l border-gray-200 dark:border-gray-500 overflow-y-auto lg:block overflow-hidden">
             <OnlineFriendsList />
           </aside>
         </div>
