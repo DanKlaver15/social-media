@@ -6,7 +6,7 @@ import { getFeedRequest } from "../../state/Feed/thunks";
 import Feed from "../Feed";
 import UserPageHeader from "../UserPageHeader";
 
-const Home = ({ user, getFeed }) => {
+const Home = ({ user, getFeed, feed }) => {
   useEffect(() => {
     if (user._id) {
       getFeed(user._id);
@@ -24,7 +24,7 @@ const Home = ({ user, getFeed }) => {
           </div>
           <div className="min-w-0 flex-1">
             <AddPostForm />
-            <Feed />
+            <Feed feed={feed} />
           </div>
         </div>
       </UserPageHeader>
@@ -34,6 +34,7 @@ const Home = ({ user, getFeed }) => {
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  feed: state.feed,
 });
 
 const mapDispatchToProps = (dispatch) => ({

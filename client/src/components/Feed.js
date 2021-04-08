@@ -1,13 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
+
 import Post from "./Post";
 import Error from "../components/Error";
 
 const Feed = ({ feed, error }) => {
-  const posts = () =>
-    feed.map((post, i) => (
-      <Post key={post._id} post={post} index={i} length={feed.length} />
-    ));
+  const posts = () => feed.map((post) => <Post key={post._id} post={post} />);
 
   return !error || !error.error ? (
     <div className="my-4 flow-root">
@@ -26,9 +23,4 @@ const Feed = ({ feed, error }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  feed: state.feed,
-  error: state.error.getFeed,
-});
-
-export default connect(mapStateToProps)(Feed);
+export default Feed;

@@ -6,6 +6,7 @@ const Friend = require("../models/friend");
 const AvatarService = require("../services/avatarService");
 const avatars = new AvatarService();
 const { getFriendStatus } = require("../utils/friendRequests");
+const { getFeed } = require("../utils/feedRequests");
 
 const createOne = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
@@ -125,7 +126,14 @@ const getPerson = async (req, res) => {
 
     const isFriend = await getFriendStatus(id, personId);
 
-    return res.status(200).send({ ...person, isFriend });
+    let feed = [];
+
+    if (isFriend) {
+      // Get Feed.
+      feed = await getFeed([personId]);
+    }
+
+    return res.status(200).send({ ...person, isFriend, feed });
   } catch (err) {}
 };
 

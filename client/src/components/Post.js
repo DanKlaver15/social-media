@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { updatePostRequest, removePostRequest } from "../state/Post/thunks";
 import Avatar from "./Avatar";
 
-const Post = ({ userId, post, updatePost, removePost, index, length }) => {
+const Post = ({ userId, post, updatePost, removePost }) => {
   const [likes, setLikes] = useState(post.likes);
   const [likesDisplayed, setLikesDisplayed] = useState(post.likes);
   const [color, setColor] = useState("");
@@ -31,16 +31,8 @@ const Post = ({ userId, post, updatePost, removePost, index, length }) => {
   };
 
   return (
-    <li>
+    <li className="pt-4 border-color-grey border-b">
       <div className="relative pb-8">
-        {index < length - 1 ? (
-          <span
-            className="absolute top-14 left-5 -ml-px h-10 w-0.5 bg-gray-300 dark:bg-gray-600"
-            aria-hidden="true"
-          ></span>
-        ) : (
-          <></>
-        )}
         <div className="relative flex items-start space-x-3">
           <div className="relative">
             <Avatar
@@ -71,7 +63,7 @@ const Post = ({ userId, post, updatePost, removePost, index, length }) => {
                   to={`/person/${post.userId}`}
                   className="font-medium text-gray-900"
                 >
-                  {post.user}
+                  {post.userId.firstName} {post.userId.lastName}
                 </Link>
               </div>
               <p className="mt-0.5 text-sm text-gray-500">

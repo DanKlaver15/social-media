@@ -5,6 +5,7 @@ import { getPersonRequest } from "../../state/User/thunks";
 import Error from "../Error";
 import UsePageHeader from "../UserPageHeader";
 import UserBio from "../UserBio";
+import Feed from "../Feed";
 
 const SinglePerson = ({ userId, person, getPerson }) => {
   const { id } = useParams();
@@ -19,6 +20,7 @@ const SinglePerson = ({ userId, person, getPerson }) => {
       name={`${person.firstName} ${person.lastName}`}
     >
       <UserBio bio={person.bio} />
+      <Feed feed={person.feed} />
     </UsePageHeader>
   ) : (
     <Error message="Failed to load person." />
