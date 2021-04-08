@@ -10,7 +10,7 @@ const DynamicField = ({
   return (
     <div className="sm:col-span-4">
       <label
-        htmlFor={`ingredient-${index}`}
+        htmlFor={`${name}-${index}`}
         className="block text-sm font-medium text-gray-700"
       >
         {`${name} - ${index}`}
