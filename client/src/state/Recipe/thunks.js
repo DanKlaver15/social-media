@@ -17,7 +17,8 @@ export const getRecipesRequest = (userId) => async (dispatch, getState) => {
 
   try {
     const response = await axios.get(
-      `http://localhost:5000/api/users/${userId}/recipes`
+      `http://localhost:5000/api/users/${userId}/recipes`,
+      { headers: authHeader() }
     );
 
     const data = await response.data;
@@ -33,7 +34,8 @@ export const getRecipesRequest = (userId) => async (dispatch, getState) => {
 export const getRecipeRequest = (recipeId) => async (dispatch, getState) => {
   try {
     const response = await axios.get(
-      `http://localhost:5000/api/recipes/${recipeId}`
+      `http://localhost:5000/api/recipes/${recipeId}`,
+      { headers: authHeader() }
     );
 
     const data = await response.data;

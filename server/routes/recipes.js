@@ -7,9 +7,9 @@ router.route("/").get(recipeController.getAll).post(recipeController.createOne);
 
 router
   .route("/:id")
-  .get(recipeController.getOne)
-  .post(recipeController.createOne)
-  .delete(recipeController.removeOne)
-  .put(recipeController.updateOne);
+  .get(auth, recipeController.getOne)
+  .post(auth, recipeController.createOne)
+  .delete(auth, recipeController.removeOne)
+  .put(auth, recipeController.updateOne);
 
 module.exports = router;

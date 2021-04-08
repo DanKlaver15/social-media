@@ -12,13 +12,15 @@ const avatar = require("../middlewares/avatar");
 router.route("/").post(validateUser, userController.createOne);
 router
   .route("/:id")
-  .get(userController.getOne)
+  .get(auth, userController.getOne)
   .put(auth, userController.updateOne)
-  .delete(userController.removeOne);
+  .delete(auth, userController.removeOne);
 
-router.route("/:id/friends").get(friendController.getUserFriends);
-router.route("/:id/friendRequests").get(friendController.getUserFriendRequests);
-router.route("/:id/person/:personId").get(userController.getPerson);
+router.route("/:id/friends").get(auth, friendController.getUserFriends);
+router
+  .route("/:id/friendRequests")
+  .get(auth, friendController.getUserFriendRequests);
+router.route("/:id/person/:personId").get(auth, userController.getPerson);
 
 router.get("/avatar/:filename", (req, res) => {
   res.type("png");
@@ -30,7 +32,7 @@ router
   .post([auth, avatar.upload, avatar.handleAvatar()], userController.addAvatar)
   .delete(auth, userController.removeAvatar);
 
-router.route("/:id/feed").get(feedController.getFeed);
-router.route("/:id/recipes").get(recipeController.getUserRecipes);
+router.route("/:id/feed").get(auth, feedController.getFeed);
+router.route("/:id/recipes").get(auth, recipeController.getUserRecipes);
 
 module.exports = router;
