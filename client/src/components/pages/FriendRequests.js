@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import FriendRequestItem from "../FriendRequestItem";
 import { getFriendRequests } from "../../state/FriendRequest/thunks";
+import FriendRequestItem from "../FriendRequestItem";
+import Info from "../alerts/Info";
+import AppSearch from "../AppSearch";
 
 const FriendRequests = ({ friendRequests, getFriendRequests }) => {
   useEffect(() => {
@@ -15,9 +17,10 @@ const FriendRequests = ({ friendRequests, getFriendRequests }) => {
       })}
     </ul>
   ) : (
-    <div className="dark:text-gray-400">
-      You have no pending friend requests.
-    </div>
+    <>
+      <Info message="You do not have any pending friend requests. Try searching to find more friends." />
+      <AppSearch />
+    </>
   );
 };
 

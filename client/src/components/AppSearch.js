@@ -1,17 +1,13 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const AppSearch = ({ searchPeople }) => {
   const [query, setQuery] = useState("");
-
-  const history = useHistory();
 
   const handleEnter = (event) => {
     if (event.which === 13) {
       event.preventDefault();
       searchPeople(query);
-      setQuery("");
-      history.push("/search");
     }
   };
 

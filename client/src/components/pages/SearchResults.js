@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { useLocation } from "react-router";
 import { makeStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import PeopleList from "../PeopleList";
 import { searchPeopleRequest } from "../../state/Search/thunks";
-import { useLocation } from "react-router";
+import PeopleList from "../PeopleList";
+import Info from "../alerts/Info";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +41,7 @@ const SearchResults = ({ results, inProgress, searchPeople }) => {
   ) : results && results.length > 0 ? (
     <PeopleList people={results} />
   ) : (
-    <div className="dark:text-gray-400">No results found.</div>
+    <Info message={`No results found for '${query}'`} />
   );
 };
 
