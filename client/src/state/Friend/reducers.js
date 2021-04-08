@@ -40,7 +40,7 @@ export const friends = (state = [], action) => {
     }
     case DELETE_FRIEND: {
       const { friendId } = payload;
-      return state.filter((friend) => friend._id !== friendId);
+      return state.filter((friend) => friend._id === friendId);
     }
     case LOGOUT: {
       return [];
