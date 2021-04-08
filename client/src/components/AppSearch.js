@@ -44,7 +44,7 @@ const AppSearch = ({ searchPeople }) => {
                 />
               </div>
               <Link
-                to="/search"
+                to={`/search/?keywords=${query}`}
                 onClick={() => {
                   searchPeople(query);
                 }}

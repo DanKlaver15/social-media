@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import PeopleList from "../PeopleList";
+import { searchPeopleRequest } from "../../state/Search/thunks";
+import { useLocation } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,8 +20,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchResults = ({ results, inProgress }) => {
+const SearchResults = ({ results, inProgress, searchPeople }) => {
+  const { search } = useLocation();
+  const query = search.split("=")[1];
   const classes = useStyles();
+
+  useEffect(() => {
+    if (!query) {
+      return;
+    }
+
+    searchPeople(query);
+  }, [query, searchPeople]);
 
   return inProgress ? (
     <Backdrop open={true} className={classes.backdrop}>
@@ -37,4 +49,8 @@ const mapStateToProps = (state) => ({
   inProgress: state.searching,
 });
 
-export default connect(mapStateToProps)(SearchResults);
+const mapDispatchToProps = (dispatch) => ({
+  searchPeople: (query) => dispatch(searchPeopleRequest(query)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
