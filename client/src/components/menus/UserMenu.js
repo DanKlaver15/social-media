@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { logoutRequest } from "../state/User/thunks";
+import { logoutRequest } from "../../state/User/thunks";
 import { Link } from "react-router-dom";
-import Avatar from "./Avatar";
+import Avatar from "../Avatar";
 
 const UserMenu = ({ avatarSource, logout, userId }) => {
   const [userMenu, setUserMenu] = useState(false);
@@ -30,7 +30,7 @@ const UserMenu = ({ avatarSource, logout, userId }) => {
   }
 
   return (
-    <>
+    <div className="relative">
       <button
         onClick={() => setUserMenu(!userMenu)}
         type="button"
@@ -62,7 +62,7 @@ const UserMenu = ({ avatarSource, logout, userId }) => {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
