@@ -1,18 +1,19 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Navigation = () => {
-  const [activePage, setActivePage] = useState("login");
+  const { pathname } = useLocation();
+  console.log(pathname);
   let loginFormat = "";
   let registerFormat = "";
 
-  if (activePage === "login") {
+  if (pathname === "/") {
     loginFormat = "border-indigo-500 text-gray-900";
   } else {
     loginFormat =
       "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700";
   }
-  if (activePage === "register") {
+  if (pathname === "/register") {
     registerFormat = "border-indigo-500 text-gray-900";
   } else {
     registerFormat =
@@ -31,14 +32,12 @@ const Navigation = () => {
             <Link
               to="/"
               className={`${loginFormat} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
-              onClick={() => setActivePage("login")}
             >
               Login
             </Link>
             <Link
               to="/register"
               className={`${registerFormat} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
-              onClick={() => setActivePage("register")}
             >
               Register
             </Link>
