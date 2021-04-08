@@ -1,13 +1,11 @@
-import React from "react";
-import UserMenu from "./UserMenu";
-import OnlineFriendsList from "./OnlineFriendsList/OnlineFriendsList";
-import AppSearch from "./AppSearch";
-import { Link } from "react-router-dom";
-import { UserAdd } from "./Icons/icons";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import Avatar from "./Avatar";
+import NarrowSidebar from "./menus/NarrowSidebar";
+import Header from "./Header";
+import OnlineFriendsList from "./OnlineFriendsList/OnlineFriendsList";
 
-const AuthenticatedApp = ({ logout, children, user }) => {
+const AuthenticatedApp = ({ user, children }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const darkOrLight = () => {
     if (user.darkMode === true) {
       return "dark";
@@ -15,403 +13,38 @@ const AuthenticatedApp = ({ logout, children, user }) => {
       return "";
     }
   };
-
   return (
-    <div className={`${darkOrLight()} h-screen overflow-hidden flex flex-col`}>
-      <header className="flex-shrink-0 relative h-16 bg-white flex items-center dark:bg-gray-800">
-        <div className="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
-          <Link
-            to="/"
-            className="flex items-center justify-center h-16 w-16 bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20"
-          >
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
-              alt="Workflow"
-            />
-          </Link>
-        </div>
+    <div
+      className={`${darkOrLight()} h-screen bg-gray-50 flex overflow-hidden`}
+    >
+      <NarrowSidebar
+        isOpen={sidebarOpen}
+        close={() => {
+          setSidebarOpen(!sidebarOpen);
+          console.log("close");
+        }}
+      />
 
-        <div className="mx-auto md:hidden">
-          <div className="relative">
-            <label htmlFor="inbox-select" className="sr-only">
-              Choose inbox
-            </label>
-            <select
-              id="inbox-select"
-              className="rounded-md border-0 bg-none pl-3 pr-8 text-base font-medium text-gray-900 focus:ring-2 focus:ring-indigo-600"
+      {/* <!-- Content area --> */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* <!-- Main content --> */}
+        <Header />
+        <div className="flex-1 flex items-stretch overflow-hidden">
+          <main className="flex-1 overflow-y-auto border-t border-gray-200 dark:bg-gray-800 dark:border-gray-500">
+            {/* <!-- Primary column --> */}
+            <section
+              aria-labelledby="primary-heading"
+              className="min-w-0 flex-1 h-full flex flex-col overflow-hidden lg:order-last p-8 pb-0 overflow-scroll scrollbar scrollbar-track-gray-700"
             >
-              <option>Open</option>
+              {children}
+            </section>
+          </main>
 
-              <option>Archive</option>
-
-              <option>Customers</option>
-
-              <option>Flagged</option>
-
-              <option>Spam</option>
-
-              <option>Drafts</option>
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center justify-center pr-2">
-              <svg
-                className="h-5 w-5 text-gray-500"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <div className="absolute inset-y-0 right-0 pr-4 flex items-center sm:pr-6 md:hidden">
-          <button
-            type="button"
-            className="-mr-2 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600"
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="block h-6 w-6"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-        </div>
-
-        <div className="hidden md:min-w-0 md:flex-1 md:flex md:items-center md:justify-between">
-          <AppSearch />
-          <div className="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
-            <nav aria-label="Global" className="flex space-x-10">
-              <Link
-                className="text-sm font-medium text-gray-900 hover:text-gray-500 dark:text-gray-400"
-                role="menuitem"
-                to="/settings"
-              >
-                Settings
-              </Link>
-            </nav>
-            <div className="flex items-center space-x-8">
-              <span className="inline-flex">
-                <button className="-mx-1 bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 dark:bg-transparent">
-                  <span className="sr-only">View notifications</span>
-                  <svg
-                    className="h-6 w-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                    />
-                  </svg>
-                </button>
-              </span>
-
-              <div className="relative inline-block text-left">
-                <UserMenu logout={logout} />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* <!-- Mobile menu, show/hide this `div` based on menu open/closed state --> */}
-
-        <div
-          className="fixed inset-0 z-40 md:hidden"
-          role="dialog"
-          aria-modal="true"
-        >
-          {/* <!--
-				Off-canvas menu overlay, show/hide based on off-canvas menu state.
-	
-				Entering: "transition-opacity ease-linear duration-300"
-					From: "opacity-0"
-					To: "opacity-100"
-				Leaving: "transition-opacity ease-linear duration-300"
-					From: "opacity-100"
-					To: "opacity-0"
-			--> */}
-          <div
-            className="hidden sm:block sm:fixed sm:inset-0 sm:bg-gray-600 sm:bg-opacity-75"
-            aria-hidden="true"
-          ></div>
-
-          {/* <!--
-				Mobile menu, toggle classes based on menu state.
-	
-				Entering: "transition ease-out duration-150 sm:ease-in-out sm:duration-300"
-					From: "transform opacity-0 scale-110 sm:translate-x-full sm:scale-100 sm:opacity-100"
-					To: "transform opacity-100 scale-100  sm:translate-x-0 sm:scale-100 sm:opacity-100"
-				Leaving: "transition ease-in duration-150 sm:ease-in-out sm:duration-300"
-					From: "transform opacity-100 scale-100 sm:translate-x-0 sm:scale-100 sm:opacity-100"
-					To: "transform opacity-0 scale-110  sm:translate-x-full sm:scale-100 sm:opacity-100"
-			--> */}
-          <nav
-            className="fixed z-40 inset-0 h-full w-full bg-white sm:inset-y-0 sm:left-auto sm:right-0 sm:max-w-sm sm:w-full sm:shadow-lg"
-            aria-label="Global"
-          >
-            <div className="h-16 flex items-center justify-between px-4 sm:px-6">
-              <button>
-                <img
-                  className="block h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=500"
-                  alt="Workflow"
-                />
-              </button>
-              <button
-                type="button"
-                className="-mr-2 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600"
-              >
-                <span className="sr-only">Close main menu</span>
-                <svg
-                  className="block h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div className="mt-2 max-w-8xl mx-auto px-4 sm:px-6">
-              <div className="relative text-gray-400 focus-within:text-gray-500">
-                <label htmlFor="search" className="sr-only">
-                  Search all inboxes
-                </label>
-                <input
-                  id="search"
-                  type="search"
-                  placeholder="Search all inboxes"
-                  className="block w-full border-gray-300 rounded-md pl-10 placeholder-gray-500 focus:border-indigo-600 focus:ring-indigo-600"
-                />
-                <div className="absolute inset-y-0 left-0 flex items-center justify-center pl-3">
-                  <svg
-                    className="h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div className="max-w-8xl mx-auto py-3 px-2 sm:px-4">
-              <button className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100">
-                Settings
-              </button>
-            </div>
-            <div className="border-t border-gray-200 pt-4 pb-3">
-              <div className="max-w-8xl mx-auto px-4 flex items-center sm:px-6">
-                <div className="flex-shrink-0">
-                  <Avatar size={10} source={user.avatar} />
-                </div>
-                <div className="ml-3 min-w-0 flex-1">
-                  <div className="text-base font-medium text-gray-800 truncate">
-                    Whitney Francis
-                  </div>
-                  <div className="text-sm font-medium text-gray-500 truncate">
-                    whitneyfrancis@example.com
-                  </div>
-                </div>
-                <button className="ml-auto flex-shrink-0 bg-white p-2 text-gray-400 hover:text-gray-500">
-                  <span className="sr-only">View notifications</span>
-                  <svg
-                    className="h-6 w-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <div className="mt-3 max-w-8xl mx-auto px-2 space-y-1 sm:px-4">
-                <button className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-200">
-                  Your Profile
-                </button>
-
-                <button className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-50">
-                  Sign out
-                </button>
-              </div>
-            </div>
-          </nav>
-        </div>
-      </header>
-
-      <div className="min-h-0 flex-1 flex overflow-hidden">
-        <nav
-          aria-label="Sidebar"
-          className="hidden md:block md:flex-shrink-0 md:bg-gray-800 md:overflow-y-auto dark:bg-gray-900"
-        >
-          <div className="relative w-20 flex flex-col p-3 space-y-3">
-            <Link
-              to="/requests"
-              className="bg-gray-900 text-white flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg dark:text-gray-400"
-            >
-              <span className="sr-only">Friend Requests</span>
-              <UserAdd size={6} />
-            </Link>
-
-            <Link
-              to="/recipes"
-              className="text-gray-400 hover:bg-gray-700 flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                />
-              </svg>
-            </Link>
-
-            <Link
-              to="/add-recipe"
-              className="text-gray-400 hover:bg-gray-700 flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg"
-            >
-              <span className="sr-only">Add Recipe</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </Link>
-
-            <button className="text-gray-400 hover:bg-gray-700 flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg">
-              <span className="sr-only">Flagged</span>
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
-                />
-              </svg>
-            </button>
-
-            <button className="text-gray-400 hover:bg-gray-700 flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg">
-              <span className="sr-only">Spam</span>
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
-                />
-              </svg>
-            </button>
-
-            <button className="text-gray-400 hover:bg-gray-700 flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg">
-              <span className="sr-only">Drafts</span>
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                />
-              </svg>
-            </button>
-          </div>
-        </nav>
-
-        <main className="min-w-0 flex-1 border-t border-gray-200 lg:flex dark:bg-gray-800 dark:border-gray-500">
-          <section
-            aria-labelledby="primary-heading"
-            className="min-w-0 flex-1 h-full flex flex-col lg:order-last p-8 pb-0 overflow-scroll scrollbar scrollbar-track-gray-700"
-          >
-            <h1 id="primary-heading" className="sr-only">
-              Home
-            </h1>
-            {children}
-          </section>
-
-          <aside className="hidden lg:block lg:flex-shrink-0 lg:order-last">
-            <div className="h-full relative flex flex-col w-96 border-t border-l border-gray-300 bg-gray-100 dark:border-gray-500 scrollbar-thin scrollbar-track-gray-700">
-              <OnlineFriendsList />
-            </div>
+          {/* <!-- Secondary column (hidden on smaller screens) --> */}
+          <aside className="hidden w-96 bg-white border-l border-gray-200 dark:border-gray-500 overflow-y-auto lg:block">
+            <OnlineFriendsList />
           </aside>
-        </main>
+        </div>
       </div>
     </div>
   );
