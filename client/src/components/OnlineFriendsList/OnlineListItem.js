@@ -16,7 +16,7 @@ const OnlineListItem = ({ friend, removeFriend }) => {
   return (
     <li className="px-6 py-5 relative">
       <div className="group flex justify-between items-center">
-        <button className="-m-1 p-1 block">
+        <Link to={`/person/${friend._id}`} className="-m-1 p-1 block">
           <div
             className="absolute inset-0 group-hover:bg-gray-50 dark:group-hover:bg-gray-700"
             aria-hidden="true"
@@ -37,7 +37,7 @@ const OnlineListItem = ({ friend, removeFriend }) => {
               <p className="text-sm text-gray-500 truncate">{friend.email}</p>
             </div>
           </div>
-        </button>
+        </Link>
         <div className="ml-2 relative inline-block text-left">
           <button
             type="button"
