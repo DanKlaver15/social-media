@@ -36,4 +36,17 @@ const updateOne = async (req, res) => {
   }
 };
 
-module.exports = { ...crudController(Post), createOne, updateOne };
+const removeOne = async (req, res, next) => {
+  try {
+    const deletedFriend = await query.removeOne(Friend, req.params.id);
+
+    if (deletedFriend.length === 0) {
+      return res.status(400).send({ message: "Unable to remove friend" });
+    }
+    return res.status(200).send({ message: "Friend has been removed" });
+  } catch (err) {
+    return res.status(500).send({ message: `Error: ${err}` });
+  }
+};
+
+module.exports = { ...crudController(Post), createOne, updateOne, removeOne };
