@@ -4,6 +4,7 @@ import {
   FRIENDS_IN_PROGRESS,
   FRIENDS_IN_SUCCESS,
   ADD_FRIEND,
+  DELETE_FRIEND,
 } from "./actions";
 import { LOGOUT } from "../User/actions";
 
@@ -36,6 +37,10 @@ export const friends = (state = [], action) => {
     case ADD_FRIEND: {
       const { friend } = payload;
       return [...state, friend];
+    }
+    case DELETE_FRIEND: {
+      const { friendId } = payload;
+      return state.filter((friend) => friend._id !== friendId);
     }
     case LOGOUT: {
       return [];

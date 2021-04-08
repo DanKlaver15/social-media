@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import Avatar from "../Avatar";
+import { unfriendRequest } from "../../state/Friend/thunks";
 
-const OnlineListItem = ({ friend }) => {
+const OnlineListItem = ({ friend, removeFriend }) => {
   const [menu, setMenu] = useState(false);
 
   const openClass = menu
@@ -73,6 +75,15 @@ const OnlineListItem = ({ friend }) => {
                 View profile
               </Link>
             </div>
+            <div className="py-1 w-full" role="none">
+              <button
+                onClick={() => removeFriend(friend.requestId)}
+                className="block px-4 py-2 w-full text-left text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600"
+                role="menuitem"
+              >
+                Remove Friend
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -80,4 +91,8 @@ const OnlineListItem = ({ friend }) => {
   );
 };
 
-export default OnlineListItem;
+const mapDispatchToProps = (dispatch) => ({
+  removeFriend: (userId) => dispatch(unfriendRequest(userId)),
+});
+
+export default connect(null, mapDispatchToProps)(OnlineListItem);
