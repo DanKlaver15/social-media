@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { logoutRequest } from "../state/User/thunks";
 import { Link } from "react-router-dom";
@@ -6,10 +6,28 @@ import Avatar from "./Avatar";
 
 const UserMenu = ({ avatarSource, logout, userId }) => {
   const [userMenu, setUserMenu] = useState(false);
+  const menu = useRef(null);
 
   const openClass = userMenu
     ? "transition ease-in duration-75 transform opacity-100 scale-100"
     : "transition ease-out duration-100 transform opacity-0 scale-95";
+
+  useEffect(() => {
+    if (userMenu) {
+      menu.current.querySelector("a").focus();
+      window.addEventListener("click", onClickOutsideComponent);
+    }
+
+    return () => {
+      window.removeEventListener("click", onClickOutsideComponent);
+    };
+  });
+
+  function onClickOutsideComponent(e) {
+    if (userMenu) {
+      setUserMenu(false);
+    }
+  }
 
   return (
     <>
@@ -30,14 +48,7 @@ const UserMenu = ({ avatarSource, logout, userId }) => {
         aria-orientation="vertical"
         aria-labelledby="menu-1"
       >
-        <div className="py-1" role="none">
-          <Link
-            to="/profile"
-            className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600"
-            role="menuitem"
-          >
-            Your Profile
-          </Link>
+        <div ref={menu} className="py-1" role="none">
           <Link
             to="/"
             onClick={() => {

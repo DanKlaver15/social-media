@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Avatar from "../Avatar";
@@ -6,12 +6,30 @@ import { unfriendRequest } from "../../state/Friend/thunks";
 
 const OnlineListItem = ({ friend, removeFriend }) => {
   const [menu, setMenu] = useState(false);
+  const flyoutMenu = useRef(null);
 
   const openClass = menu
     ? "transition ease-in duration-75 transform opacity-100 scale-100"
     : "transition ease-out duration-100 transform opacity-0 scale-95";
 
   const onlineIndicator = friend.online ? "bg-green-400" : "bg-gray-400";
+
+  useEffect(() => {
+    if (menu) {
+      flyoutMenu.current.querySelector("a").focus();
+      window.addEventListener("click", onClickOutsideComponent);
+    }
+
+    return () => {
+      window.removeEventListener("click", onClickOutsideComponent);
+    };
+  });
+
+  function onClickOutsideComponent(e) {
+    if (menu) {
+      setMenu(false);
+    }
+  }
 
   return (
     <li className="px-6 py-5 relative">
@@ -66,7 +84,7 @@ const OnlineListItem = ({ friend, removeFriend }) => {
             aria-orientation="vertical"
             aria-labelledby="options-menu-0"
           >
-            <div className="py-1 w-full" role="none">
+            <div ref={flyoutMenu} className="py-1 w-full" role="none">
               <Link
                 to={`/person/${friend._id}`}
                 className="block px-4 py-2 w-full text-left text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600"
