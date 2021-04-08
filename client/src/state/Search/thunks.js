@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authHeader, userId } from "../../helpers/authHeader";
+import { authHeader, userId, getError } from "../../helpers/authHeader";
 
 import { searchInProgress, searchSuccess, searchFailure } from "./actions";
 
@@ -18,6 +18,6 @@ export const searchPeopleRequest = (keywords) => async (dispatch, getState) => {
     dispatch(searchSuccess(data));
   } catch (err) {
     console.log(err);
-    dispatch(searchFailure(err.response.data.message));
+    dispatch(searchFailure(getError(err)));
   }
 };

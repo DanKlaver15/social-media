@@ -44,11 +44,7 @@ export const updatePostRequest = (post) => async (dispatch, getState) => {
     dispatch(updatePost(data));
   } catch (err) {
     console.log(err);
-    if (err.response) {
-      dispatch(postFailure(err.response.data.message));
-    } else {
-      dispatch(postFailure("An unknown error has occured"));
-    }
+    dispatch(postFailure(getError(err)));
   }
 };
 
@@ -61,13 +57,9 @@ export const removePostRequest = (postId) => async (dispatch, getState) => {
 
     const post = await response.data;
 
-    dispatch(removePost(post._id));
+    dispatch(removePost(post));
   } catch (err) {
     console.log(err);
-    if (err.response) {
-      dispatch(postFailure(err.response.data.message));
-    } else {
-      dispatch(postFailure("An unknown error has occured"));
-    }
+    dispatch(postFailure(getError(err)));
   }
 };

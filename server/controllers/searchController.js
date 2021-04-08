@@ -32,11 +32,11 @@ const people = async (req, res) => {
       .lean()
       .exec();
 
-    if (!results) return res.status(404).send({ message: "Users not found." });
+    if (!results) return res.status(404).send({ error: "Users not found." });
 
     return res.status(200).send(results);
   } catch (err) {
-    return res.status(500).send({ message: "Server error" });
+    return res.status(500).send({ error: "Server error" });
     console.log(err);
   }
 };

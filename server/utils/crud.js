@@ -52,7 +52,7 @@ const removeOne = (model) => async (req, res, next) => {
   try {
     const result = await query.removeOne(model, id);
     if (result.deletedCount === 0)
-      return res.status(404).json({
+      return res.status(404).send({
         error: `The ${model.modelName} with id '${id}' does not exist`,
       });
     return res.status(200).send(id);

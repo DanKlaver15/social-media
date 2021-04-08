@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { authHeader, userId } from "../../helpers/authHeader";
+import { authHeader } from "../../helpers/authHeader";
 
 import {
   friendsInProgress,

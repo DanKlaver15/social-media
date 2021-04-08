@@ -46,6 +46,7 @@ export const feed = (state = [], action) => {
     }
     case REMOVE_POST: {
       const { postId } = payload;
+      console.log("removing...", postId);
       return state.filter((post) => post._id !== postId);
     }
     case UPDATE_FEED: {

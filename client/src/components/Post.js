@@ -43,7 +43,10 @@ const Post = ({ userId, post, updatePost, removePost, index, length }) => {
         )}
         <div className="relative flex items-start space-x-3">
           <div className="relative">
-            <Avatar size={10} source={post.userId.avatar} />
+            <Avatar
+              size={10}
+              source={post.userId.avatar ? post.userId.avatar : null}
+            />
 
             <span className="absolute -bottom-0.5 -right-1 rounded-tl px-0.5 py-px">
               <svg

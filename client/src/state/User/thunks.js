@@ -29,12 +29,7 @@ export const loginRequest = (user) => async (dispatch, getState) => {
     dispatch(updateUser(data.user));
     saveUser({ _id: data.user._id, token: data.token });
   } catch (err) {
-    console.log(err);
-    if (err.response) {
-      dispatch(loginFailure(err.response.data.message));
-    } else {
-      dispatch(loginFailure("An unknown error has occured"));
-    }
+    dispatch(loginFailure(getError(err)));
   }
 };
 
@@ -66,11 +61,7 @@ export const authorizeRequest = (_id, token) => async (dispatch, getState) => {
     dispatch(loginSuccess());
     dispatch(updateUser(data.user));
   } catch (err) {
-    if (err.response) {
-      dispatch(loginFailure(err.response.data.message));
-    } else {
-      dispatch(loginFailure("An unknown error has occured"));
-    }
+    dispatch(loginFailure(getError(err)));
     console.error(err);
   }
 };
@@ -146,7 +137,7 @@ export const registerRequest = (user) => async (dispatch, getState) => {
     saveUser({ _id: data.user._id, token: data.token });
   } catch (err) {
     console.log(err);
-    dispatch(loginFailure(err.response.data.message));
+    dispatch(loginFailure(getError(err)));
   }
 };
 
@@ -169,12 +160,15 @@ export const getPersonRequest = (personId, userId) => async (
 };
 
 export const deleteUserRequest = (userId) => async (dispatch, getState) => {
-  dispatch(logout());
-
   try {
     const response = await axios.delete(
-      `http://localhost:5000/api/users/${userId}`
+      `http://localhost:5000/api/users/${userId}`,
+      { headers: authHeader() }
     );
+
+    const deletedUser = await response.data;
+
+    dispatch(logout());
   } catch (err) {
     console.log(err);
   }

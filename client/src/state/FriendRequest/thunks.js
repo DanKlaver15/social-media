@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authHeader, userId } from "../../helpers/authHeader";
+import { authHeader, userId, getError } from "../../helpers/authHeader";
 
 import {
   sendFriendRequestInProgress,
@@ -39,10 +39,7 @@ export const sendFriendRequest = (receiverId) => async (dispatch, getState) => {
     dispatch(sendFriendRequestSuccess(request));
   } catch (err) {
     console.log(err);
-    if (err.response) {
-      dispatch(sendFriendRequestFailure(err.response.data.message));
-    }
-    dispatch(sendFriendRequestFailure("Error!"));
+    dispatch(sendFriendRequestFailure(getError(err)));
   }
 };
 
@@ -61,7 +58,7 @@ export const getFriendRequests = () => async (dispatch, getState) => {
     dispatch(updateAllFriendRequests(requests));
   } catch (err) {
     console.log(err);
-    dispatch(friendRequestsFailure());
+    dispatch(friendRequestsFailure(getError(err)));
   }
 };
 
@@ -86,11 +83,7 @@ export const acceptFriendRequest = (friendRequest) => async (
     dispatch(updateFriendRequest(updatedRequest));
     dispatch(addFriend(updatedRequest.senderId));
   } catch (err) {
-    if (err.response) {
-      dispatch(acceptFriendRequestFailure(err.response.data.message));
-    } else {
-      dispatch(acceptFriendRequestFailure(`${err}`));
-    }
+    dispatch(acceptFriendRequestFailure(getError(err)));
   }
 };
 
@@ -111,6 +104,6 @@ export const declineFriendRequest = (requestId) => async (
     dispatch(declineFriendRequestSuccess());
     dispatch(declineFriend(data._id));
   } catch (err) {
-    dispatch(declineFriendRequestFailure());
+    dispatch(declineFriendRequestFailure(getError(err)));
   }
 };
