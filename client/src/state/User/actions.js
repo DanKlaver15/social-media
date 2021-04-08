@@ -45,6 +45,22 @@ export const removeLoginError = () => ({
   type: REMOVE_LOGIN_ERROR,
 });
 
+export const UPDATE_USER_IN_PROGRESS = "UPDATE_USER_IN_PROGRESS";
+export const updateUserInProgress = () => ({
+  type: UPDATE_USER_IN_PROGRESS,
+});
+
+export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
+export const updateUserSuccess = () => ({
+  type: UPDATE_USER_SUCCESS,
+});
+
+export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
+export const updateUserFailure = (error) => ({
+  type: UPDATE_USER_FAILURE,
+  payload: { error },
+});
+
 export const UPDATE_USER = "UPDATE_USER";
 export const updateUser = (user) => ({
   type: UPDATE_USER,

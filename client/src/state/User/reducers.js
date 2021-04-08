@@ -14,6 +14,9 @@ import {
   UPDATE_AVATAR_FAILURE,
   UPDATE_AVATAR_SUCCESS,
   UPDATE_PERSON,
+  UPDATE_USER_IN_PROGRESS,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
 } from "./actions";
 
 export const loggedIn = (state = false, action) => {
@@ -129,6 +132,24 @@ export const person = (state = {}, action) => {
   }
 };
 
+export const updatingUser = (state = false, action) => {
+  const { type } = action;
+
+  switch (type) {
+    case UPDATE_USER_IN_PROGRESS: {
+      return true;
+    }
+    case UPDATE_USER_SUCCESS: {
+      return false;
+    }
+    case UPDATE_USER_FAILURE: {
+      return false;
+    }
+    default:
+      return state;
+  }
+};
+
 const userReducers = {
   loggedIn,
   loginError,
@@ -136,6 +157,7 @@ const userReducers = {
   registered,
   updateAvatar,
   person,
+  updatingUser,
 };
 
 export default userReducers;

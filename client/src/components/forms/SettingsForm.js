@@ -18,6 +18,8 @@ const SettingsForm = ({
   removeAvatar,
   avatarError,
   deleteUser,
+  updatingUser,
+  updateError,
 }) => {
   const [username, setUsername] = useState(user.username);
   const [bio, setBio] = useState(user.bio);
@@ -246,12 +248,18 @@ const SettingsForm = ({
       <div className="pt-5">
         <div className="flex justify-end">
           <button
+            disabled={updatingUser}
             type="submit"
             className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Save
           </button>
         </div>
+        {updateError?.error && (
+          <div className="px-4">
+            <Error message={updateError.message} />
+          </div>
+        )}
       </div>
       <div className="pt-8 pb-12">
         <div>
@@ -287,6 +295,8 @@ const SettingsForm = ({
 const mapStateToProps = (state) => ({
   user: state.user,
   avatarError: state.error.updateAvatar,
+  updatingUser: state.updatingUser,
+  updateError: state.error.updateUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({

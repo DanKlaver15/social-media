@@ -14,6 +14,9 @@ import {
   updateAvatarFailure,
   updateAvatarSuccess,
   updatePerson,
+  updateUserFailure,
+  updateUserInProgress,
+  updateUserSuccess,
 } from "./actions";
 
 export const loginRequest = (user) => async (dispatch, getState) => {
@@ -110,6 +113,7 @@ export const removeAvatarRequest = () => async (dispatch, getState) => {
 };
 
 export const updateUserRequest = (user) => async (dispatch, getState) => {
+  dispatch(updateUserInProgress());
   try {
     const response = await axios.put(
       `http://localhost:5000/api/users/${user._id}`,
@@ -120,8 +124,10 @@ export const updateUserRequest = (user) => async (dispatch, getState) => {
     const updatedUser = await response.data;
 
     dispatch(updateUser(updatedUser));
+    dispatch(updateUserSuccess());
   } catch (err) {
     console.log(err);
+    dispatch(updateUserFailure(getError(err)));
   }
 };
 
