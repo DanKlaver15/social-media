@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { updatePostRequest, removePostRequest } from "../state/Post/thunks";
 import Avatar from "./Avatar";
 
-const Post = ({ post, updatePost, removePost, index, length }) => {
+const Post = ({ userId, post, updatePost, removePost, index, length }) => {
   const [likes, setLikes] = useState(post.likes);
   const [likesDisplayed, setLikesDisplayed] = useState(post.likes);
   const [color, setColor] = useState("");
@@ -97,13 +97,15 @@ const Post = ({ post, updatePost, removePost, index, length }) => {
           </div>
           <div className="pt-5">
             <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={() => removePost(post._id)}
-                className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-red-900 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Delete
-              </button>
+              {userId === post.userId._id && (
+                <button
+                  type="button"
+                  onClick={() => removePost(post._id)}
+                  className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-red-900 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Delete
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -112,9 +114,13 @@ const Post = ({ post, updatePost, removePost, index, length }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  userId: state.user._id,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   updatePost: (post) => dispatch(updatePostRequest(post)),
   removePost: (post) => dispatch(removePostRequest(post)),
 });
 
-export default connect(null, mapDispatchToProps)(Post);
+export default connect(mapStateToProps, mapDispatchToProps)(Post);
