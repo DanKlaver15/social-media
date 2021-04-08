@@ -15,7 +15,7 @@ const SingleRecipe = ({ recipe, getRecipe }) => {
     }
   }, [id, recipe, getRecipe]);
 
-  return recipe || Object.entries(recipe).length === 0 ? (
+  return recipe && Object.entries(recipe).length > 0 ? (
     <section aria-labelledby="applicant-information-title">
       <div className="bg-white shadow sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6">
@@ -52,9 +52,9 @@ const SingleRecipe = ({ recipe, getRecipe }) => {
               <dd className="mt-4 text-sm text-gray-900">
                 <div className="flow-root">
                   <ul className="-mb-8">
-                    {/* {recipe.ingredients.map((ingredient) => (
-                      <List item={ingredient} icon={ShoppingCart} />
-                    ))} */}
+                    {recipe.ingredients.map((ingredient) => (
+                      <List item={ingredient} Icon={ShoppingCart} />
+                    ))}
                   </ul>
                 </div>
               </dd>
@@ -64,9 +64,9 @@ const SingleRecipe = ({ recipe, getRecipe }) => {
               <dd className="mt-4 text-sm text-gray-900">
                 <div className="flow-root">
                   <ul className="-mb-8">
-                    {/* {recipe.directions.map((direction) => (
-                      <List item={direction} icon={CheckCircle} />
-                    ))} */}
+                    {recipe.directions.map((direction) => (
+                      <List item={direction} Icon={CheckCircle} />
+                    ))}
                   </ul>
                 </div>
               </dd>
