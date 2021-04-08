@@ -5,11 +5,11 @@ const getOne = (model) => async (req, res, next) => {
   try {
     const result = await query.getOne(model, id);
     if (!result) {
-      return res.status(404).json({
+      return res.status(404).send({
         error: `The ${model.modelName} with id '${id}' does not exist`,
       });
     }
-    return res.status(200).json(result);
+    return res.status(200).send(result);
   } catch (err) {
     return next(err);
   }
@@ -18,7 +18,7 @@ const getOne = (model) => async (req, res, next) => {
 const getAll = (model) => async (req, res, next) => {
   try {
     const result = await query.getAll(model);
-    return res.status(200).json(result);
+    return res.status(200).send(result);
   } catch (err) {
     return next(err);
   }
@@ -27,7 +27,7 @@ const getAll = (model) => async (req, res, next) => {
 const createOne = (model) => async (req, res, next) => {
   try {
     const result = await query.createOne(model, req.body);
-    return res.status(201).json(result);
+    return res.status(201).send(result);
   } catch (err) {
     return next(err);
   }
@@ -38,10 +38,10 @@ const updateOne = (model) => async (req, res, next) => {
   try {
     const result = await query.updateOne(model, id, req.body);
     if (!result)
-      return res.status(404).json({
+      return res.status(404).send({
         error: `The ${model.modelName} with id '${id}' does not exist`,
       });
-    res.status(200).json(result);
+    res.status(200).send(result);
   } catch (err) {
     return next(err);
   }
@@ -55,7 +55,7 @@ const removeOne = (model) => async (req, res, next) => {
       return res.status(404).json({
         error: `The ${model.modelName} with id '${id}' does not exist`,
       });
-    return res.status(200).json(id);
+    return res.status(200).send(id);
   } catch (err) {
     return next(err);
   }

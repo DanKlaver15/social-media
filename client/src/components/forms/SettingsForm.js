@@ -21,18 +21,14 @@ const SettingsForm = ({
 }) => {
   const [username, setUsername] = useState(user.username);
   const [bio, setBio] = useState(user.bio);
-  const [darkMode, setMode] = useState(user.darkMode);
+  const [darkMode, setMode] = useState(user.darkMode ? user.darkMode : false);
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user.email);
 
-  useEffect(() => {
-    updateUser({ ...user, darkMode });
-  }, [updateUser, user, darkMode]);
-
   const toggleDarkMode = () => {
     setMode(!darkMode);
-    updateUser({ ...user, darkMode });
+    updateUser({ ...user, darkMode: !darkMode });
   };
 
   const toggleClass = darkMode ? "bg-indigo-600" : "bg-gray-200";
