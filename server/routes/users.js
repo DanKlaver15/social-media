@@ -10,8 +10,11 @@ const { validateUser } = require("../middlewares/validate");
 const avatar = require("../middlewares/avatar");
 
 router.route("/").post(validateUser, userController.createOne);
-router.route("/:id").put(auth, userController.updateOne);
-router.route("/:id").delete(userController.removeOne);
+router
+  .route("/:id")
+  .get(userController.getOne)
+  .put(auth, userController.updateOne)
+  .delete(userController.removeOne);
 
 router.route("/:id/friends").get(friendController.getUserFriends);
 router.route("/:id/friendRequests").get(friendController.getUserFriendRequests);

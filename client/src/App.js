@@ -8,6 +8,8 @@ import SearchResults from "./components/pages/SearchResults";
 import FriendRequests from "./components/pages/FriendRequests";
 import Recipes from "./components/pages/Recipes";
 import AddRecipeForm from "./components/forms/AddRecipeForm";
+import SingleRecipe from "./components/pages/SingleRecipe";
+import SinglePerson from "./components/pages/SinglePerson";
 
 const AuthenticatedApp = React.lazy(() =>
   import("./components/AuthenticatedApp")
@@ -37,6 +39,8 @@ function App({ isLoggedIn, authorize }) {
             <Route path="/requests" component={FriendRequests} />
             <Route path="/recipes" component={Recipes} />
             <Route path="/add-recipe" component={AddRecipeForm} />
+            <Route path="/recipe/:id" component={SingleRecipe} />
+            <Route path="/person/:id" component={SinglePerson} />
           </Switch>
         </AuthenticatedApp>
       ) : (

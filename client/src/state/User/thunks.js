@@ -13,6 +13,7 @@ import {
   updateAvatarProgress,
   updateAvatarFailure,
   updateAvatarSuccess,
+  updatePerson,
 } from "./actions";
 
 export const loginRequest = (user) => async (dispatch, getState) => {
@@ -146,6 +147,21 @@ export const registerRequest = (user) => async (dispatch, getState) => {
   } catch (err) {
     console.log(err);
     dispatch(loginFailure(err.response.data.message));
+  }
+};
+
+export const getUserRequest = (userId) => async (dispatch, getState) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:5000/api/users/${userId}`,
+      { headers: authHeader() }
+    );
+
+    const user = await response.data;
+
+    dispatch(updatePerson(user));
+  } catch (err) {
+    console.log(err);
   }
 };
 

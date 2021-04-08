@@ -13,6 +13,7 @@ import {
   UPDATE_AVATAR_PROGRESS,
   UPDATE_AVATAR_FAILURE,
   UPDATE_AVATAR_SUCCESS,
+  UPDATE_PERSON,
 } from "./actions";
 
 export const loggedIn = (state = false, action) => {
@@ -112,12 +113,29 @@ export const updateAvatar = (state = false, action) => {
   }
 };
 
+export const person = (state = {}, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case UPDATE_PERSON: {
+      const { person } = payload;
+      return person;
+    }
+    case LOGOUT: {
+      return {};
+    }
+    default:
+      return state;
+  }
+};
+
 const userReducers = {
   loggedIn,
   loginError,
   user,
   registered,
   updateAvatar,
+  person,
 };
 
 export default userReducers;
