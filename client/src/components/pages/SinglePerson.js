@@ -5,12 +5,12 @@ import { getUserRequest } from "../../state/User/thunks";
 import Error from "../Error";
 import UsePageHeader from "../UserPageHeader";
 
-const SinglePerson = ({ person, getPerson, clearPerson }) => {
+const SinglePerson = ({ person, getPerson }) => {
   const { id } = useParams();
 
   useEffect(() => {
     getPerson(id);
-  }, [id, person, getPerson, clearPerson]);
+  }, [id, getPerson]);
 
   return person && Object.entries(person).length > 0 ? (
     <UsePageHeader
