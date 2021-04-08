@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { searchPeopleRequest } from "../state/Search/thunks";
 import { Link, useHistory } from "react-router-dom";
 
 const AppSearch = ({ searchPeople }) => {
@@ -45,9 +43,6 @@ const AppSearch = ({ searchPeople }) => {
               </div>
               <Link
                 to={`/search/?keywords=${query}`}
-                onClick={() => {
-                  searchPeople(query);
-                }}
                 className="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-600 dark:border-gray-500 dark:focus:border-transparent dark:focus:ring-0"
               >
                 <svg
@@ -72,8 +67,4 @@ const AppSearch = ({ searchPeople }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  searchPeople: (query) => dispatch(searchPeopleRequest(query)),
-});
-
-export default connect(null, mapDispatchToProps)(AppSearch);
+export default AppSearch;

@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import { useReducer } from "react";
 import DynamicField from "../forms/components/DynamicField";
 
 function fieldReducer(state, action) {
